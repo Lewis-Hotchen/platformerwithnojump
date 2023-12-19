@@ -17,8 +17,11 @@ public partial class SceneManager : Node
     [Export]
     public string MainMenuPath { get; set; }
 
+    private bool isPaused;
+
     public override void _Ready()
     {
+        ProcessMode = ProcessModeEnum.Always;
         AddScene<Node>(MainMenuPath);
         base._Ready();
     }
@@ -29,32 +32,47 @@ public partial class SceneManager : Node
         if (scene is Node n)
         {
             AddChild(n);
-            currentScene = n;
+            n.ProcessMode = ProcessModeEnum.Pausable;
         }
     }
 
     public void SwitchScene<T>(string path) where T : class
     {
-        currentScene.QueueFree();
+        currentScene?.QueueFree();
         var scene = LoadScene<T>(path);
         if (scene is Node n)
         {
             AddChild(n);
             currentScene = n;
+            currentScene.ProcessMode = ProcessModeEnum.Pausable;
         }
+    }
+
+    public static BaseLevel GetLevel(string levelScenePath){
+
+       return LoadScene<BaseLevel>(levelScenePath);
     }
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionPressed(PauseKey))
+        if (Input.IsActionJustPressed(PauseKey))
         {
-            SwitchScene<Node>(MainGameWindowPath);
+            if(!isPaused) {
+                GetTree().Paused = true;
+                RemoveChild(currentScene);
+                AddChild(LoadScene<PauseGame>("res://Scenes/PauseGame.tscn"));
+                isPaused = true;
+            } else {
+                GetNode<PauseGame>("PauseGame").QueueFree();
+                AddChild(currentScene);
+                isPaused = false;
+            }
         }
 
         base._Process(delta);
     }
 
-    private static T LoadScene<T>(string path) where T : class
+    public static T LoadScene<T>(string path) where T : class
     {
         var packedGame = GD.Load<PackedScene>(path);
         return packedGame.Instantiate<T>();

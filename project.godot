@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="The Platformer with no jump"
-run/main_scene="res://Scenes/MainGame.tscn"
+run/main_scene="res://Scenes/SceneManager.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+run/max_fps=120
 config/icon="res://Assets/icon.svg"
 
 [display]
@@ -53,6 +54,7 @@ down={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Tiles"
 2d_physics/layer_3="Enemies"
+2d_physics/layer_4="Exit"
 
 [rendering]
 
