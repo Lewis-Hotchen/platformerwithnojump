@@ -18,6 +18,6 @@ public partial class Exit : Node2D
     }
 
     private void GoToNext() {
-        GetParent<BaseLevel>().NextLevel();
+        GetNode<BaseLevel>("../Level").NextLevel();
     }
 }

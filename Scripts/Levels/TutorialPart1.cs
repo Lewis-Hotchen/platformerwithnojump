@@ -1,9 +1,10 @@
 using Godot;
 namespace PlatformerWithNoJump;
 
-public partial class TutorialPart1 : BaseLevel
+public partial class TutorialPart1 : Node2D
 {
-    bool didMove = false;
+    [Export]
+    public BaseLevel Level { get; set; }
 
     public override void _Ready()
     {
@@ -13,16 +14,16 @@ public partial class TutorialPart1 : BaseLevel
 
     private void OnMoveTimeout()
     {
-        GetNode<InGameLabel>("Player/InGameLabel").QueueFree();
+        GetNode<InGameLabel>("InGameLabel").QueueFree();
     }
 
 
     public override void _Process(double delta)
     {
         if(Input.IsActionJustPressed("ui_right") || Input.IsActionJustPressed("ui_left")) {
-            if(!didMove) {
+            if(!Level.StateTracker["DidMove"]) {
                 GetNode<Timer>("MoveTimer").Start();
-                didMove = true;
+                Level.StateTracker["DidMove"] = true;
             }     
         }
 

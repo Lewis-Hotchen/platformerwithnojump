@@ -14,7 +14,6 @@ config/name="The Platformer with no jump"
 run/main_scene="res://Scenes/SceneManager.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 run/max_fps=120
-config/icon="res://Assets/icon.svg"
 
 [display]
 
@@ -27,6 +26,10 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="The Platformer with no jump"
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
 
 [input]
 

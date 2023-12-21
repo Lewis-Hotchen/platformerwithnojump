@@ -4,17 +4,18 @@ using System;
 public partial class ScreenCamera : Camera2D
 {
     [Export]
-    public float Decay { get; set; } = 0.3f;
+    public float Decay { get; set; }
 
     private FastNoiseLite fastNoiseLite; 
 
     [Export]
-    public Vector2 MaxOffset { get; set; } = new Vector2(100, 75);
+    public Vector2 MaxOffset { get; set; }
 
     [Export]
-    public float MaxRoll { get; set; } = 0.1f;
+    public float MaxRoll { get; set; }
+    
     private float trauma = 0.0f;
-    private float traumaPower = 0.5f;
+    private float traumaPower = 2f;
     private float noiseY = 0f;
 
     public override void _Ready()
@@ -24,6 +25,10 @@ public partial class ScreenCamera : Camera2D
             Seed = (int)GD.Randi(),
             FractalOctaves = 2
         };
+
+        Decay = 0.3f;
+        MaxOffset = new Vector2(24, 24);
+        MaxRoll  = 0.1f;
 
         base._Ready();
     }

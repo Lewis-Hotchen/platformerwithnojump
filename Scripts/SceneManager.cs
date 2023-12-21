@@ -48,9 +48,9 @@ public partial class SceneManager : Node
         }
     }
 
-    public static BaseLevel GetLevel(string levelScenePath){
+    public static Node2D GetLevel(string levelScenePath){
 
-       return LoadScene<BaseLevel>(levelScenePath);
+       return LoadScene<Node2D>(levelScenePath);
     }
 
     public override void _Process(double delta)
