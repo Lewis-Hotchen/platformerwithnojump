@@ -25,7 +25,7 @@ public partial class BaseLevel : Node2D {
     {
         if(Player.Position.Y >= KillFloorY) {
             if(!StateTracker["HasFallen"]) {
-                GetNode<ScreenCamera>("../ScreenCamera").AddTrauma(0.5f);
+                GetParent<Node2D>().GetNode<ScreenCamera>("../ScreenCamera").AddTrauma(0.5f);
                 StateTracker["HasFallen"] = true;
                 OnPlayerFell?.Invoke(this, new EventArgs());
             }

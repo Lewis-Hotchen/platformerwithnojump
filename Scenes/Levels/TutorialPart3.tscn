@@ -33,3 +33,4 @@ one_shot = true
 
 [node name="Level" parent="." instance=ExtResource("5_gp73q")]
 position = Vector2(25, 42)
+States = PackedStringArray("HasCompletedTutorial")
