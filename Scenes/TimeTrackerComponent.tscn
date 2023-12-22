@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://be32o7d517ihf"]
+
+[ext_resource type="Script" path="res://Scripts/Components/TimerTrackerComponent.cs" id="1_7hemv"]
+
+[node name="TimerTrackerComponent" type="Node2D" node_paths=PackedStringArray("Timers")]
+script = ExtResource("1_7hemv")
+Timers = []

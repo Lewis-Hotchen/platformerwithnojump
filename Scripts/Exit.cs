@@ -4,6 +4,10 @@ using System;
 
 public partial class Exit : Node2D
 {
+
+    [Export]
+    public NextLevelComponent NextLevelComponent { get; set;}
+
     public override void _Ready()
     {
         base._Ready();
@@ -18,6 +22,6 @@ public partial class Exit : Node2D
     }
 
     private void GoToNext() {
-        GetNode<BaseLevel>("../Level").NextLevel();
+        NextLevelComponent.NextLevel();
     }
 }
