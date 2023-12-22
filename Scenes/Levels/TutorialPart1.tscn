@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://d34kvhub7r0wd"]
+[gd_scene load_steps=16 format=3 uid="uid://d34kvhub7r0wd"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart1.cs" id="1_pai2k"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/Tiles.tscn" id="2_1y70f"]
 [ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/Exit.tscn" id="3_b4ivo"]
 [ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/InGameLabel.tscn" id="5_h7lek"]
-[ext_resource type="PackedScene" uid="uid://bdhlmh1fhjnlx" path="res://Scenes/Levels/BaseLevel.tscn" id="6_tb0lk"]
+[ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="5_wb4bs"]
+[ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/NextLevelComponent.tscn" id="6_uqvkq"]
+[ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/StateTrackerComponent.tscn" id="7_fahue"]
 
 [sub_resource type="Animation" id="Animation_llhu5"]
 resource_name = "Exit Arrow"
@@ -80,15 +82,16 @@ nodes/Hover/position = Vector2(-320, 580)
 nodes/output/position = Vector2(340, 440)
 node_connections = [&"Blend2", 0, &"Exit Arrow", &"Blend2", 1, &"Hover", &"output", 0, &"Blend2"]
 
-[node name="TutorialPart1" type="Node2D" node_paths=PackedStringArray("Level")]
+[node name="TutorialPart1" type="Node2D" node_paths=PackedStringArray("StateTracker")]
 script = ExtResource("1_pai2k")
-Level = NodePath("Level")
+StateTracker = NodePath("StateTrackerComponent")
 
 [node name="Tiles" parent="." instance=ExtResource("2_1y70f")]
 layer_0/tile_data = PackedInt32Array(589836, 65538, 0, 589837, 65538, 0, 589838, 65538, 0, 589839, 65538, 0, 589840, 65538, 0, 589841, 65538, 0, 1, 65538, 2, 2, 65538, 2, 3, 65538, 2, 4, 65538, 2, 5, 65538, 2, 6, 65538, 2, 7, 65538, 2, 8, 65538, 2, 9, 65538, 2, 10, 65538, 2, 11, 65538, 2, 12, 65538, 2, 13, 65538, 2, 14, 65538, 2, 15, 65538, 2, 16, 65538, 2, 327681, 65538, 0, 393217, 65538, 2, 327682, 65538, 0, 393218, 65538, 2, 327683, 65538, 0, 393219, 65538, 2, 327684, 131074, 0, 393220, 131074, 2, 327680, 65538, 0, 393216, 196610, 805306371, 458752, 2, 1, 524288, 2, 1, 589824, 2, 1, 262144, 131074, 1, 196608, 131074, 1, 131072, 131074, 1, 65536, 131074, 1, 0, 2, 3, 17, 65538, 2, 589835, 65538, 0, 589834, 65538, 0, 589833, 65538, 0, 458769, 196610, 3, 458768, 65538, 0, 458767, 65538, 0, 458766, 65538, 0, 458765, 65538, 0, 393233, 131074, 1, 65553, 131074, 1, 327697, 131074, 1, 262161, 131074, 1, 196625, 131074, 1, 131089, 131074, 1, 589832, 65538, 0, 589831, 65538, 0, 589830, 65538, 0, 589829, 65538, 0, 589828, 65538, 0, 589827, 131074, 3, 524291, 2, 1, 458755, 2, 1, 18, 131074, 1, 65554, 131074, 1, 131090, 131074, 1, 196626, 131074, 1, 262162, 131074, 1, 327698, 131074, 1, 393234, 131074, 1, 458770, 131074, 1, 524306, 131074, 1, 589842, 131074, 1)
 
-[node name="Exit" parent="." instance=ExtResource("3_b4ivo")]
+[node name="Exit" parent="." node_paths=PackedStringArray("NextLevelComponent") instance=ExtResource("3_b4ivo")]
 position = Vector2(208, 98)
+NextLevelComponent = NodePath("../NextLevelComponent")
 
 [node name="InGameLabel" parent="." instance=ExtResource("5_h7lek")]
 offset_left = 16.0
@@ -107,7 +110,7 @@ offset_left = 184.0
 offset_top = 96.0
 offset_right = 230.0
 offset_bottom = 108.0
-Text = "Exit --"
+Text = "Exit -->"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -122,6 +125,10 @@ tree_root = SubResource("AnimationNodeBlendTree_slokg")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Blend2/blend_amount = 0.5
 
-[node name="Level" parent="." instance=ExtResource("6_tb0lk")]
-position = Vector2(29, 54)
-States = PackedStringArray("DidMove")
+[node name="Player" parent="." instance=ExtResource("5_wb4bs")]
+position = Vector2(45, 54)
+
+[node name="NextLevelComponent" parent="." instance=ExtResource("6_uqvkq")]
+
+[node name="StateTrackerComponent" parent="." instance=ExtResource("7_fahue")]
+StateNames = PackedStringArray("DidMove")

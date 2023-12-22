@@ -1,20 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwlyocvh6ah6l"]
+[gd_scene load_steps=8 format=3 uid="uid://bwlyocvh6ah6l"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart2.cs" id="1_2k0mm"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/Tiles.tscn" id="3_ny3g8"]
 [ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/Exit.tscn" id="4_gm3cp"]
 [ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/InGameLabel.tscn" id="5_7pgcw"]
-[ext_resource type="PackedScene" uid="uid://bdhlmh1fhjnlx" path="res://Scenes/Levels/BaseLevel.tscn" id="5_ego0p"]
+[ext_resource type="PackedScene" uid="uid://ptthk6wo0w3k" path="res://Scenes/PlayerJumpComponent.tscn" id="5_riw14"]
+[ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="6_w01bj"]
+[ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/NextLevelComponent.tscn" id="8_4f7ro"]
 
-[node name="TutorialPart2" type="Node2D" node_paths=PackedStringArray("Level")]
+[node name="TutorialPart2" type="Node2D"]
 script = ExtResource("1_2k0mm")
-Level = NodePath("Level")
 
 [node name="Tiles" parent="." instance=ExtResource("3_ny3g8")]
 layer_0/tile_data = PackedInt32Array(393216, 65538, 0, 393217, 65538, 0, 393218, 65538, 0, 393219, 65538, 0, 393220, 65538, 0, 393221, 65538, 0, 393222, 65538, 0, 393223, 65538, 0, 393224, 65538, 0, 393225, 65538, 0, 393226, 65538, 0, 393227, 65538, 0, 393228, 65538, 0, 393229, 65538, 0, 393230, 65538, 0, 393231, 65538, 0, 393232, 65538, 0, 393233, 65538, 0, 327684, 65538, 0, 327688, 65538, 0, 327694, 65538, 0)
 
-[node name="Exit" parent="." instance=ExtResource("4_gm3cp")]
+[node name="Exit" parent="." node_paths=PackedStringArray("NextLevelComponent") instance=ExtResource("4_gm3cp")]
 position = Vector2(208, 62)
+NextLevelComponent = NodePath("../NextLevelComponent")
 
 [node name="InGameLabel" parent="." instance=ExtResource("5_7pgcw")]
 offset_left = 81.0
@@ -23,5 +25,10 @@ offset_right = 127.0
 offset_bottom = 29.0
 Text = "Press \"Space\" to jump"
 
-[node name="Level" parent="." instance=ExtResource("5_ego0p")]
-position = Vector2(18, 66)
+[node name="PlayerJumpComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("5_riw14")]
+Player = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("6_w01bj")]
+position = Vector2(12, 66)
+
+[node name="NextLevelComponent" parent="." instance=ExtResource("8_4f7ro")]
