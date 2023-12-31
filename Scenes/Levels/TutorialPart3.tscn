@@ -47,5 +47,4 @@ StateTracker = NodePath("../StateTrackerComponent")
 Player = NodePath("../Player")
 StartPosition = Vector2(24, 42)
 
-[node name="TimerTrackerComponent" parent="." node_paths=PackedStringArray("Timers") instance=ExtResource("9_ykn1u")]
-Timers = [NodePath(""), NodePath("")]
+[node name="TimerTrackerComponent" parent="." instance=ExtResource("9_ykn1u")]

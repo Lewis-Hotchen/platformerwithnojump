@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://efel0vjy5yr5"]
+[gd_scene load_steps=4 format=3 uid="uid://efel0vjy5yr5"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_luxqd"]
+[ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/TimeTrackerComponent.tscn" id="2_ayv4i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctbbq"]
 size = Vector2(6, 6)
 
-[node name="Player" type="CharacterBody2D"]
-collision_mask = 14
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Timers")]
+collision_mask = 30
 script = ExtResource("1_luxqd")
+Timers = NodePath("TimerTrackerComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 3)
@@ -16,3 +18,5 @@ shape = SubResource("RectangleShape2D_ctbbq")
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 6.0
 offset_bottom = 6.0
+
+[node name="TimerTrackerComponent" parent="." instance=ExtResource("2_ayv4i")]

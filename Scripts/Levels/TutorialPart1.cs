@@ -8,6 +8,7 @@ public partial class TutorialPart1 : Node2D
     public override void _Ready()
     {
         GetNode<Timer>("MoveTimer").Timeout += OnMoveTimeout;
+        GetNode<Springboard>("Springboard").JumpComponent.Player = GetNode<Player>("Player");
         base._Ready();
     }
 

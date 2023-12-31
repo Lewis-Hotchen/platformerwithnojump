@@ -23,15 +23,19 @@ public partial class Player : CharacterBody2D
     [Export]
     private const int WalkSpeed = 80;
 
-    private float jumpForce = 0;
+    private Vector2 jumpForce = Vector2.Zero;
 
     [Export]
     private float jumpAcceleration = 5f;
 
-    private bool didJump = false;
+    private bool didApplyForce = false;
+
+    [Export]
+    public TimerTrackerComponent Timers { get; set; }
 
     public override void _Ready()
     {
+        Timers.AddTimer(0.2f, "ForceDuration", true).Timeout += () => didApplyForce = false;
         base._Ready();
     }
 
@@ -53,10 +57,6 @@ public partial class Player : CharacterBody2D
             velocity.X = 0;
         }
 
-        if(IsOnFloor() && didJump) {
-            velocity.Y = -jumpForce;
-        }
-
         if(!IsOnFloor()) {
             velocity.Y += (float)delta * Gravity * GravityAccel;
             GravityAccel = Mathf.Min(GravityAccel+1.4f, terminalVelocity);
@@ -64,15 +64,23 @@ public partial class Player : CharacterBody2D
             GravityAccel = GravityAccelMin;
         }
 
+        if(didApplyForce) {
+            velocity = jumpForce;
+        }
+
+        // if(IsOnFloor()) {
+        //     didApplyForce = false;
+        // }
+
         Velocity = velocity;
-        didJump = false;
         // "MoveAndSlide" already takes delta time into account.
         MoveAndSlide();
     }
 
-    public void Jump(float force)
+    public void ApplyForce(Vector2 force)
     {
         jumpForce = force;
-        didJump = true;
+        didApplyForce = true;
+        Timers.StartTimer("ForceDuration");
     }
 }

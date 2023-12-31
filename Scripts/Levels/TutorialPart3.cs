@@ -33,6 +33,10 @@ public partial class TutorialPart3 : Node2D
         StateTracker.States["HasCompletedTutorial"] = true;
         StateTracker.States["HasFallen"] = false;
         ResetLevel.ResetLevel();
+        var spring = SceneManager.LoadScene<Springboard>("res://Scenes/Tools/Springboard.tscn");
+        spring.Position = ResetLevel.StartPosition + new Vector2(36, 6);
+        spring.JumpComponent.Player = GetNode<Player>("Player");
+        AddChild(spring);
     }
 
     private void FirstTimeTimeout()

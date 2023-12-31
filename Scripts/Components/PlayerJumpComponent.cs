@@ -1,21 +1,20 @@
 using Godot;
-using System;
 
 public partial class PlayerJumpComponent : Node2D
 {
 	[Export]
 	public Player Player { get; set; }
 
-	public override void _Ready()
-	{
-	}
+	[Export]
+	public Vector2 Direction { get; set; }
 
-	public override void _Process(double delta)
-	{
-		if(Input.IsActionJustPressed("ui_accept")) {
-            Player.Jump(200f);
-        }
+	[Export]
+	public float ForceY { get; set; }
 
-        base._Process(delta);
+	[Export]
+	public float ForceX { get; set; }
+
+	public void Jump() {
+		Player.ApplyForce(Direction * new Vector2(ForceX, ForceY));
 	}
 }
