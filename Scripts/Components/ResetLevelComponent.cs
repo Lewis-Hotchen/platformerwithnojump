@@ -1,5 +1,7 @@
 using Godot;
 
+namespace PlatformerWithNoJump;
+
 public partial class ResetLevelComponent : Node2D
 {
 	[Export]

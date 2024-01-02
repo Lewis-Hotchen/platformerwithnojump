@@ -1,14 +1,33 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdjrhfy4clb8"]
+[gd_scene load_steps=17 format=3 uid="uid://cdjrhfy4clb8"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart3.cs" id="1_wchyx"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/Tiles.tscn" id="3_o3dnp"]
 [ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/Exit.tscn" id="4_l8an4"]
-[ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/InGameLabel.tscn" id="5_cnj2s"]
+[ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/UI/InGameLabel.tscn" id="5_cnj2s"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="5_rgvdd"]
-[ext_resource type="PackedScene" uid="uid://bemn7318ginyx" path="res://PlayerKillBoxComponent.tscn" id="6_xggxr"]
-[ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/StateTrackerComponent.tscn" id="7_bwp11"]
-[ext_resource type="PackedScene" uid="uid://cetle8nppygjd" path="res://Scenes/ResetLevelComponent.tscn" id="8_g0u55"]
-[ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/TimeTrackerComponent.tscn" id="9_ykn1u"]
+[ext_resource type="PackedScene" uid="uid://bemn7318ginyx" path="res://Scenes/Components/PlayerKillBoxComponent.tscn" id="6_xggxr"]
+[ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="7_bwp11"]
+[ext_resource type="PackedScene" uid="uid://cetle8nppygjd" path="res://Scenes/Components/ResetLevelComponent.tscn" id="8_g0u55"]
+[ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="9_ykn1u"]
+[ext_resource type="PackedScene" uid="uid://c6iyb84ajqk3x" path="res://TileMapCollisionBaker.tscn" id="10_yj8me"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7am11"]
+size = Vector2(12, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b4a2v"]
+size = Vector2(12, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgywk"]
+size = Vector2(60, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srj4s"]
+size = Vector2(216, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q82ae"]
+size = Vector2(60, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wss3"]
+size = Vector2(12, 84)
 
 [node name="TutorialPart3" type="Node2D" node_paths=PackedStringArray("PlayerKillBox", "StateTracker", "ResetLevel", "Timers")]
 script = ExtResource("1_wchyx")
@@ -48,4 +67,31 @@ Player = NodePath("../Player")
 StartPosition = Vector2(24, 42)
 
 [node name="TimerTrackerComponent" parent="." node_paths=PackedStringArray("Timers") instance=ExtResource("9_ykn1u")]
-Timers = [NodePath(""), NodePath("")]
+Timers = [null, null]
+
+[node name="TileMapCollisionBaker" parent="." instance=ExtResource("10_yj8me")]
+tilemap_nodepath = NodePath("../Tiles")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(6, 30)
+shape = SubResource("RectangleShape2D_7am11")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(6, 108)
+shape = SubResource("RectangleShape2D_b4a2v")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(30, 54)
+shape = SubResource("RectangleShape2D_vgywk")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(108, 6)
+shape = SubResource("RectangleShape2D_srj4s")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(186, 114)
+shape = SubResource("RectangleShape2D_q82ae")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(210, 54)
+shape = SubResource("RectangleShape2D_4wss3")

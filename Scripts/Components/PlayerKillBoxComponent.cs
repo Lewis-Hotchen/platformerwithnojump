@@ -1,5 +1,6 @@
 using System;
 using Godot;
+namespace PlatformerWithNoJump;
 
 public partial class PlayerKillBoxComponent : Node2D
 {

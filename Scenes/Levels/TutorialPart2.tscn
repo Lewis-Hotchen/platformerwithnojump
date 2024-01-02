@@ -1,18 +1,37 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwlyocvh6ah6l"]
+[gd_scene load_steps=15 format=3 uid="uid://bwlyocvh6ah6l"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart2.cs" id="1_2k0mm"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/Tiles.tscn" id="3_ny3g8"]
 [ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/Exit.tscn" id="4_gm3cp"]
-[ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/InGameLabel.tscn" id="5_7pgcw"]
-[ext_resource type="PackedScene" uid="uid://ptthk6wo0w3k" path="res://Scenes/PlayerJumpComponent.tscn" id="5_riw14"]
+[ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/UI/InGameLabel.tscn" id="5_7pgcw"]
+[ext_resource type="PackedScene" uid="uid://ptthk6wo0w3k" path="res://Scenes/Components/PlayerJumpComponent.tscn" id="5_riw14"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="6_w01bj"]
-[ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/NextLevelComponent.tscn" id="8_4f7ro"]
+[ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="8_4f7ro"]
+[ext_resource type="PackedScene" uid="uid://c6iyb84ajqk3x" path="res://TileMapCollisionBaker.tscn" id="8_hg3a6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrfet"]
+size = Vector2(12, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6xj3"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j08rr"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r277x"]
+size = Vector2(240, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfcbx"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_083wy"]
+size = Vector2(12, 60)
 
 [node name="TutorialPart2" type="Node2D"]
 script = ExtResource("1_2k0mm")
 
 [node name="Tiles" parent="." instance=ExtResource("3_ny3g8")]
-layer_0/tile_data = PackedInt32Array(393216, 65538, 0, 393217, 65538, 0, 393218, 65538, 0, 393219, 65538, 0, 393220, 65538, 0, 393221, 65538, 0, 393222, 65538, 0, 393223, 65538, 0, 393224, 65538, 0, 393225, 65538, 0, 393226, 65538, 0, 393227, 65538, 0, 393228, 65538, 0, 393229, 65538, 0, 393230, 65538, 0, 393231, 65538, 0, 393232, 65538, 0, 393233, 65538, 0, 327684, 65538, 0, 327688, 65538, 0, 327694, 65538, 0)
+layer_0/tile_data = PackedInt32Array(393216, 65538, 0, 393217, 65538, 0, 393218, 65538, 0, 393219, 65538, 0, 393220, 65538, 0, 393221, 65538, 0, 393222, 65538, 0, 393223, 65538, 0, 393224, 65538, 0, 393225, 65538, 0, 393226, 65538, 0, 393227, 65538, 0, 393228, 65538, 0, 393229, 65538, 0, 393230, 65538, 0, 393231, 65538, 0, 393232, 65538, 0, 393233, 65538, 0, 327684, 65538, 0, 327688, 65538, 0, 327694, 65538, 0, 458751, 2, 2, 393215, 2, 2, 327679, 2, 2, 262143, 2, 2, 196607, 2, 2, 131071, 2, 2, 65554, 2, 2, 131090, 2, 2, 196626, 2, 2, 262162, 2, 2, 327698, 2, 2, 393234, 2, 2)
 
 [node name="Exit" parent="." node_paths=PackedStringArray("NextLevelComponent") instance=ExtResource("4_gm3cp")]
 position = Vector2(208, 62)
@@ -27,8 +46,36 @@ Text = "Press \"Space\" to jump"
 
 [node name="PlayerJumpComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("5_riw14")]
 Player = NodePath("../Player")
+Force = 400.0
 
 [node name="Player" parent="." instance=ExtResource("6_w01bj")]
 position = Vector2(12, 66)
 
 [node name="NextLevelComponent" parent="." instance=ExtResource("8_4f7ro")]
+
+[node name="TileMapCollisionBaker" parent="." instance=ExtResource("8_hg3a6")]
+tilemap_nodepath = NodePath("../Tiles")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(-6, 42)
+shape = SubResource("RectangleShape2D_xrfet")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(54, 66)
+shape = SubResource("RectangleShape2D_w6xj3")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(102, 66)
+shape = SubResource("RectangleShape2D_j08rr")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(108, 78)
+shape = SubResource("RectangleShape2D_r277x")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(174, 66)
+shape = SubResource("RectangleShape2D_gfcbx")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(222, 42)
+shape = SubResource("RectangleShape2D_083wy")
