@@ -1,78 +1,72 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
+namespace PlatformerWithNoJump;
 
-public partial class Player : CharacterBody2D
+public partial class Player : RigidBody2D
 {
-    [Export]
-    private const float Gravity = 200.0f;
-
-    [Export]
-    private float GravityAccel = 1.4f;
-
-    [Export]
-    private float GravityAccelMin =  1.4f;
-
-    [Export]
-    private float terminalVelocity = 7f;
-
-    [Export]
-    private const float maxJumpVelocity = 30f;
-
-    [Export]
-    private const float minJumpVelocity=5f;
-
-    [Export]
-    private const int WalkSpeed = 80;
-
-    private float jumpForce = 0;
-
-    [Export]
-    private float jumpAcceleration = 5f;
-
-    private bool didJump = false;
-
-    public override void _Ready()
+    public override void _IntegrateForces(PhysicsDirectBodyState2D state)
     {
-        base._Ready();
+        var direction = Vector2.Zero;
+        var offset = Vector2.Zero;
+        var forceToApply = Force;
+
+        GravityScale = IsOnFloor ? GravityFloorReduction : DefaultGravity;
+
+        if(!IsOnFloor) {
+            forceToApply /= InAirMovementReduction;
+        }
+
+        if(Input.IsActionPressed("ui_left")) {
+            direction = Vector2.Left;
+            offset = new Vector2(0, 3);
+        } else if(Input.IsActionPressed("ui_right")) {
+             direction = Vector2.Right;
+             offset = new Vector2(6, 3);
+        }
+
+        if(LinearVelocity.X >= MaxVelocity) {
+            return;
+        }
+
+        state.ApplyForce(direction * forceToApply, offset);
+        base._IntegrateForces(state);
     }
 
-    public override void _PhysicsProcess(double delta)
+    public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
+
+    [Export]
+    public float Force { get; set; } = 1500f;
+
+    [Export]
+    public float InAirMovementReduction { get; set;} = 2f;
+
+    [Export]
+    public float GravityFloorReduction { get; set; } = 0.6f;
+
+    [Export]
+    public float DefaultGravity { get; set; } = 1f;
+
+    [Export]
+    public float MaxVelocity { get; set; } = 100f;
+
+    public List<RayCast2D> GroundCasts { get; set; }
+    
+    public override void _Ready()
     {
-        var velocity = Velocity;
-        
-
-        if (Input.IsActionPressed("ui_left"))
+        GroundCasts = new()
         {
-            velocity.X = -WalkSpeed;
-        }
-        else if (Input.IsActionPressed("ui_right"))
-        {
-            velocity.X = WalkSpeed;
-        }
-        else
-        {
-            velocity.X = 0;
-        }
-
-        if(IsOnFloor() && didJump) {
-            velocity.Y = -jumpForce;
-        }
-
-        if(!IsOnFloor()) {
-            velocity.Y += (float)delta * Gravity * GravityAccel;
-            GravityAccel = Mathf.Min(GravityAccel+1.4f, terminalVelocity);
-        } else {
-            GravityAccel = GravityAccelMin;
-        }
-
-        Velocity = velocity;
-        didJump = false;
-        // "MoveAndSlide" already takes delta time into account.
-        MoveAndSlide();
+            GetNode<RayCast2D>("IsOnGround"),
+            GetNode<RayCast2D>("IsOnGround2"),
+            GetNode<RayCast2D>("IsOnGround3"),
+        };
+        base._Ready();
     }
 
     public void Jump(float force)
     {
-        jumpForce = force;
-        didJump = true;
+        if(IsOnFloor) {
+            ApplyImpulse(Vector2.Up*force);
+        }
     }
 }

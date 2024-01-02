@@ -37,7 +37,7 @@ public partial class TutorialPart3 : Node2D
 
     private void FirstTimeTimeout()
     {
-        AddChild(SceneManager.LoadScene<Node2D>("res://Scenes/Splash.tscn"));
+        AddChild(SceneManager.LoadScene<Node2D>("res://Scenes/UI/Splash.tscn"));
         Timers.StartTimer("SplashScreenTimeout");
     }
 
