@@ -1,17 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://efel0vjy5yr5"]
+[gd_scene load_steps=5 format=3 uid="uid://efel0vjy5yr5"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_luxqd"]
+[ext_resource type="PackedScene" uid="uid://cbgng3h36nlx7" path="res://ToolSelector.tscn" id="2_uijf7"]
+[ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="3_0ncfl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctbbq"]
 size = Vector2(6, 6)
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("ToolSelector", "States")]
 collision_mask = 14
 mass = 2.0
 center_of_mass_mode = 1
 center_of_mass = Vector2(6, 6)
 lock_rotation = true
 script = ExtResource("1_luxqd")
+ToolSelector = NodePath("ToolSelector")
+States = NodePath("StateTrackerComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 3)
@@ -37,3 +41,11 @@ position = Vector2(6, 0)
 target_position = Vector2(0, 7)
 collision_mask = 2
 collide_with_areas = true
+
+[node name="ToolSelector" parent="." node_paths=PackedStringArray("States") instance=ExtResource("2_uijf7")]
+visible = false
+position = Vector2(-4, -16)
+States = NodePath("../StateTrackerComponent")
+
+[node name="StateTrackerComponent" parent="." instance=ExtResource("3_0ncfl")]
+StateNames = PackedStringArray("ToolSelectorOpen")

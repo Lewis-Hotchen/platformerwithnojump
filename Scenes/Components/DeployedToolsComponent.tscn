@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsk14ie6ge0k1"]
+
+[ext_resource type="Script" path="res://Scripts/Components/DeployedToolsComponent.cs" id="1_yo405"]
+
+[node name="DeployedToolsComponent" type="Node2D"]
+script = ExtResource("1_yo405")

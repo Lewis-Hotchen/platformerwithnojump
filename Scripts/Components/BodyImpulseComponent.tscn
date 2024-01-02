@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr38747f1mtht"]
+
+[ext_resource type="Script" path="res://Scripts/Components/BodyImpulseComponent.cs" id="1_usgkf"]
+
+[node name="BodyImpulseComponent" type="Node2D"]
+script = ExtResource("1_usgkf")
