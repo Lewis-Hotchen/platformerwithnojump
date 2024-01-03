@@ -5,6 +5,43 @@ namespace PlatformerWithNoJump;
 
 public partial class Player : RigidBody2D
 {
+
+    [Export]
+    public float Force { get; set; } = 1500f;
+
+    [Export]
+    public ToolSelector ToolSelector { get; set; }
+
+    [Export]
+    public float InAirMovementReduction { get; set;} = 2f;
+
+    [Export]
+    public float GravityFloorReduction { get; set; } = 0.6f;
+
+    [Export]
+    public float DefaultGravity { get; set; } = 1f;
+
+    [Export]
+    public float MaxVelocity { get; set; } = 100f;
+
+    [Export]
+    public StateTrackerComponent States {get;set;}
+
+    public List<RayCast2D> GroundCasts { get; set; }
+
+    public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
+
+    public override void _Ready()
+    {
+        GroundCasts = new()
+        {
+            GetNode<RayCast2D>("IsOnGround"),
+            GetNode<RayCast2D>("IsOnGround2"),
+            GetNode<RayCast2D>("IsOnGround3"),
+        };
+        base._Ready();
+    }
+
     public override void _IntegrateForces(PhysicsDirectBodyState2D state)
     {
         var direction = Vector2.Zero;
@@ -33,34 +70,15 @@ public partial class Player : RigidBody2D
         base._IntegrateForces(state);
     }
 
-    public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
-
-    [Export]
-    public float Force { get; set; } = 1500f;
-
-    [Export]
-    public float InAirMovementReduction { get; set;} = 2f;
-
-    [Export]
-    public float GravityFloorReduction { get; set; } = 0.6f;
-
-    [Export]
-    public float DefaultGravity { get; set; } = 1f;
-
-    [Export]
-    public float MaxVelocity { get; set; } = 100f;
-
-    public List<RayCast2D> GroundCasts { get; set; }
-    
-    public override void _Ready()
+    public override void _Process(double delta)
     {
-        GroundCasts = new()
-        {
-            GetNode<RayCast2D>("IsOnGround"),
-            GetNode<RayCast2D>("IsOnGround2"),
-            GetNode<RayCast2D>("IsOnGround3"),
-        };
-        base._Ready();
+        ToolSelector.Visible = States.States["ToolSelectorOpen"];
+
+        if(Input.IsActionJustPressed("ui_up")) {
+            States.States["ToolSelectorOpen"] = !States.States["ToolSelectorOpen"];
+        }
+
+        base._Process(delta);
     }
 
     public void Jump(float force)

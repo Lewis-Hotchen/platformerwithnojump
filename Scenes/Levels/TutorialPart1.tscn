@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d34kvhub7r0wd"]
+[gd_scene load_steps=27 format=3 uid="uid://d34kvhub7r0wd"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart1.cs" id="1_pai2k"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/Tiles.tscn" id="2_1y70f"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="6_uqvkq"]
 [ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="7_fahue"]
 [ext_resource type="PackedScene" uid="uid://c6iyb84ajqk3x" path="res://TileMapCollisionBaker.tscn" id="8_w3ili"]
+[ext_resource type="PackedScene" uid="uid://d1d0v2yux7x8h" path="res://Scenes/Tools/Springboard.tscn" id="9_2hurb"]
 
 [sub_resource type="Animation" id="Animation_llhu5"]
 resource_name = "Exit Arrow"
@@ -139,7 +140,7 @@ offset_left = 184.0
 offset_top = 96.0
 offset_right = 230.0
 offset_bottom = 108.0
-Text = "Exit -"
+Text = "Exit "
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -200,3 +201,6 @@ shape = SubResource("RectangleShape2D_hfoow")
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="TileMapCollisionBaker"]
 position = Vector2(222, 102)
 shape = SubResource("RectangleShape2D_ecl5m")
+
+[node name="Springboard" parent="." instance=ExtResource("9_2hurb")]
+position = Vector2(80, 108)

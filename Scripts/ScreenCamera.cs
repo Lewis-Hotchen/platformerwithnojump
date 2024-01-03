@@ -35,10 +35,10 @@ public partial class ScreenCamera : Camera2D
 
     public override void _Process(double delta)
     {
-        if(trauma > 0.0f) {
-            trauma = (float) Mathf.Max(trauma - Decay * delta, 0);
-            Shake();
-        }
+        // if(trauma > 0.0f) {
+        //     trauma = (float) Mathf.Max(trauma - Decay * delta, 0);
+        //     Shake();
+        // }
 
         base._Process(delta);
     }

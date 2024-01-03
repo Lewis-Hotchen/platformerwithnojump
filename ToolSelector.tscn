@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbgng3h36nlx7"]
+
+[ext_resource type="Script" path="res://Scripts/Tools/ToolSelector.cs" id="1_w8hbm"]
+[ext_resource type="PackedScene" uid="uid://d1d0v2yux7x8h" path="res://Scenes/Tools/Springboard.tscn" id="2_3t48v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjcj3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[node name="ToolSelector" type="Node2D" node_paths=PackedStringArray("Springboard")]
+process_mode = 3
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_w8hbm")
+Springboard = NodePath("Springboard")
+
+[node name="Container" type="AspectRatioContainer" parent="."]
+offset_right = 48.0
+offset_bottom = 48.0
+
+[node name="SelectorContainer" type="PanelContainer" parent="Container"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yjcj3")
+
+[node name="Springboard" parent="." instance=ExtResource("2_3t48v")]
+visible = false
+position = Vector2(40, 23.3333)
+scale = Vector2(2, 2)
