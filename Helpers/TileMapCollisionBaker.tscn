@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6iyb84ajqk3x"]
+[gd_scene load_steps=2 format=3 uid="uid://drle7j2fyyjsp"]
 
 [ext_resource type="Script" path="res://Helpers/TilemapCollisionBaker.gd" id="1_dqbx3"]
 

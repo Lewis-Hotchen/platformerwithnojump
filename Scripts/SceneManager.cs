@@ -48,24 +48,17 @@ public partial class SceneManager : Node
 		}
 	}
 
-	public static Node2D GetLevel(string levelScenePath){
-
-	   return LoadScene<Node2D>(levelScenePath);
-	}
-
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed(PauseKey))
 		{
-			if(!isPaused) {
+			if(!GetTree().Paused) {
 				GetTree().Paused = true;
 				RemoveChild(currentScene);
 				AddChild(LoadScene<PauseGame>("res://Scenes/PauseGame.tscn"));
-				isPaused = true;
 			} else {
 				GetNode<PauseGame>("PauseGame").QueueFree();
 				AddChild(currentScene);
-				isPaused = false;
 			}
 		}
 

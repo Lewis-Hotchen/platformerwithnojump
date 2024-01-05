@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ptthk6wo0w3k" path="res://Scenes/Components/PlayerJumpComponent.tscn" id="5_riw14"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="6_w01bj"]
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="8_4f7ro"]
-[ext_resource type="PackedScene" uid="uid://c6iyb84ajqk3x" path="res://TileMapCollisionBaker.tscn" id="8_hg3a6"]
+[ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="8_hg3a6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrfet"]
 size = Vector2(12, 60)

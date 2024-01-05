@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://efel0vjy5yr5"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_luxqd"]
-[ext_resource type="PackedScene" uid="uid://cbgng3h36nlx7" path="res://ToolSelector.tscn" id="2_uijf7"]
+[ext_resource type="PackedScene" uid="uid://clgnhxvd0vuci" path="res://Scenes/Tools/ToolSelector.tscn" id="2_uijf7"]
 [ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="3_0ncfl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctbbq"]

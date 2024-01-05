@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdhlmh1fhjnlx"]
-
-[ext_resource type="Script" path="res://Scripts/Levels/BaseLevel.cs" id="1_kwdvp"]
-[ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="2_axdr7"]
-
-[node name="BaseLevel" type="Node2D"]
-script = ExtResource("1_kwdvp")
-
-[node name="Player" parent="." instance=ExtResource("2_axdr7")]

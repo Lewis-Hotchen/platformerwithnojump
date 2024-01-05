@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="7_bwp11"]
 [ext_resource type="PackedScene" uid="uid://cetle8nppygjd" path="res://Scenes/Components/ResetLevelComponent.tscn" id="8_g0u55"]
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="9_ykn1u"]
-[ext_resource type="PackedScene" uid="uid://c6iyb84ajqk3x" path="res://TileMapCollisionBaker.tscn" id="10_yj8me"]
+[ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="10_yj8me"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7am11"]
 size = Vector2(12, 36)

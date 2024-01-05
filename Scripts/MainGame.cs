@@ -15,7 +15,7 @@ public partial class MainGame : Node2D
 	{
 		CurrentLevelScenePathPointer = 0;
 		GetNode<Camera2D>("ScreenCamera").MakeCurrent();
-		currentLevel = SceneManager.GetLevel(Levels[CurrentLevelScenePathPointer]);
+		currentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
 		AddChild(currentLevel);
 		base._Ready();
 	}
@@ -25,7 +25,7 @@ public partial class MainGame : Node2D
 		RemoveChild(currentLevel);
 		currentLevel?.QueueFree();
 		CurrentLevelScenePathPointer++;
-		currentLevel = SceneManager.GetLevel(Levels[CurrentLevelScenePathPointer]);
+		currentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
 		AddChild(currentLevel);
 	}
 }
