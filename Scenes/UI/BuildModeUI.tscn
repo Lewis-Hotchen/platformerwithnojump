@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://brcxb0dfipwg5"]
+
+[ext_resource type="Script" path="res://Scenes/UI/BuildModeUI.cs" id="1_1xd8h"]
+[ext_resource type="PackedScene" uid="uid://bjb80k820mtdk" path="res://Scenes/BuilldModeComponent.tscn" id="1_27hqd"]
+[ext_resource type="PackedScene" uid="uid://clgnhxvd0vuci" path="res://Scenes/Tools/ToolSelector.tscn" id="4_njumo"]
+[ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="5_os2es"]
+
+[node name="BuildModeUI" type="Control" node_paths=PackedStringArray("BuildModeComponent", "ToolSelector", "StateTrackerComponent")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1xd8h")
+BuildModeComponent = NodePath("BuildModeComponent")
+ToolSelector = NodePath("ToolSelector")
+StateTrackerComponent = NodePath("StateTrackerComponent")
+
+[node name="BuildModeComponent" parent="." node_paths=PackedStringArray("ToolSelector", "StateTrackerComponent") instance=ExtResource("1_27hqd")]
+ToolSelector = NodePath("../ToolSelector")
+Snap = Vector2(32, 32)
+StateTrackerComponent = NodePath("../StateTrackerComponent")
+
+[node name="ToolSelector" parent="." node_paths=PackedStringArray("States") instance=ExtResource("4_njumo")]
+States = NodePath("../StateTrackerComponent")
+
+[node name="StateTrackerComponent" parent="." instance=ExtResource("5_os2es")]
+StateNames = PackedStringArray("ToolSelectorOpen", "IsBuildMode")

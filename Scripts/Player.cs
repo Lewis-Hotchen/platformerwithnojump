@@ -5,27 +5,20 @@ namespace PlatformerWithNoJump;
 
 public partial class Player : RigidBody2D
 {
+    [Export]
+    public float Force { get; set; } = 3000f;
 
     [Export]
-    public float Force { get; set; } = 1500f;
+    public float InAirMovementReduction { get; set;} = 4f;
 
     [Export]
-    public ToolSelector ToolSelector { get; set; }
+    public float GravityFloorReduction { get; set; } = 1.2f;
 
     [Export]
-    public float InAirMovementReduction { get; set;} = 2f;
+    public float DefaultGravity { get; set; } = 2f;
 
     [Export]
-    public float GravityFloorReduction { get; set; } = 0.6f;
-
-    [Export]
-    public float DefaultGravity { get; set; } = 1f;
-
-    [Export]
-    public float MaxVelocity { get; set; } = 100f;
-
-    [Export]
-    public StateTrackerComponent States {get;set;}
+    public float MaxVelocity { get; set; } = 200f;
 
     public List<RayCast2D> GroundCasts { get; set; }
 
@@ -39,6 +32,9 @@ public partial class Player : RigidBody2D
             GetNode<RayCast2D>("IsOnGround2"),
             GetNode<RayCast2D>("IsOnGround3"),
         };
+
+        GetNode<ColorRect>("ColorRect").Color = Colors.White;
+
         base._Ready();
     }
 
@@ -56,13 +52,13 @@ public partial class Player : RigidBody2D
 
         if(Input.IsActionPressed("ui_left")) {
             direction = Vector2.Left;
-            offset = new Vector2(0, 3);
+            offset = new Vector2(0, 6);
         } else if(Input.IsActionPressed("ui_right")) {
              direction = Vector2.Right;
-             offset = new Vector2(6, 3);
+             offset = new Vector2(12, 6);
         }
 
-        if(LinearVelocity.X >= MaxVelocity) {
+        if(LinearVelocity.X >= MaxVelocity || LinearVelocity.X <= -MaxVelocity) {
             return;
         }
 
@@ -72,12 +68,6 @@ public partial class Player : RigidBody2D
 
     public override void _Process(double delta)
     {
-        ToolSelector.Visible = States.States["ToolSelectorOpen"];
-
-        if(Input.IsActionJustPressed("ui_up")) {
-            States.States["ToolSelectorOpen"] = !States.States["ToolSelectorOpen"];
-        }
-
         base._Process(delta);
     }
 

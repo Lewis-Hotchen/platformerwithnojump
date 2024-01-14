@@ -40,7 +40,7 @@ Timers = NodePath("TimerTrackerComponent")
 layer_0/tile_data = PackedInt32Array(589838, 65538, 0, 589839, 65538, 0, 589840, 65538, 0, 589841, 65538, 0, 327680, 131074, 1, 393216, 131074, 1, 458752, 131074, 1, 524288, 131074, 1, 589824, 131074, 1, 655360, 131074, 1, 720896, 131074, 1, 786432, 131074, 1, 589837, 131074, 3, 458769, 2, 1, 393233, 2, 1, 327697, 2, 1, 262161, 2, 1, 196625, 2, 1, 131089, 2, 1, 65553, 2, 1, 17, 131074, 805306371, 16, 65538, 0, 15, 65538, 0, 14, 65538, 0, 13, 65538, 0, 12, 65538, 0, 11, 65538, 0, 10, 65538, 0, 9, 65538, 0, 8, 65538, 0, 7, 65538, 0, 6, 65538, 0, 5, 65538, 0, 4, 65538, 0, 3, 65538, 0, 2, 65538, 0, 1, 65538, 0, 262145, 65538, 0, 262146, 65538, 0, 262147, 65538, 0, 262148, 196610, 3, 196608, 131074, 1, 131072, 131074, 1, 65536, 131074, 1, 262144, 131074, 1, 0, 196610, 805306371)
 
 [node name="Exit" parent="." instance=ExtResource("4_l8an4")]
-position = Vector2(208, 98)
+position = Vector2(416, 196)
 
 [node name="JumpBaitLabel" parent="." instance=ExtResource("5_cnj2s")]
 offset_left = 71.0
@@ -50,7 +50,7 @@ offset_bottom = 32.0
 Text = "Press Space to jump"
 
 [node name="Player" parent="." instance=ExtResource("5_rgvdd")]
-position = Vector2(24, 42)
+position = Vector2(48, 84)
 
 [node name="PlayerKillBoxComponent" parent="." node_paths=PackedStringArray("Player", "StateTracker") instance=ExtResource("6_xggxr")]
 Player = NodePath("../Player")

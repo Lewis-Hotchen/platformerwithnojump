@@ -1,7 +1,7 @@
 using Godot;
 namespace PlatformerWithNoJump;
 
-public partial class Springboard : Node2D {
+public partial class Springboard : Node2D, ITool {
 
     [Export]
 	public BodyImpulseComponent ImpulseComponent { get; set; }
@@ -12,8 +12,12 @@ public partial class Springboard : Node2D {
     [Export]
 	public Area2D Area { get; set; }
 
+	public Tools ToolType { get; private set; }
+    public bool IsPlaceable => true;
+
     public override void _Ready()
     {
+		ToolType = Tools.Springboard;
         Timers.AddTimer(1, "cooldown");
         Area.BodyEntered += OnBodyEntered;
         base._Ready();

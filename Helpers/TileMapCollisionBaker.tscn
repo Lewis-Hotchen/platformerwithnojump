@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Helpers/TilemapCollisionBaker.gd" id="1_dqbx3"]
 
 [node name="TileMapCollisionBaker" type="StaticBody2D"]
+scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_dqbx3")

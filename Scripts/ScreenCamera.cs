@@ -6,6 +6,9 @@ public partial class ScreenCamera : Camera2D
     [Export]
     public float Decay { get; set; }
 
+    [Export]
+    public Vector2 Chunk { get => chunk; set { chunk = value; SetChunk(); } }
+
     private FastNoiseLite fastNoiseLite; 
 
     [Export]
@@ -17,6 +20,8 @@ public partial class ScreenCamera : Camera2D
     private float trauma = 0.0f;
     private float traumaPower = 2f;
     private float noiseY = 0f;
+    private Vector2 chunk;
+
 
     public override void _Ready()
     {
@@ -28,10 +33,28 @@ public partial class ScreenCamera : Camera2D
 
         Decay = 0.3f;
         MaxOffset = new Vector2(24, 24);
-        MaxRoll  = 0.1f;
+        MaxRoll = 0.1f;
+
+        SetChunk();
 
         base._Ready();
     }
+
+    private void SetChunk()
+    {
+        var viewportX = GetViewportRect().Size.X / 2;
+        var viewportY = GetViewportRect().Size.Y / 2;
+
+        if(Chunk == Vector2.Zero){
+            Zoom = new (1,1);
+            Position = new(viewportX, viewportY);
+            return;
+        }
+
+        Position = new Vector2(Chunk.X * viewportX, Chunk.Y * viewportY);
+        Zoom = new(2,2);
+    }
+
 
     public override void _Process(double delta)
     {

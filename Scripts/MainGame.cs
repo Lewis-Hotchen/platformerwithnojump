@@ -14,9 +14,9 @@ public partial class MainGame : Node2D
 	public override void _Ready()
 	{
 		CurrentLevelScenePathPointer = 0;
-		GetNode<Camera2D>("ScreenCamera").MakeCurrent();
 		currentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
 		AddChild(currentLevel);
+		GetNode<ColorRect>("ColorRect").Color = Palette.LightGreen;
 		base._Ready();
 	}
 

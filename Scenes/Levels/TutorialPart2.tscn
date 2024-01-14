@@ -34,7 +34,7 @@ script = ExtResource("1_2k0mm")
 layer_0/tile_data = PackedInt32Array(393216, 65538, 0, 393217, 65538, 0, 393218, 65538, 0, 393219, 65538, 0, 393220, 65538, 0, 393221, 65538, 0, 393222, 65538, 0, 393223, 65538, 0, 393224, 65538, 0, 393225, 65538, 0, 393226, 65538, 0, 393227, 65538, 0, 393228, 65538, 0, 393229, 65538, 0, 393230, 65538, 0, 393231, 65538, 0, 393232, 65538, 0, 393233, 65538, 0, 327684, 65538, 0, 327688, 65538, 0, 327694, 65538, 0, 458751, 2, 2, 393215, 2, 2, 327679, 2, 2, 262143, 2, 2, 196607, 2, 2, 131071, 2, 2, 65554, 2, 2, 131090, 2, 2, 196626, 2, 2, 262162, 2, 2, 327698, 2, 2, 393234, 2, 2)
 
 [node name="Exit" parent="." node_paths=PackedStringArray("NextLevelComponent") instance=ExtResource("4_gm3cp")]
-position = Vector2(208, 62)
+position = Vector2(416, 124)
 NextLevelComponent = NodePath("../NextLevelComponent")
 
 [node name="InGameLabel" parent="." instance=ExtResource("5_7pgcw")]
@@ -46,10 +46,10 @@ Text = "Press \"Space\" to jump"
 
 [node name="PlayerJumpComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("5_riw14")]
 Player = NodePath("../Player")
-Force = 400.0
+Force = 800.0
 
 [node name="Player" parent="." instance=ExtResource("6_w01bj")]
-position = Vector2(12, 66)
+position = Vector2(6, 131)
 
 [node name="NextLevelComponent" parent="." instance=ExtResource("8_4f7ro")]
 

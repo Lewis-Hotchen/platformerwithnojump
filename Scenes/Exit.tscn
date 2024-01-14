@@ -1,25 +1,26 @@
 [gd_scene load_steps=4 format=3 uid="uid://cr51p5xbm6q05"]
 
-[ext_resource type="Texture2D" uid="uid://cqtqbh3px1bdj" path="res://Assets/blacknwhite.png" id="1_cnv3w"]
 [ext_resource type="Script" path="res://Scripts/Exit.cs" id="1_dbhut"]
+[ext_resource type="Texture2D" uid="uid://dbh5ea54jpmpd" path="res://Assets/sprite-sheet.png" id="2_v2v4f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ix6xi"]
-size = Vector2(8, 10)
+size = Vector2(16, 16)
 
 [node name="Exit" type="Node2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_dbhut")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_cnv3w")
+texture = ExtResource("2_v2v4f")
 centered = false
 region_enabled = true
-region_rect = Rect2(50, 13.1081, 7.97029, 9.89195)
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(4, 5)
+position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_ix6xi")
 
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
