@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://723y5e2s41"]
 
-[ext_resource type="Script" path="res://Scripts/InGameLabel.cs" id="1_31ccs"]
+[ext_resource type="Script" path="res://Scripts/LevelBuildingBlocks/InGameLabel.cs" id="1_31ccs"]
 [ext_resource type="Theme" uid="uid://b1p7nnt8jkew" path="res://Resources/Theme.tres" id="1_rppuk"]
 
 [node name="InGameLabel" type="HBoxContainer"]

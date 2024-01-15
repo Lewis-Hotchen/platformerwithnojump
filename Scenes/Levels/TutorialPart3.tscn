@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://cdjrhfy4clb8"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart3.cs" id="1_wchyx"]
-[ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/Tiles.tscn" id="3_o3dnp"]
-[ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/Exit.tscn" id="4_l8an4"]
+[ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="3_o3dnp"]
+[ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/LevelBuildingBlocks/Exit.tscn" id="4_l8an4"]
 [ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/UI/InGameLabel.tscn" id="5_cnj2s"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="5_rgvdd"]
 [ext_resource type="PackedScene" uid="uid://bemn7318ginyx" path="res://Scenes/Components/PlayerKillBoxComponent.tscn" id="6_xggxr"]

@@ -15,14 +15,9 @@ public partial class DeployedToolsComponent : Node2D
         base._Ready();
     }
 
-    public void Add(Node2D tool, Vector2 pos) {
+    public void Add(Node2D tool) {
         if(tool is ITool) {
             deployedTools.Add(tool);
-        }
-
-        if(GetParent() is ILevel) {
-            GetParent().AddChild(tool);
-            tool.Position = pos;
         }
     }
 

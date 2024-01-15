@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dbh5ea54jpmpd" path="res://Assets/sprite-sheet.png" id="1_64knv"]
 [ext_resource type="Texture2D" uid="uid://cqtqbh3px1bdj" path="res://Assets/blacknwhite.png" id="1_trejq"]
-[ext_resource type="Script" path="res://Scenes/Tiles.cs" id="2_gq6li"]
+[ext_resource type="Script" path="res://Scripts/LevelBuildingBlocks/Tiles.cs" id="2_gq6li"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1cf06"]
 

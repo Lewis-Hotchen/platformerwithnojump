@@ -73,7 +73,7 @@ public partial class BuildModeComponent : Node2D
     private void LockIn(ITool selectedTool)
     {
         var tool = (Node2D) selectedTool;
-        var newTool = SceneManager.LoadScene<Node2D>("res://scenes/tools/springboard.tscn");
+        var newTool = SceneManager.LoadScene<Node2D>("res://scenes/tools/Springboard.tscn");
         ToolBuilt?.Invoke(this, new ToolBuiltEventArgs(newTool, tool.GlobalPosition));
         tool.QueueFree();
     }

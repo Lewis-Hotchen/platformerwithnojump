@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using PlatformerWithNoJump;
 
@@ -7,18 +6,23 @@ public partial class BuildModeUI : Control
     [Export]
     public BuildModeComponent BuildModeComponent { get; set; }
 
+    [Signal]
+    public delegate void ToolBuiltEventHandler(Node2D tool);
+
     [Export]
     public ToolSelector ToolSelector { get; set; }
 
     [Export]
     public StateTrackerComponent StateTrackerComponent { get; set;}
 
+    [Export]
     public DeployedToolsComponent DeployedToolsComponent { get; set; }
 
     public override void _Ready()
     {
+        BuildModeComponent.StateTrackerComponent = StateTrackerComponent;
+        ToolSelector.States = StateTrackerComponent;
         StateTrackerComponent.States["ToolSelectorOpen"] = ToolSelector.Visible;
-        DeployedToolsComponent = GetNode<DeployedToolsComponent>("../DeployedToolsComponent");
         BuildModeComponent.ToolBuilt += OnToolBuilt;
         ToolSelector.ToolSelected += OnToolSelected;
         base._Ready();
@@ -26,7 +30,9 @@ public partial class BuildModeUI : Control
 
     private void OnToolBuilt(object sender, ToolBuiltEventArgs e)
     {
-        DeployedToolsComponent.Add(e.ToolBuilt, e.GlobalPos);
+        DeployedToolsComponent.Add(e.ToolBuilt);
+        e.ToolBuilt.GlobalPosition = e.GlobalPos;
+        EmitSignal(SignalName.ToolBuilt, e.ToolBuilt);
     }
 
 
@@ -41,9 +47,6 @@ public partial class BuildModeUI : Control
             StateTrackerComponent.States["ToolSelectorOpen"] = !StateTrackerComponent.States["ToolSelectorOpen"];
             ToolSelector.Visible = StateTrackerComponent.States["ToolSelectorOpen"];
         }
-
-        if(StateTrackerComponent.States["IsBuildMode"])
-            QueueRedraw();
 
         base._Process(delta);
     }

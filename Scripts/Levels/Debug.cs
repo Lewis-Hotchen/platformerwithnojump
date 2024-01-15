@@ -1,0 +1,26 @@
+using Godot;
+namespace PlatformerWithNoJump;
+
+public partial class Debug : Node2D, ILevel
+{
+    [Export]
+    public ScreenCamera Camera { get; set; }
+    
+    [Export]
+    public TileMap TileMap { get; set; }
+
+    [Export]
+    public DeployedToolsComponent DeployedTools { get; set; }
+
+    public override void _Ready()
+    {
+        Camera.Chunk = new(0,0);
+        base._Ready();
+    }
+
+    public override void _Process(double delta)
+    {
+        QueueRedraw();
+        base._Process(delta);
+    }
+}

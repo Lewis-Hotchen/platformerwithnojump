@@ -4,3 +4,4 @@
 
 [node name="BuildModeComponent" type="Node2D"]
 script = ExtResource("1_5brqm")
+Snap = Vector2(32, 32)

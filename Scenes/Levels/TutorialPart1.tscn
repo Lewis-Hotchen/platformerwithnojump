@@ -1,15 +1,15 @@
 [gd_scene load_steps=29 format=3 uid="uid://d34kvhub7r0wd"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart1.cs" id="1_pai2k"]
-[ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/Tiles.tscn" id="2_1y70f"]
-[ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/Exit.tscn" id="3_b4ivo"]
+[ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="2_1y70f"]
+[ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/LevelBuildingBlocks/Exit.tscn" id="3_b4ivo"]
 [ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/UI/InGameLabel.tscn" id="5_h7lek"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="5_wb4bs"]
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="6_uqvkq"]
 [ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="7_fahue"]
 [ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="8_w3ili"]
 [ext_resource type="PackedScene" uid="uid://d1d0v2yux7x8h" path="res://Scenes/Tools/Springboard.tscn" id="9_2hurb"]
-[ext_resource type="PackedScene" uid="uid://ccrirmc42508s" path="res://Scenes/ScreenCamera.tscn" id="10_y3ib7"]
+[ext_resource type="PackedScene" uid="uid://ccrirmc42508s" path="res://Scenes/UI/ScreenCamera.tscn" id="10_y3ib7"]
 
 [sub_resource type="Animation" id="Animation_llhu5"]
 resource_name = "Exit Arrow"
