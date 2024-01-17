@@ -17,9 +17,9 @@ BuildModeComponent = NodePath("BuildModeComponent")
 ToolSelector = NodePath("ToolSelector")
 DeployedToolsComponent = NodePath("DeployedToolsComponent")
 
-[node name="BuildModeComponent" parent="." node_paths=PackedStringArray("ToolSelector") instance=ExtResource("1_27hqd")]
-ToolSelector = NodePath("../ToolSelector")
+[node name="BuildModeComponent" parent="." instance=ExtResource("1_27hqd")]
 
 [node name="ToolSelector" parent="." instance=ExtResource("4_njumo")]
+visible = false
 
 [node name="DeployedToolsComponent" parent="." instance=ExtResource("4_63ey5")]

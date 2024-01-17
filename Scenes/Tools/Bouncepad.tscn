@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlukxcrf1ukf6"]
+
+[ext_resource type="PackedScene" uid="uid://dr38747f1mtht" path="res://Scripts/Components/BodyImpulseComponent.tscn" id="1_0vkr1"]
+[ext_resource type="Script" path="res://Scenes/Tools/Bouncepad.cs" id="1_e0jxj"]
+[ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="3_48kaq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wh6i"]
+size = Vector2(71, 21)
+
+[sub_resource type="Animation" id="Animation_3hbc5"]
+resource_name = "Extend"
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0468883, 0.0947979, 0.147079, 0.211426, 0.243088, 0.279858, 0.349312, 0.418766, 0.443279, 0.556652, 0.779312, 0.840595, 0.915156, 0.999931),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -10), Vector2(0, -20), Vector2(0, -30), Vector2(0, -40), Vector2(0, -42), Vector2(0, -40), Vector2(0, -50), Vector2(0, -52), Vector2(0, -50), Vector2(0, -52), Vector2(0, -52), Vector2(0, -30), Vector2(0, -20), Vector2(0, -10), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lnils"]
+_data = {
+"Extend": SubResource("Animation_3hbc5")
+}
+
+[node name="Bouncepad" type="Node2D"]
+script = ExtResource("1_e0jxj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -71.0
+offset_top = -21.0
+offset_bottom = -1.52588e-05
+color = Color(0.811765, 0.482353, 0.282353, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-35.5, -10.5)
+shape = SubResource("RectangleShape2D_5wh6i")
+
+[node name="BodyImpulseComponent" parent="." instance=ExtResource("1_0vkr1")]
+Force = 1000.0
+Direction = Vector2(0, -1)
+
+[node name="TimerTrackerComponent" parent="." instance=ExtResource("3_48kaq")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lnils")
+}

@@ -11,15 +11,13 @@ public partial class MainGame : Node2D
 	[Export]
 	public string[] Levels { get; set; }
 
-	[Export]
-    public StateTrackerComponent StateTrackerComponent { get; set; }
-
-	[Export]
-    public BuildModeComponent BuildModeComponent { get; set; }
-
+	private StateTracker states;
+	private BuildModeComponent buildModeComponent; 
 
     public override void _Ready()
 	{ 
+		buildModeComponent = GetNode<BuildModeComponent>("UI/HBoxContainer/BuildModeUI/BuildModeComponent");
+		states = GetNode<StateTracker>("/root/StateTracker");
 		CurrentLevelScenePathPointer = 0;
 		currentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
 		GetNode<CanvasLayer>("Game").AddChild(currentLevel);
@@ -36,11 +34,19 @@ public partial class MainGame : Node2D
 		AddChild(currentLevel);
 	}
 
-	public override void _Draw()
+    public override void _Process(double delta)
     {
-		var canvas = GetNode<CanvasLayer>("UI");
-        if(StateTrackerComponent.States["IsBuildMode"]) {
-            Vector2I squareSize = (Vector2I) BuildModeComponent.Snap;
+		if(states.States["IsBuildMode"]){
+			QueueRedraw();
+		}
+
+        base._Process(delta);
+    }
+
+    public override void _Draw()
+    {
+        if(states.States["IsBuildMode"]) {
+            Vector2I squareSize = (Vector2I) buildModeComponent.Snap;
             var rect = GetViewportRect();
 
             for(int col = 0; col <= rect.Size.X; col += squareSize.X) {
@@ -48,7 +54,7 @@ public partial class MainGame : Node2D
             }
 
             for(int row = 0; row <= rect.Size.Y; row += squareSize.Y) {
-                    DrawDashedLine(new Vector2(0, row), new Vector2(rect.Size.X, row), Colors.White, 1);
+                DrawDashedLine(new Vector2(0, row), new Vector2(rect.Size.X, row), Colors.White, 1);
             }
         }
 

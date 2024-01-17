@@ -1,16 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b00o31f1kc2uc"]
+[gd_scene load_steps=3 format=3 uid="uid://b00o31f1kc2uc"]
 
 [ext_resource type="Script" path="res://Scripts/LevelBuildingBlocks/MainGame.cs" id="1_8a0pd"]
 [ext_resource type="PackedScene" uid="uid://brcxb0dfipwg5" path="res://Scenes/UI/BuildModeUI.tscn" id="2_0q522"]
-[ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="4_hdu82"]
 
-[node name="MainGame" type="Node2D" node_paths=PackedStringArray("StateTrackerComponent")]
+[node name="MainGame" type="Node2D"]
 script = ExtResource("1_8a0pd")
 Levels = PackedStringArray("res://Scenes/Levels/Debug.tscn", "res://Scenes/Levels/TutorialPart1.tscn", "res://Scenes/Levels/TutorialPart2.tscn", "res://Scenes/Levels/TutorialPart3.tscn")
-StateTrackerComponent = NodePath("StateTrackerComponent")
-
-[node name="StateTrackerComponent" parent="." instance=ExtResource("4_hdu82")]
-StateNames = PackedStringArray("ToolSelectorOpen", "IsBuildMode")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -38,8 +33,7 @@ offset_bottom = 50.0
 grow_horizontal = 0
 alignment = 1
 
-[node name="BuildModeUI" parent="UI/HBoxContainer" node_paths=PackedStringArray("StateTrackerComponent") instance=ExtResource("2_0q522")]
+[node name="BuildModeUI" parent="UI/HBoxContainer" instance=ExtResource("2_0q522")]
 layout_mode = 2
-StateTrackerComponent = NodePath("../../../StateTrackerComponent")
 
 [connection signal="ToolBuilt" from="UI/HBoxContainer/BuildModeUI" to="." method="OnBuildModeUIToolBuilt"]

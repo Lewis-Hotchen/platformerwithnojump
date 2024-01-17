@@ -8,16 +8,16 @@ public partial class TutorialPart3 : Node2D
     public PlayerKillBoxComponent PlayerKillBox { get; set; }
 
     [Export]
-    public StateTrackerComponent StateTracker { get; set; }
-
-    [Export]
     public ResetLevelComponent ResetLevel {get;set;}
 
     [Export]
     public TimerTrackerComponent Timers {get;set;}
 
+    private StateTracker states;
+
     public override void _Ready()
     {
+        states = GetNode<StateTracker>("/root/StateTracker");
         var killboxDelayTimer = Timers.AddTimer(2, "KillboxDelay");
         var splashScreenTimer = Timers.AddTimer(4, "SplashScreenTimeout");
         PlayerKillBox.OnPlayerFell += PlayerFell;
@@ -29,10 +29,9 @@ public partial class TutorialPart3 : Node2D
     private void SplashScreenTimeout()
     {
         GetNode<Node2D>("Splash").QueueFree();
-        StateTracker.States["HasCompletedTutorial"] = true;
-        StateTracker.States["HasFallen"] = false;
+        states.States["HasCompletedTutorial"] = true;
+        states.States["HasFallen"] = false;
         ResetLevel.ResetLevel();
-
     }
 
     private void FirstTimeTimeout()
@@ -43,11 +42,11 @@ public partial class TutorialPart3 : Node2D
 
     private void PlayerFell(object sender, EventArgs e)
     {
-        if(!StateTracker.States["HasCompletedTutorial"]) {
+        if(!states.States["HasCompletedTutorial"]) {
             Timers.StartTimer("KillboxDelay");
         } else {
             ResetLevel.ResetLevel();
-            StateTracker.States["HasFallen"] = false;
+            states.States["HasFallen"] = false;
         }
     }
 }

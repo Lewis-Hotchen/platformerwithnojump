@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cdjrhfy4clb8"]
+[gd_scene load_steps=16 format=3 uid="uid://cdjrhfy4clb8"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart3.cs" id="1_wchyx"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="3_o3dnp"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/UI/InGameLabel.tscn" id="5_cnj2s"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="5_rgvdd"]
 [ext_resource type="PackedScene" uid="uid://bemn7318ginyx" path="res://Scenes/Components/PlayerKillBoxComponent.tscn" id="6_xggxr"]
-[ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="7_bwp11"]
 [ext_resource type="PackedScene" uid="uid://cetle8nppygjd" path="res://Scenes/Components/ResetLevelComponent.tscn" id="8_g0u55"]
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="9_ykn1u"]
 [ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="10_yj8me"]
@@ -29,10 +28,9 @@ size = Vector2(60, 12)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4wss3"]
 size = Vector2(12, 84)
 
-[node name="TutorialPart3" type="Node2D" node_paths=PackedStringArray("PlayerKillBox", "StateTracker", "ResetLevel", "Timers")]
+[node name="TutorialPart3" type="Node2D" node_paths=PackedStringArray("PlayerKillBox", "ResetLevel", "Timers")]
 script = ExtResource("1_wchyx")
 PlayerKillBox = NodePath("PlayerKillBoxComponent")
-StateTracker = NodePath("StateTrackerComponent")
 ResetLevel = NodePath("ResetLevelComponent")
 Timers = NodePath("TimerTrackerComponent")
 
@@ -52,17 +50,13 @@ Text = "Press Space to jump"
 [node name="Player" parent="." instance=ExtResource("5_rgvdd")]
 position = Vector2(48, 84)
 
-[node name="PlayerKillBoxComponent" parent="." node_paths=PackedStringArray("Player", "StateTracker") instance=ExtResource("6_xggxr")]
+[node name="PlayerKillBoxComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("6_xggxr")]
 Player = NodePath("../Player")
 KillFloorY = 120.0
-StateTracker = NodePath("../StateTrackerComponent")
-
-[node name="StateTrackerComponent" parent="." instance=ExtResource("7_bwp11")]
-StateNames = PackedStringArray("HasCompletedTutorial", "HasFallen")
 
 [node name="ResetLevelComponent" parent="." node_paths=PackedStringArray("StateTracker", "Player") instance=ExtResource("8_g0u55")]
 position = Vector2(1, 0)
-StateTracker = NodePath("../StateTrackerComponent")
+StateTracker = NodePath("")
 Player = NodePath("../Player")
 StartPosition = Vector2(24, 42)
 

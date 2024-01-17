@@ -3,13 +3,13 @@ namespace PlatformerWithNoJump;
 
 public partial class TutorialPart1 : Node2D
 {
-    [Export]
-    public StateTrackerComponent StateTracker { get; set; }
     public override void _Ready()
     {
         GetNode<Timer>("MoveTimer").Timeout += OnMoveTimeout;
         base._Ready();
     }
+
+    private StateTracker states;
 
     private void OnMoveTimeout()
     {
@@ -19,10 +19,10 @@ public partial class TutorialPart1 : Node2D
 
     public override void _Process(double delta)
     {
-        if(Input.IsActionJustPressed("ui_right") || Input.IsActionJustPressed("ui_left")) {
-            if(!StateTracker.States["DidMove"]) {
+        if(Input.IsActionJustPressed("right") || Input.IsActionJustPressed("left")) {
+            if(!states.States["DidMove"]) {
                 GetNode<Timer>("MoveTimer").Start();
-                StateTracker.States["DidMove"] = true;
+                states.States["DidMove"] = true;
             }     
         }
 

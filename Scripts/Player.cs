@@ -9,6 +9,9 @@ public partial class Player : RigidBody2D
     public float Force { get; set; } = 3000f;
 
     [Export]
+    public StateTrackerComponent StateTrackerComponent { get; set; }
+
+    [Export]
     public float InAirMovementReduction { get; set;} = 4f;
 
     [Export]
@@ -50,10 +53,10 @@ public partial class Player : RigidBody2D
             forceToApply /= InAirMovementReduction;
         }
 
-        if(Input.IsActionPressed("ui_left")) {
+        if(Input.IsActionPressed("left")) {
             direction = Vector2.Left;
             offset = new Vector2(0, 6);
-        } else if(Input.IsActionPressed("ui_right")) {
+        } else if(Input.IsActionPressed("right")) {
              direction = Vector2.Right;
              offset = new Vector2(12, 6);
         }

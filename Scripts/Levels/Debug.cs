@@ -6,11 +6,6 @@ public partial class Debug : Node2D, ILevel
     [Export]
     public ScreenCamera Camera { get; set; }
     
-    [Export]
-    public TileMap TileMap { get; set; }
-
-    [Export]
-    public DeployedToolsComponent DeployedTools { get; set; }
 
     public override void _Ready()
     {

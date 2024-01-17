@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d34kvhub7r0wd"]
+[gd_scene load_steps=28 format=3 uid="uid://d34kvhub7r0wd"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart1.cs" id="1_pai2k"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="2_1y70f"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/UI/InGameLabel.tscn" id="5_h7lek"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="5_wb4bs"]
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="6_uqvkq"]
-[ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="7_fahue"]
 [ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="8_w3ili"]
 [ext_resource type="PackedScene" uid="uid://d1d0v2yux7x8h" path="res://Scenes/Tools/Springboard.tscn" id="9_2hurb"]
 [ext_resource type="PackedScene" uid="uid://ccrirmc42508s" path="res://Scenes/UI/ScreenCamera.tscn" id="10_y3ib7"]
@@ -116,9 +115,8 @@ size = Vector2(59, 85)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fy2iy"]
 size = Vector2(32, 16)
 
-[node name="TutorialPart1" type="Node2D" node_paths=PackedStringArray("StateTracker")]
+[node name="TutorialPart1" type="Node2D"]
 script = ExtResource("1_pai2k")
-StateTracker = NodePath("StateTrackerComponent")
 
 [node name="Tiles" parent="." instance=ExtResource("2_1y70f")]
 rendering_quadrant_size = 16
@@ -145,7 +143,7 @@ offset_left = 184.0
 offset_top = 96.0
 offset_right = 230.0
 offset_bottom = 120.0
-Text = "Exit --"
+Text = "Exit "
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -161,9 +159,6 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/Blend2/blend_amount = 0.5
 
 [node name="NextLevelComponent" parent="." instance=ExtResource("6_uqvkq")]
-
-[node name="StateTrackerComponent" parent="." instance=ExtResource("7_fahue")]
-StateNames = PackedStringArray("DidMove")
 
 [node name="Player" parent="." instance=ExtResource("5_wb4bs")]
 position = Vector2(43, 147)

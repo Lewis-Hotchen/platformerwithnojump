@@ -1,14 +1,15 @@
 using System;
+using Godot;
 namespace PlatformerWithNoJump;
 
 public class ToolSelectedEventArgs : EventArgs
 {
-    public ToolSelectedEventArgs(string scenePath, ITool tool)
+    public ToolSelectedEventArgs(Control preview, Tools tool)
     {
-        ScenePath = scenePath;
+        ToolPreview = preview;
         Tool = tool;
     }
 
-    public string ScenePath { get; }
-    public ITool Tool { get; }
+    public Tools Tool { get; }
+    public Control ToolPreview { get; }
 }
