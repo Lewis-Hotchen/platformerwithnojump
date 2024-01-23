@@ -5,9 +5,9 @@ namespace PlatformerWithNoJump;
 public partial class BuildModeComponent : Node2D
 {
     [Export]
-    public Control DefaultToolPreview { get; set; }
+    public Node2D DefaultToolPreview { get; set; }
 
-    public Control Preview { get; set; }
+    public Node2D Preview { get; set; }
 
     public Tools ToolSelected { get; set; }
 
@@ -29,9 +29,9 @@ public partial class BuildModeComponent : Node2D
         base._Ready();
     }
 
-    public void StartBuild(Control toolPreivew, Tools tool)
+    public void StartBuild(Node2D toolPreivew)
     {
-        Preview = (Control)toolPreivew.Duplicate();
+        Preview = (Node2D) toolPreivew.Duplicate();
         states.States["IsBuildMode"] = true;
     }
 
@@ -75,6 +75,8 @@ public partial class BuildModeComponent : Node2D
                     isShapeColliding = true;
                 }
             }
+        } else if(!states.States["IsBuildMode"] && Node2D.IsInstanceValid(Preview)) {
+            Preview.QueueFree();
         }
 
         base._Process(delta);
@@ -96,17 +98,18 @@ public partial class BuildModeComponent : Node2D
 
     private static Vector2 GetCentreofScreen()
     {
-        return new Vector2(640, 340);
+        return new Vector2(1280/2,680/2);
     }
 
     private void LockIn()
     {
-        var newTool = SceneManager.LoadScene<Node2D>("res://scenes/tools/Springboard.tscn"); // Replace with enum logic to pair up enum with tool scene.
+        var tool = Preview.GetNode<ToolComponent>("ToolComponent").ToolType;
+        var newTool = SceneManager.LoadScene<Node2D>($"res://scenes/tools/{tool}.tscn"); // Replace with enum logic to pair up enum with tool scene.
         ToolBuilt?.Invoke(this, new ToolBuiltEventArgs(newTool, Preview.GlobalPosition));
         Preview.QueueFree();
     }
 
-    private static bool IsInBounds(Control tool)
+    private static bool IsInBounds(Node2D tool)
     {
        return true;
     }

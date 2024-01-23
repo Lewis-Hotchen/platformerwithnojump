@@ -9,9 +9,6 @@ public partial class Player : RigidBody2D
     public float Force { get; set; } = 3000f;
 
     [Export]
-    public StateTrackerComponent StateTrackerComponent { get; set; }
-
-    [Export]
     public float InAirMovementReduction { get; set;} = 4f;
 
     [Export]
@@ -27,6 +24,8 @@ public partial class Player : RigidBody2D
 
     public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
 
+    private StateTracker stateTracker;
+
     public override void _Ready()
     {
         GroundCasts = new()
@@ -36,6 +35,7 @@ public partial class Player : RigidBody2D
             GetNode<RayCast2D>("IsOnGround3"),
         };
 
+        stateTracker = GetNode<StateTracker>("/root/StateTracker");
         GetNode<ColorRect>("ColorRect").Color = Colors.White;
 
         base._Ready();
@@ -43,6 +43,10 @@ public partial class Player : RigidBody2D
 
     public override void _IntegrateForces(PhysicsDirectBodyState2D state)
     {
+        if(stateTracker.States["IsBuildMode"]) {
+            return;
+        }
+
         var direction = Vector2.Zero;
         var offset = Vector2.Zero;
         var forceToApply = Force;
@@ -50,7 +54,7 @@ public partial class Player : RigidBody2D
         GravityScale = IsOnFloor ? GravityFloorReduction : DefaultGravity;
 
         if(!IsOnFloor) {
-            forceToApply /= InAirMovementReduction;
+            forceToApply *= InAirMovementReduction;
         }
 
         if(Input.IsActionPressed("left")) {

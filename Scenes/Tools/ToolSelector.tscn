@@ -1,33 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://clgnhxvd0vuci"]
+[gd_scene load_steps=8 format=3 uid="uid://clgnhxvd0vuci"]
 
 [ext_resource type="Script" path="res://Scripts/Tools/ToolSelector.cs" id="1_w8hbm"]
-[ext_resource type="PackedScene" uid="uid://d1d0v2yux7x8h" path="res://Scenes/Tools/Springboard.tscn" id="2_3t48v"]
+[ext_resource type="PackedScene" uid="uid://d1d0v2yux7x8h" path="res://Scenes/Tools/AFP.tscn" id="2_re0j8"]
+[ext_resource type="Theme" uid="uid://b1p7nnt8jkew" path="res://Resources/Theme.tres" id="3_liuca"]
+[ext_resource type="Texture2D" uid="uid://dq45robum8p43" path="res://Assets/PWNJ-transparent.png" id="3_yag5w"]
+[ext_resource type="PackedScene" uid="uid://dlukxcrf1ukf6" path="res://Scenes/Tools/Spring.tscn" id="5_j4lgv"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjcj3"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
+[sub_resource type="AtlasTexture" id="AtlasTexture_attth"]
+atlas = ExtResource("3_yag5w")
+region = Rect2(0, 146, 32, 32)
 
-[node name="ToolSelector" type="Node2D" node_paths=PackedStringArray("Springboard")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sbods"]
+
+[node name="ToolSelector" type="Node2D" node_paths=PackedStringArray("AFP", "Spring", "ToolsList", "Selector")]
 process_mode = 3
 script = ExtResource("1_w8hbm")
-Springboard = NodePath("Springboard")
+AFP = NodePath("AFP")
+Spring = NodePath("Spring")
+ToolsList = NodePath("ToolsList")
+Selector = NodePath("Selector")
 
-[node name="Container" type="AspectRatioContainer" parent="."]
-offset_right = 48.0
-offset_bottom = 48.0
-
-[node name="SelectorContainer" type="PanelContainer" parent="Container"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yjcj3")
-
-[node name="Springboard" parent="." instance=ExtResource("2_3t48v")]
+[node name="AFP" parent="." instance=ExtResource("2_re0j8")]
 visible = false
-position = Vector2(40, 23.3333)
+position = Vector2(3, 24)
+
+[node name="Selector" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_attth")
+centered = false
+region_rect = Rect2(0, 146, 32, 32)
+
+[node name="ToolsList" type="ItemList" parent="."]
+offset_right = 233.0
+offset_bottom = 468.0
+mouse_filter = 2
+theme = ExtResource("3_liuca")
+theme_override_constants/v_separation = 40
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sbods")
+select_mode = 1
+allow_search = false
+max_text_lines = 2
+auto_height = true
+text_overrun_behavior = 2
+same_column_width = true
+fixed_column_width = 64
+icon_mode = 0
+
+[node name="Spring" parent="." instance=ExtResource("5_j4lgv")]
+visible = false
+position = Vector2(16, 18)

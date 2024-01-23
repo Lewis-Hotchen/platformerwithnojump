@@ -10,7 +10,6 @@ public partial class StateTracker : Node
     {
         States = new Dictionary<string, bool> {
             {"IsBuildMode", false },
-            {"ToolSelectorOpen", false},
             {"FirstTimeBuild", false},
             {"DidMove", false},
             {"HasFallen", false},

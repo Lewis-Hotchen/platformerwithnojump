@@ -11,9 +11,10 @@ Levels = PackedStringArray("res://Scenes/Levels/Debug.tscn", "res://Scenes/Level
 z_index = -1
 offset_left = -265.0
 offset_top = -165.0
-offset_right = 11.0
-offset_bottom = 86.0
+offset_right = -40.0
+offset_bottom = 37.0
 scale = Vector2(7.48497, 4.56)
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Game" type="CanvasLayer" parent="."]
@@ -26,11 +27,12 @@ follow_viewport_enabled = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -79.0
-offset_top = 10.0
-offset_right = -39.0
-offset_bottom = 50.0
+offset_left = -160.0
+offset_top = 69.0
+offset_right = -18.0
+offset_bottom = 165.0
 grow_horizontal = 0
+size_flags_vertical = 6
 alignment = 1
 
 [node name="BuildModeUI" parent="UI/HBoxContainer" instance=ExtResource("2_0q522")]

@@ -1,7 +1,7 @@
 using Godot;
 namespace PlatformerWithNoJump;
 
-public partial class Bouncepad : Node2D, ITool
+public partial class Spring : Node2D
 {
     [Export]
     public TimerTrackerComponent TimeTracker { get; set; }
@@ -9,10 +9,10 @@ public partial class Bouncepad : Node2D, ITool
     [Export]
     public BodyImpulseComponent BodyImpulseComponent { get; set; }
 
-    public Tools ToolType => Tools.Bouncepad;
+    [Export]
+    public ToolComponent Tool { get; set; }
 
-    public bool IsPlaceable => true;
-
+    public Tools ToolType = Tools.Spring;
 
     public override void _Ready()
     {

@@ -7,7 +7,7 @@ public partial class BuildModeUI : Control
     public BuildModeComponent BuildModeComponent { get; set; }
 
     [Signal]
-    public delegate void ToolBuiltEventHandler(Node2D tool);
+    public delegate void ToolBuiltEventHandler(Node2D tool, Vector2 globalPosition);
 
     [Export]
     public ToolSelector ToolSelector { get; set; }
@@ -27,18 +27,17 @@ public partial class BuildModeUI : Control
     private void OnToolBuilt(object sender, ToolBuiltEventArgs e)
     {
         DeployedToolsComponent.Add(e.ToolBuilt);
-        e.ToolBuilt.GlobalPosition = e.GlobalPos;
-        EmitSignal(SignalName.ToolBuilt, e.ToolBuilt);
+        EmitSignal(SignalName.ToolBuilt, e.ToolBuilt, e.GlobalPos);
     }
 
     public override void _Process(double delta)
     {
-        if(Input.IsActionJustPressed("build_mode")) {
-            states.States["ToolSelectorOpen"] = !states.States["ToolSelectorOpen"];
-            ToolSelector.Visible = states.States["ToolSelectorOpen"];
-            if(states.States["ToolSelectorOpen"] && !states.States["IsBuildMode"]) {
-                BuildModeComponent.StartBuild(ToolSelector.Preview, ToolSelector.SelectedToolType);
-            }
+        if(Input.IsActionJustPressed("build_mode") && !states.States["IsBuildMode"]) {
+            // if(states.States["ToolSelectorOpen"] && !states.States["IsBuildMode"]) {
+            BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
+            // }
+        } else if(Input.IsActionJustPressed("build_mode") && states.States["IsBuildMode"]) {
+            states.States["IsBuildMode"] = false;
         }
 
         base._Process(delta);

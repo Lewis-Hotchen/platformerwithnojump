@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cuxg3aqp3utta"]
+[gd_scene load_steps=26 format=3 uid="uid://cuxg3aqp3utta"]
 
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="1_t8xg3"]
 [ext_resource type="Script" path="res://Scripts/Levels/Debug.cs" id="1_we6lp"]
@@ -6,81 +6,73 @@
 [ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="4_ydfgd"]
 [ext_resource type="PackedScene" uid="uid://ccrirmc42508s" path="res://Scenes/UI/ScreenCamera.tscn" id="5_q40uq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2niqc"]
-size = Vector2(16, 224)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlq5y"]
+size = Vector2(32, 448)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2je3n"]
-size = Vector2(16, 48)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xkyr"]
+size = Vector2(32, 96)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tpu7t"]
-size = Vector2(96, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x22nw"]
+size = Vector2(192, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ln6o0"]
-size = Vector2(88.9944, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8sw3k"]
+size = Vector2(160, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8h3iw"]
-size = Vector2(112, 15)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pr7hl"]
+size = Vector2(32, 192)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_smql3"]
-size = Vector2(32, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3a23"]
+size = Vector2(224, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfuxg"]
-size = Vector2(16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mhm3v"]
+size = Vector2(64, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l1ri8"]
-size = Vector2(127.5, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00rfw"]
+size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gvav0"]
-size = Vector2(640, 32)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ktge1"]
+size = Vector2(1184, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7w2qw"]
-size = Vector2(640, 48)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_47nlq"]
+size = Vector2(1184, 96)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqmfc"]
-size = Vector2(128, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adpd1"]
+size = Vector2(256, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uebro"]
-size = Vector2(16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0bfup"]
+size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iu0c8"]
-size = Vector2(32, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_my5ic"]
+size = Vector2(64, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_36yge"]
-size = Vector2(176, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx22y"]
+size = Vector2(256, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jphtx"]
-size = Vector2(144, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwjtj"]
+size = Vector2(192, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbb4p"]
-size = Vector2(128, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0l866"]
+size = Vector2(160, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bi4x5"]
-size = Vector2(112, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i7joi"]
+size = Vector2(128, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_78rff"]
-size = Vector2(96, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jv5b5"]
+size = Vector2(96, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nckcw"]
-size = Vector2(80, 112)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5ffw"]
+size = Vector2(64, 224)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l65cf"]
-size = Vector2(80, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnctw"]
-size = Vector2(96, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eance"]
-size = Vector2(64, 16.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_curk8"]
-size = Vector2(32, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pm5xt"]
+size = Vector2(64, 192)
 
 [node name="Debug" type="Node2D" node_paths=PackedStringArray("Camera")]
 script = ExtResource("1_we6lp")
 Camera = NodePath("Camera")
 
 [node name="Tiles" parent="." instance=ExtResource("1_t8xg3")]
-layer_0/tile_data = PackedInt32Array(1245184, 458752, 2, 1245185, 458752, 2, 1245186, 458752, 2, 1245187, 458752, 2, 1245188, 458752, 2, 1245189, 458752, 2, 1245190, 458752, 2, 1245191, 458752, 2, 1245192, 458752, 2, 1245193, 458752, 2, 1245203, 458752, 2, 1245204, 458752, 2, 1245205, 458752, 2, 1245209, 458752, 2, 1245210, 458752, 2, 1245211, 458752, 2, 1245212, 458752, 2, 1245213, 458752, 2, 1245214, 458752, 2, 1245215, 458752, 2, 1245216, 458752, 2, 1245217, 458752, 2, 1245218, 458752, 2, 1245219, 458752, 2, 1245220, 458752, 2, 1245202, 458752, 2, 1245201, 458752, 2, 1245200, 458752, 2, 1245199, 458752, 2, 1245198, 458752, 2, 1245197, 458752, 2, 1245196, 458752, 2, 1245195, 458752, 2, 1245194, 458752, 2, 1179648, 327680, 5, 1114112, 327680, 5, 1048576, 327680, 5, 983040, 327680, 5, 917504, 327680, 5, 851968, 327680, 5, 786432, 327680, 5, 720896, 327680, 5, 655360, 327680, 5, 589824, 327680, 5, 524288, 327680, 5, 458752, 327680, 5, 393216, 327680, 5, 327680, 327680, 5, 262144, 327680, 5, 196608, 327680, 5, 131072, 327680, 5, 65536, 327680, 5, 0, 327680, 5, 1179684, 327680, 5, 1114148, 327680, 5, 1048612, 327680, 5, 196644, 524288, 2, 131108, 524288, 2, 36, 524288, 2, 262180, 524288, 2, 327716, 524288, 2, 393252, 524288, 2, 458788, 327680, 5, -65500, 327680, 5, -65536, 327680, 5, -65535, 458752, 2, -65534, 458752, 2, -65533, 458752, 2, -65532, 458752, 2, -65531, 458752, 2, -65530, 458752, 2, -65529, 458752, 2, -65528, 458752, 2, -65527, 458752, 2, -65526, 458752, 2, -65525, 458752, 2, -65520, 458752, 2, -65519, 458752, 2, -65518, 458752, 2, -65517, 458752, 2, -65516, 458752, 2, -65515, 458752, 2, -65514, 458752, 2, -65513, 458752, 2, -65512, 458752, 2, -65511, 458752, 2, -65510, 458752, 2, -65509, 458752, 2, -65508, 458752, 2, -65507, 458752, 2, -65506, 458752, 2, -65505, 458752, 2, -65504, 458752, 2, -65503, 458752, 2, -65502, 458752, 2, -65501, 327680, 5, 524324, 327680, 5, 589860, 327680, 5, 655396, 327680, 5, 720932, 327680, 5, 786468, 327680, 5, 852004, 327680, 5, 917540, 327680, 5, 983076, 327680, 5, 1179683, 327680, 5, 1114147, 327680, 5, 1048611, 327680, 5, 983075, 327680, 5, 720931, 327680, 5, 655395, 327680, 5, 786467, 327680, 5, 852003, 327680, 5, 917539, 327680, 5, 589859, 327680, 5, 524323, 327680, 5, 458787, 327680, 5, 393251, 327680, 5, 327715, 327680, 5, 262179, 327680, 5, 196643, 327680, 5, 131107, 327680, 5, 35, 327680, 5, -65524, 458752, 2, -65523, 458752, 2, -65522, 458752, 2, -65521, 458752, 2, 1, 458752, 2, 2, 458752, 2, 3, 458752, 2, 4, 458752, 2, 5, 458752, 2, 6, 458752, 2, 7, 458752, 2, 8, 458752, 2, 9, 458752, 2, 10, 458752, 2, 11, 458752, 2, 12, 458752, 2, 13, 458752, 2, 19, 458752, 2, 20, 458752, 2, 21, 458752, 2, 22, 458752, 2, 23, 458752, 2, 24, 458752, 2, 25, 458752, 2, 26, 458752, 2, 27, 458752, 2, 28, 458752, 2, 29, 458752, 2, 30, 458752, 2, 31, 458752, 2, 32, 458752, 2, 33, 458752, 2, 34, 458752, 2, 18, 458752, 2, 17, 458752, 2, 16, 458752, 2, 15, 458752, 2, 14, 458752, 2, 65571, 327680, 5, 65572, 524288, 2, 1245207, 458752, 2, 1245208, 458752, 2, 1245206, 458752, 2, 1310720, 524288, 2, 1310721, 524288, 2, 1310722, 524288, 2, 1310723, 524288, 2, 1310724, 524288, 2, 1310725, 524288, 2, 1310726, 524288, 2, 1310727, 524288, 2, 1310728, 524288, 2, 1310729, 524288, 2, 1310730, 524288, 2, 1310731, 524288, 2, 1310732, 524288, 2, 1310733, 524288, 2, 1310734, 524288, 2, 1310735, 524288, 2, 1310736, 524288, 2, 1310737, 524288, 2, 1310738, 524288, 2, 1310739, 524288, 2, 1310740, 524288, 2, 1310741, 524288, 2, 1310742, 524288, 2, 1310743, 524288, 2, 1310744, 524288, 2, 1310745, 524288, 2, 1310746, 524288, 2, 1310747, 524288, 2, 1310748, 524288, 2, 1310749, 524288, 2, 1310750, 524288, 2, 1310751, 524288, 2, 1310752, 524288, 2, 1310753, 524288, 2, 1310754, 524288, 2, 1310755, 524288, 2, 1310756, 524288, 2, 1310757, 524288, 2, 1245221, 524288, 2, 1179685, 524288, 2, 1114149, 524288, 2, 917541, 524288, 2, 852005, 524288, 2, 786469, 524288, 2, 720933, 524288, 2, 655397, 524288, 2, 589861, 524288, 2, 37, 524288, 2, -65499, 524288, 2, 65573, 524288, 2, 131109, 524288, 2, 1376293, 524288, 2, 1376292, 524288, 2, 1376291, 524288, 2, 1376290, 524288, 2, 1376289, 524288, 2, 1376288, 524288, 2, 1376287, 524288, 2, 1376286, 524288, 2, 1376285, 524288, 2, 1376284, 524288, 2, 1376283, 524288, 2, 1376282, 524288, 2, 1376281, 524288, 2, 1376280, 524288, 2, 1376271, 524288, 2, 1376276, 524288, 2, 1376277, 524288, 2, 1376278, 524288, 2, 1376279, 524288, 2, 1376275, 524288, 2, 1376274, 524288, 2, 1376273, 524288, 2, 1376272, 524288, 2, 1376270, 524288, 2, 1376269, 524288, 2, 1376268, 524288, 2, 1376267, 524288, 2, 1376266, 524288, 2, 1376265, 524288, 2, 1376264, 524288, 2, 1376263, 524288, 2, 1376262, 524288, 2, 1376261, 524288, 2, 1376260, 524288, 2, 1376259, 524288, 2, 1376258, 524288, 2, 1376257, 524288, 2, 1376256, 524288, 2, 983041, 131072, 5, 983042, 131072, 5, 983043, 131072, 5, 983044, 131072, 5, 983045, 65536, 4, 1179663, 458752, 2, 1179664, 458752, 2, 1179665, 458752, 2, 1114128, 458752, 2, 1114129, 458752, 2, 1048593, 458752, 2, 524322, 458752, 2, 524321, 458752, 2, 524320, 458752, 2, 524319, 458752, 2, 524318, 458752, 2, 524317, 458752, 2, 262162, 458752, 2, 262163, 458752, 2, 262164, 458752, 2, 262165, 458752, 2, 262166, 458752, 2, 262167, 458752, 2, 393220, 458752, 2, 393221, 458752, 2, 393222, 458752, 2, 393223, 458752, 2, 393224, 458752, 2, 65548, 458752, 2, 131084, 458752, 2, 196620, 458752, 2, 262156, 458752, 2, 327692, 458752, 2, 393228, 458752, 2, 458764, 131072, 3, 524300, 131072, 3, 589836, 131072, 3, 655372, 131072, 3, 720908, 65536, 2, 720907, 65536, 2, 720906, 65536, 2, 720909, 65536, 2, 720910, 65536, 2, 720911, 65536, 2, 720905, 65536, 2, 1179679, 458752, 2, 1179680, 458752, 2, 1114144, 458752, 2, 1114145, 458752, 2, 1048609, 458752, 2, 1048610, 458752, 2, 983074, 458752, 2, 1114146, 458752, 2, 1179682, 458752, 2, 1179681, 458752, 2, 1114130, 458752, 2, 1179666, 458752, 2, 1048594, 458752, 2, 983058, 458752, 2, 983059, 458752, 2, 1048595, 458752, 2, 1048596, 458752, 2, 1114132, 458752, 2, 1179668, 458752, 2, 1179667, 458752, 2, 1114131, 458752, 2, 1179669, 458752, 2, 1114133, 458752, 2, 1179670, 458752, 2, 262168, 262144, 2, 262161, 262144, 2, 327697, 262144, 2, 393233, 262144, 2, 393232, 262144, 2, 327704, 262144, 2, 393240, 262144, 2, 393241, 262144, 2, 983077, 524288, 2, 1048613, 524288, 2, 196645, 524288, 2, 262181, 524288, 2, 327717, 524288, 2, 393253, 524288, 2, 458789, 524288, 2, 524325, 524288, 2)
+visibility_layer = 2
+layer_0/tile_data = PackedInt32Array(1245193, 196609, 2, 1245205, 196609, 2, 1245209, 196609, 2, 1245210, 196609, 2, 1245211, 196609, 2, 1245212, 196609, 2, 1245213, 196609, 2, 1245214, 196609, 2, 1245215, 196609, 2, 1245216, 196609, 2, 1245217, 196609, 2, 1245218, 196609, 2, 1245219, 196609, 2, 1245198, 196609, 2, 1245197, 196609, 2, 1245196, 196609, 2, 1245195, 196609, 2, 1245194, 196609, 2, 196644, 196609, 1610612738, 131108, 196609, 1610612738, 262180, 196609, 1610612738, 327716, 196609, 1610612738, 393252, 196609, 1610612738, 458788, 196609, 1610612738, -65500, 196609, 2, -65535, 65537, 2, -65534, 65537, 2, -65533, 65537, 2, -65532, 65537, 2, -65531, 131073, 2, -65530, 131073, 2, -65529, 131073, 2, -65528, 131073, 2, -65527, 131073, 2, -65526, 131073, 2, -65525, 131073, 2, -65520, 65537, 2, -65519, 65537, 2, -65518, 196609, 2, -65517, 196609, 2, -65516, 196609, 2, -65515, 196609, 2, -65514, 196609, 2, -65513, 196609, 2, -65512, 65537, 2, -65511, 65537, 2, -65510, 65537, 2, -65509, 65537, 2, -65508, 131073, 2, -65507, 131073, 2, -65506, 131073, 2, -65505, 196609, 2, -65504, 196609, 2, -65503, 196609, 2, -65502, 196609, 2, -65501, 196609, 2, 524324, 196609, 1610612738, 589860, 196609, 1610612738, 655396, 196609, 1610612738, 720932, 196609, 1610612738, 786468, 196609, 1610612738, 852004, 196609, 1610612738, 917540, 196609, 1610612738, 983076, 196609, 1610612738, 1179683, 196609, 3, 1114147, 196609, 3, 1048611, 196609, 3, 983075, 131073, 2, 720931, 196609, 1610612738, 655395, 196609, 1610612738, 786467, 196609, 1610612738, 852003, 196609, 1610612738, 917539, 196609, 1610612738, 589859, 196609, 1610612738, 524323, 196609, 1610612738, 458787, 196609, 1610612738, 393251, 196609, 1610612738, 327715, 196609, 1610612738, 262179, 196609, 1610612738, 196643, 196609, 1610612738, 131107, 196609, 1610612738, 35, 131073, 805306370, -65524, 65537, 2, -65523, 65537, 2, -65522, 65537, 2, -65521, 65537, 2, 1, 131073, 805306370, 2, 131073, 805306370, 3, 131073, 805306370, 4, 131073, 805306370, 5, 131073, 805306370, 6, 131073, 805306370, 7, 131073, 805306370, 8, 131073, 805306370, 9, 131073, 805306370, 10, 131073, 805306370, 11, 131073, 805306370, 12, 131073, 805306370, 13, 131073, 805306370, 19, 131073, 805306370, 20, 131073, 805306370, 21, 131073, 805306370, 22, 131073, 805306370, 23, 131073, 805306370, 24, 131073, 805306370, 25, 131073, 805306370, 26, 131073, 805306370, 27, 131073, 805306370, 28, 131073, 805306370, 29, 131073, 805306370, 30, 131073, 805306370, 31, 131073, 805306370, 32, 131073, 805306370, 33, 131073, 805306370, 34, 131073, 805306370, 18, 131073, 805306370, 17, 131073, 805306370, 16, 131073, 805306370, 15, 131073, 805306370, 14, 131073, 805306370, 65571, 196609, 1610612738, 65572, 196609, 1610612738, 1245207, 196609, 2, 1245208, 196609, 2, 1245206, 196609, 2, 1310727, 262145, 2, 1310729, 262145, 2, 1310730, 262145, 2, 1310731, 262145, 2, 1310732, 262145, 2, 1310733, 262145, 2, 1310734, 262145, 2, 1310735, 262145, 2, 1310736, 262145, 2, 1310737, 262145, 2, 1310738, 262145, 2, 1310739, 262145, 2, 1310740, 262145, 2, 1310741, 262145, 2, 1310742, 262145, 2, 1310743, 262145, 2, 1310744, 262145, 2, 1310745, 262145, 2, 1310746, 262145, 2, 1310752, 262145, 2, 1310753, 262145, 2, 1310754, 262145, 2, 1310755, 262145, 2, 1310756, 262145, 2, 1376292, 1, 805306370, 1376291, 1, 805306370, 1376290, 1, 805306370, 1376289, 1, 805306370, 1376288, 1, 805306370, 1376287, 1, 805306370, 1376286, 1, 805306370, 1376285, 1, 805306370, 1376284, 1, 805306370, 1376283, 1, 805306370, 1376282, 1, 805306370, 1376281, 1, 805306370, 1376280, 1, 805306370, 1376271, 1, 805306370, 1376276, 1, 805306370, 1376277, 1, 805306370, 1376278, 1, 805306370, 1376279, 1, 805306370, 1376275, 1, 805306370, 1376274, 1, 805306370, 1376273, 1, 805306370, 1376272, 1, 805306370, 1376270, 1, 805306370, 1376269, 1, 805306370, 1376262, 1, 805306370, 983041, 1, 2, 983042, 1, 2, 983043, 1, 2, 983044, 1, 2, 983045, 65537, 3, 1179663, 1, 3, 1179664, 1, 805306370, 1179665, 1, 805306370, 1114128, 1, 3, 1114129, 1, 805306370, 1048593, 1, 3, 524322, 196609, 2, 524321, 196609, 2, 524320, 196609, 2, 524319, 196609, 2, 524318, 196609, 2, 524317, 196609, 2, 262162, 196609, 2, 262163, 196609, 2, 262164, 196609, 2, 262165, 196609, 2, 262166, 196609, 2, 262167, 196609, 2, 393220, 196609, 2, 393221, 196609, 2, 393222, 196609, 2, 393223, 196609, 2, 393224, 196609, 2, 720908, 1, 2, 720907, 1, 2, 720906, 1, 2, 720909, 1, 2, 720910, 1, 2, 720911, 1, 2, 720905, 1, 2, 1179679, 1, 3, 1114144, 1, 3, 1114145, 196609, 3, 1048609, 1, 3, 1048610, 196609, 3, 983074, 1, 3, 1114146, 196609, 3, 1179682, 196609, 3, 1179681, 196609, 3, 1114130, 1, 805306370, 1179666, 1, 805306370, 983058, 65537, 1610612739, 983059, 65537, 3, 1048596, 65537, 3, 1114132, 1, 805306370, 1179668, 1, 805306370, 1179667, 1, 805306370, 1114131, 1, 805306370, 1179669, 1, 805306370, 1114133, 65537, 3, 1179670, 65537, 3, 262168, 196609, 2, 262161, 196609, 2, 327697, 196609, 2, 393233, 196609, 2, 393232, 196609, 2, 327704, 196609, 2, 393240, 196609, 2, 393241, 196609, 2, 1048594, 1, 805306370, 1048595, 1, 805306370, 1245199, 196609, 2, 1245200, 196609, 2, 1245201, 196609, 2, 1245202, 196609, 2, 1245203, 196609, 2, 1245204, 196609, 2, 1310751, 262145, 2, 1310750, 262145, 2, 1310749, 262145, 2, 1310748, 262145, 2, 1310747, 262145, 2, 65548, 131073, 1610612738, 131084, 131073, 1610612738, 196620, 131073, 1610612738, 262156, 131073, 1610612738, 327692, 131073, 1610612738, 393228, 131073, 1610612738, 36, 1, 805306371, 1179680, 196609, 3, -65536, 1, 3, 0, 196609, 1610612738, 65536, 196609, 1610612738, 131072, 196609, 1610612738, 196608, 196609, 1610612738, 262144, 196609, 1610612738, 327680, 65537, 1610612738, 393216, 65537, 1610612738, 458752, 65537, 1610612738, 524288, 65537, 1610612738, 1048576, 1, 1610612738, 1114112, 1, 1610612738, 1179648, 1, 1610612738, 983040, 1, 1610612738, 917504, 1, 1610612738, 851968, 1, 1610612738, 786432, 65537, 1610612738, 720896, 65537, 1610612738, 655360, 65537, 1610612738, 589824, 65537, 1610612738, 1376256, 1, 1610612739, 1310720, 1, 1610612738, 1310721, 262145, 2, 1376257, 1, 805306370, 1376258, 1, 805306370, 1376259, 1, 805306370, 1376260, 1, 805306370, 1376261, 1, 805306370, 1310723, 262145, 2, 1310724, 262145, 2, 1310725, 262145, 2, 1310726, 262145, 2, 1310722, 262145, 2, 1245184, 1, 1610612738, 1245185, 196609, 2, 1245186, 196609, 2, 1245187, 196609, 2, 1245188, 196609, 2, 1245189, 196609, 2, 1245190, 196609, 2, 1245191, 196609, 2, 1245192, 196609, 2, 1310728, 262145, 2, 1376264, 1, 805306370, 1376263, 1, 805306370, 1376265, 1, 805306370, 1376266, 1, 805306370, 1376267, 1, 805306370, 1376268, 1, 805306370, 1048612, 196609, 1610612738, 1114148, 196609, 1610612738, 1179684, 196609, 1610612738, 1245220, 196609, 2)
 
 [node name="Player" parent="." instance=ExtResource("2_gpbsw")]
 position = Vector2(61, 387)
@@ -88,105 +80,88 @@ position = Vector2(61, 387)
 [node name="TileMapCollisionBaker" parent="." instance=ExtResource("4_ydfgd")]
 tilemap_nodepath = NodePath("../Tiles")
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(8, 128)
-shape = SubResource("RectangleShape2D_2niqc")
-
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(8, 280)
-shape = SubResource("RectangleShape2D_2je3n")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(48, 248)
-shape = SubResource("RectangleShape2D_tpu7t")
-
-[node name="CollisionShape2D25" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(200.054, 63.2457)
-rotation = 1.577
-shape = SubResource("RectangleShape2D_ln6o0")
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(107.997, 104)
-shape = SubResource("RectangleShape2D_ln6o0")
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(200, 184.5)
-shape = SubResource("RectangleShape2D_8h3iw")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(272, 104)
-shape = SubResource("RectangleShape2D_smql3")
-
-[node name="CollisionShape2D11" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(280, 88)
-shape = SubResource("RectangleShape2D_rfuxg")
-
-[node name="CollisionShape2D12" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(304.25, 296)
-shape = SubResource("RectangleShape2D_l1ri8")
-
-[node name="CollisionShape2D26" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(304.25, 296)
-shape = SubResource("RectangleShape2D_l1ri8")
-
-[node name="CollisionShape2D13" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(320, 0)
-shape = SubResource("RectangleShape2D_gvav0")
-
-[node name="CollisionShape2D14" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(320, 328)
-shape = SubResource("RectangleShape2D_7w2qw")
-
-[node name="CollisionShape2D15" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(336, 72)
-shape = SubResource("RectangleShape2D_yqmfc")
-
-[node name="CollisionShape2D16" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(392, 88)
-shape = SubResource("RectangleShape2D_uebro")
-
-[node name="CollisionShape2D17" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(400, 104)
-shape = SubResource("RectangleShape2D_iu0c8")
-
-[node name="CollisionShape2D18" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(552, 136)
-shape = SubResource("RectangleShape2D_36yge")
-
-[node name="CollisionShape2D19" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(568, 296)
-shape = SubResource("RectangleShape2D_jphtx")
-
-[node name="CollisionShape2D20" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(576, 280)
-shape = SubResource("RectangleShape2D_mbb4p")
-
-[node name="CollisionShape2D21" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(584, 264)
-shape = SubResource("RectangleShape2D_bi4x5")
-
-[node name="CollisionShape2D22" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(592, 248)
-shape = SubResource("RectangleShape2D_78rff")
-
-[node name="CollisionShape2D23" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(600, 72)
-shape = SubResource("RectangleShape2D_nckcw")
-
-[node name="CollisionShape2D24" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(600, 192)
-shape = SubResource("RectangleShape2D_l65cf")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(304, 280)
-shape = SubResource("RectangleShape2D_nnctw")
+position = Vector2(16, 256)
+shape = SubResource("RectangleShape2D_xlq5y")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(304, 264.25)
-shape = SubResource("RectangleShape2D_eance")
+position = Vector2(16, 560)
+shape = SubResource("RectangleShape2D_7xkyr")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(304, 248)
-shape = SubResource("RectangleShape2D_curk8")
+position = Vector2(96, 496)
+shape = SubResource("RectangleShape2D_x22nw")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(208, 208)
+shape = SubResource("RectangleShape2D_8sw3k")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(400, 128)
+shape = SubResource("RectangleShape2D_pr7hl")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(400, 368)
+shape = SubResource("RectangleShape2D_k3a23")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(544, 208)
+shape = SubResource("RectangleShape2D_mhm3v")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(560, 176)
+shape = SubResource("RectangleShape2D_00rfw")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(592, 0)
+shape = SubResource("RectangleShape2D_ktge1")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(592, 656)
+shape = SubResource("RectangleShape2D_47nlq")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(672, 144)
+shape = SubResource("RectangleShape2D_adpd1")
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(784, 176)
+shape = SubResource("RectangleShape2D_0bfup")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(800, 208)
+shape = SubResource("RectangleShape2D_my5ic")
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1056, 272)
+shape = SubResource("RectangleShape2D_cx22y")
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1088, 592)
+shape = SubResource("RectangleShape2D_uwjtj")
+
+[node name="CollisionShape2D17" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1104, 560)
+shape = SubResource("RectangleShape2D_0l866")
+
+[node name="CollisionShape2D18" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1120, 528)
+shape = SubResource("RectangleShape2D_i7joi")
+
+[node name="CollisionShape2D19" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1136, 496)
+shape = SubResource("RectangleShape2D_jv5b5")
+
+[node name="CollisionShape2D20" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1152, 144)
+shape = SubResource("RectangleShape2D_l5ffw")
+
+[node name="CollisionShape2D21" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1152, 384)
+shape = SubResource("RectangleShape2D_pm5xt")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TileMapCollisionBaker"]
+position = Vector2(576, 481)
+polygon = PackedVector2Array(16, 0, 63, 0, 63, 31, 96, 32, 95, 64, 128, 64, 127, 96, 159, 96, 159, 128, -95, 127, -94, 95, -63, 95, -63, 63, -31, 63, -32, 31, 0, 31, 0, -1)
 
 [node name="Camera" parent="." instance=ExtResource("5_q40uq")]

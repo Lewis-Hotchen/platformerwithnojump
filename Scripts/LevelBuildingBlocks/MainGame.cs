@@ -1,5 +1,5 @@
 using Godot;
-using PlatformerWithNoJump;
+namespace PlatformerWithNoJump;
 
 public partial class MainGame : Node2D
 {
@@ -21,7 +21,6 @@ public partial class MainGame : Node2D
 		CurrentLevelScenePathPointer = 0;
 		currentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
 		GetNode<CanvasLayer>("Game").AddChild(currentLevel);
-		GetNode<ColorRect>("ColorRect").Color = Palette.LightGreen;
 		base._Ready();
 	}
 
@@ -47,21 +46,23 @@ public partial class MainGame : Node2D
     {
         if(states.States["IsBuildMode"]) {
             Vector2I squareSize = (Vector2I) buildModeComponent.Snap;
-            var rect = GetViewportRect();
-
-            for(int col = 0; col <= rect.Size.X; col += squareSize.X) {
-                DrawDashedLine(new Vector2(col, 0), new Vector2(col, rect.Size.Y), Colors.White, 1);
+            var rect = GetNode<CanvasLayer>("Game").GetViewport().GetVisibleRect().Size;
+			rect = new Vector2(rect.X-rect.X*0.1f, rect.Y);
+            for(int col = 0; col <= rect.X; col += squareSize.X) {
+                DrawDashedLine(new Vector2(col, 0), new Vector2(col, rect.Y), Colors.White, 1, 10);
             }
 
-            for(int row = 0; row <= rect.Size.Y; row += squareSize.Y) {
-                DrawDashedLine(new Vector2(0, row), new Vector2(rect.Size.X, row), Colors.White, 1);
+            for(int row = 0; row <= rect.Y; row += squareSize.Y) {
+                DrawDashedLine(new Vector2(0, row), new Vector2(rect.X, row), Colors.White, 1, 10);
             }
         }
 
         base._Draw();
     }
 
-	public void OnBuildModeUIToolBuilt(Node2D tool) {
+	public void OnBuildModeUIToolBuilt(Node2D tool, Vector2 globalPosition) {
 		currentLevel.AddChild(tool);
+		states.States["IsBuildMode"] = false;
+		tool.GlobalPosition = globalPosition;
 	}
 }

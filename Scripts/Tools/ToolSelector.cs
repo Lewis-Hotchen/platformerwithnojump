@@ -1,25 +1,29 @@
-using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 namespace PlatformerWithNoJump;
 
 public partial class ToolSelector : Node2D
 {
     [Export]
-    public Springboard Springboard { get; set; }
+    public AFP AFP { get; set; }
 
     [Export]
-    public Bouncepad Bouncepad { get; set; }
+    public Spring Spring { get; set; }
 
-    public ITool CurrentTool => GetSelectedTool();
+    [Export]
+    public ItemList ToolsList { get; set; }
+
+    [Export]
+    public Sprite2D Selector { get; set; }
+
+    public Node2D CurrentTool => GetSelectedTool();
 
     public Tools SelectedToolType { get; set; }
 
-    public ColorRect Preview { get; set; }
-
     private StateTracker states;
     
-    private Dictionary<Tools, ITool> Tools { get; set; }
+    private Dictionary<Tools, Node2D> Tools { get; set; }
 
     private List<Tools> toolsPointer;
     
@@ -28,47 +32,45 @@ public partial class ToolSelector : Node2D
     public override void _Ready()
     {
         toolsPointer = new List<Tools>(){
-            PlatformerWithNoJump.Tools.Springboard,
-            PlatformerWithNoJump.Tools.Bouncepad
+            PlatformerWithNoJump.Tools.AFP,
+            PlatformerWithNoJump.Tools.Spring
         };
 
         Tools = new()
         {
             {
-                PlatformerWithNoJump.Tools.Springboard,
-                Springboard
+                PlatformerWithNoJump.Tools.AFP,
+                AFP
             },
             {
-                PlatformerWithNoJump.Tools.Bouncepad,
-                Bouncepad
+                PlatformerWithNoJump.Tools.Spring,
+                Spring
             }
         };
 
+        foreach(var tool in Tools) {
+            var tex = tool.Value.GetNode<Sprite2D>("Sprite").Texture as AtlasTexture;
+            var subTex = new AtlasTexture
+            {
+                Atlas = tex,
+                Region = tex.Region
+            };
+            ToolsList.AddItem(tool.Key.ToString(), subTex);
+        }
+
         states = GetNode<StateTracker>("/root/StateTracker");
-        var selector = GetNode<Control>("Container/SelectorContainer");
+        var selector = GetNode<Control>("ToolsList");
 
-        Preview = (ColorRect) Springboard.GetNode<ColorRect>("ColorRect").Duplicate();
+        var preview = CurrentTool;
 
-        Preview.CustomMinimumSize = Springboard.GetNode<ColorRect>("ColorRect").Size*2; 
-
-        Preview.SizeFlagsHorizontal = Control.SizeFlags.ShrinkCenter;
-        Preview.SizeFlagsVertical = Control.SizeFlags.ShrinkCenter;
-
-        selector.AddChild(Preview);
         base._Ready();
     }
 
     public override void _Process(double delta)
     {
-        if(!states.States["ToolSelectorOpen"]) {
-            return;
+        if(!states.States["IsBuildMode"]) {
+            CyclePointer();
         }
-
-        CyclePointer();
-
-        // if(Input.IsActionJustPressed("up") || Input.IsActionJustPressed("down")) {
-        //     states.States["ToolSelectorOpen"] = false;
-        // }
 
         base._Process(delta);
     }
@@ -78,14 +80,18 @@ public partial class ToolSelector : Node2D
         if(Input.IsActionJustPressed("up")) {
             if(currentToolPointer > 0) {
                 currentToolPointer--;
+                Selector.Position = ToolsList.GetItemRect(currentToolPointer).Position;
             }
             
-            //Shift our pointer to find index of tool, then from that the correct tool scene from dictionary.
+        } else if(Input.IsActionJustPressed("down")) {
+            if(currentToolPointer < Tools.Count-1) {
+                currentToolPointer++;
+                Selector.Position = ToolsList.GetItemRect(currentToolPointer).Position;
+            } 
         }
     }
 
-    private ITool GetSelectedTool() {
+    private Node2D GetSelectedTool() {
         return Tools[toolsPointer[currentToolPointer]];
     }
-
 }

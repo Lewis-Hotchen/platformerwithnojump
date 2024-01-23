@@ -12,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
 script = ExtResource("1_1xd8h")
 BuildModeComponent = NodePath("BuildModeComponent")
 ToolSelector = NodePath("ToolSelector")
@@ -20,6 +21,5 @@ DeployedToolsComponent = NodePath("DeployedToolsComponent")
 [node name="BuildModeComponent" parent="." instance=ExtResource("1_27hqd")]
 
 [node name="ToolSelector" parent="." instance=ExtResource("4_njumo")]
-visible = false
 
 [node name="DeployedToolsComponent" parent="." instance=ExtResource("4_63ey5")]

@@ -15,7 +15,6 @@ public partial class Debug : Node2D, ILevel
 
     public override void _Process(double delta)
     {
-        QueueRedraw();
         base._Process(delta);
     }
 }

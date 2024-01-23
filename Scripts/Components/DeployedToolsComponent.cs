@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 namespace PlatformerWithNoJump;
 
@@ -7,7 +6,6 @@ public partial class DeployedToolsComponent : Node2D
 {
     private List<Node2D> deployedTools;
     public IEnumerable<Node2D> DeployedTools => deployedTools;
-    public event EventHandler<ToolAddedEventArgs> ToolAdded;
 
     public override void _Ready()
     {
@@ -16,9 +14,7 @@ public partial class DeployedToolsComponent : Node2D
     }
 
     public void Add(Node2D tool) {
-        if(tool is ITool) {
-            deployedTools.Add(tool);
-        }
+        deployedTools.Add(tool);
     }
 
     public void Reset() {
