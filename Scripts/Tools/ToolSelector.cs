@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Godot;
 namespace PlatformerWithNoJump;
 
@@ -50,12 +49,7 @@ public partial class ToolSelector : Node2D
 
         foreach(var tool in Tools) {
             var tex = tool.Value.GetNode<Sprite2D>("Sprite").Texture as AtlasTexture;
-            var subTex = new AtlasTexture
-            {
-                Atlas = tex,
-                Region = tex.Region
-            };
-            ToolsList.AddItem(tool.Key.ToString(), subTex);
+            ToolsList.AddItem(tool.Key.ToString(), tex);
         }
 
         states = GetNode<StateTracker>("/root/StateTracker");

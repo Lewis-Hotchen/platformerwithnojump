@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://Scripts/Tools/ToolSelector.cs" id="1_w8hbm"]
 [ext_resource type="PackedScene" uid="uid://d1d0v2yux7x8h" path="res://Scenes/Tools/AFP.tscn" id="2_re0j8"]
 [ext_resource type="Theme" uid="uid://b1p7nnt8jkew" path="res://Resources/Theme.tres" id="3_liuca"]
-[ext_resource type="Texture2D" uid="uid://dq45robum8p43" path="res://Assets/PWNJ-transparent.png" id="3_yag5w"]
+[ext_resource type="Texture2D" uid="uid://bp1d7mjlgquq" path="res://Assets/PWNJ-transparent.png" id="3_yag5w"]
 [ext_resource type="PackedScene" uid="uid://dlukxcrf1ukf6" path="res://Scenes/Tools/Spring.tscn" id="5_j4lgv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_attth"]
 atlas = ExtResource("3_yag5w")
-region = Rect2(0, 146, 32, 32)
+region = Rect2(0, 160, 32, 32)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sbods"]
 
@@ -35,9 +35,10 @@ offset_right = 233.0
 offset_bottom = 468.0
 mouse_filter = 2
 theme = ExtResource("3_liuca")
+theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 40
+theme_override_constants/icon_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sbods")
-select_mode = 1
 allow_search = false
 max_text_lines = 2
 auto_height = true
@@ -48,4 +49,5 @@ icon_mode = 0
 
 [node name="Spring" parent="." instance=ExtResource("5_j4lgv")]
 visible = false
+z_index = 1
 position = Vector2(16, 18)
