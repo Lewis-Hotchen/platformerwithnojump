@@ -9,7 +9,7 @@ public partial class Player : RigidBody2D
     public float Force { get; set; } = 3000f;
 
     [Export]
-    public float InAirMovementReduction { get; set;} = 4f;
+    public float InAirMovementReduction { get; set; } = 4f;
 
     [Export]
     public float GravityFloorReduction { get; set; } = 1.2f;
@@ -43,7 +43,10 @@ public partial class Player : RigidBody2D
 
     public override void _IntegrateForces(PhysicsDirectBodyState2D state)
     {
-        if(stateTracker.States["IsBuildMode"]) {
+
+        //If we are in IsBuildMode we don't want the player to be able to move.
+        if (stateTracker.States["IsBuildMode"])
+        {
             return;
         }
 
@@ -53,19 +56,24 @@ public partial class Player : RigidBody2D
 
         GravityScale = IsOnFloor ? GravityFloorReduction : DefaultGravity;
 
-        if(!IsOnFloor) {
+        if (!IsOnFloor)
+        {
             forceToApply *= InAirMovementReduction;
         }
 
-        if(Input.IsActionPressed("left")) {
+        if (Input.IsActionPressed("left"))
+        {
             direction = Vector2.Left;
             offset = new Vector2(0, 6);
-        } else if(Input.IsActionPressed("right")) {
-             direction = Vector2.Right;
-             offset = new Vector2(12, 6);
+        }
+        else if (Input.IsActionPressed("right"))
+        {
+            direction = Vector2.Right;
+            offset = new Vector2(12, 6);
         }
 
-        if(LinearVelocity.X >= MaxVelocity || LinearVelocity.X <= -MaxVelocity) {
+        if (LinearVelocity.X >= MaxVelocity || LinearVelocity.X <= -MaxVelocity)
+        {
             return;
         }
 
@@ -80,8 +88,9 @@ public partial class Player : RigidBody2D
 
     public void Jump(float force)
     {
-        if(IsOnFloor) {
-            ApplyImpulse(Vector2.Up*force);
+        if (IsOnFloor)
+        {
+            ApplyImpulse(Vector2.Up * force);
         }
     }
 }

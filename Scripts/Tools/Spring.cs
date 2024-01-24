@@ -22,15 +22,15 @@ public partial class Spring : Node2D
     }
 
     private void OnBodyEntered(Node2D body)
-	{
-		if (!TimeTracker.GetTimerRunning("cooldown"))
-		{
-			if (body is Player player)
-			{
-				BodyImpulseComponent.Apply(player);
-				GetNode<AnimationPlayer>("AnimationPlayer").Play("Extend");
-				TimeTracker.StartTimer("cooldown");
-			}
-		}
-	}
+    {
+        if (!TimeTracker.GetTimerRunning("cooldown"))
+        {
+            if (body is Player player)
+            {
+                BodyImpulseComponent.Apply(player);
+                GetNode<AnimationPlayer>("AnimationPlayer").Play("Extend");
+                TimeTracker.StartTimer("cooldown");
+            }
+        }
+    }
 }

@@ -1,19 +1,20 @@
 using Godot;
 namespace PlatformerWithNoJump;
 
-public partial class AFP : Node2D {
+public partial class AFP : Node2D
+{
 
     [Export]
-	public BodyImpulseComponent ImpulseComponent { get; set; }
-
-	[Export]
-	public ToolComponent Tool { get; set; }
+    public BodyImpulseComponent ImpulseComponent { get; set; }
 
     [Export]
-	public TimerTrackerComponent Timers { get; set; }
+    public ToolComponent Tool { get; set; }
 
     [Export]
-	public Area2D Area { get; set; }
+    public TimerTrackerComponent Timers { get; set; }
+
+    [Export]
+    public Area2D Area { get; set; }
 
     public override void _Ready()
     {
@@ -23,15 +24,15 @@ public partial class AFP : Node2D {
     }
 
     private void OnBodyEntered(Node2D body)
-	{
-		if (!Timers.GetTimerRunning("cooldown"))
-		{
-			if (body is Player player)
-			{
-				ImpulseComponent.Apply(player);
-				GetNode<AnimationPlayer>("AnimationPlayer").Play("Extend");
-				Timers.StartTimer("cooldown");
-			}
-		}
-	}
+    {
+        if (!Timers.GetTimerRunning("cooldown"))
+        {
+            if (body is Player player)
+            {
+                ImpulseComponent.Apply(player);
+                GetNode<AnimationPlayer>("AnimationPlayer").Play("Extend");
+                Timers.StartTimer("cooldown");
+            }
+        }
+    }
 }

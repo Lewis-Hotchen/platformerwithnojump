@@ -1,15 +1,15 @@
 using Godot;
 namespace PlatformerWithNoJump;
 
-public partial class Debug : Node2D, ILevel
+public partial class Debug : Node2D
 {
     [Export]
     public ScreenCamera Camera { get; set; }
-    
+
 
     public override void _Ready()
     {
-        Camera.Chunk = new(0,0);
+        Camera.Chunk = new(0, 0);
         base._Ready();
     }
 

@@ -6,22 +6,25 @@ public partial class Exit : Node2D
 {
 
     [Export]
-    public NextLevelComponent NextLevelComponent { get; set;}
+    public NextLevelComponent NextLevelComponent { get; set; }
 
     public override void _Ready()
     {
         base._Ready();
     }
 
-    private void OnBodyEntered(Node2D body) {
+    private void OnBodyEntered(Node2D body)
+    {
 
-        if(body is Player p) {
+        if (body is Player p)
+        {
             GD.Print("Entered exit");
             CallDeferred(nameof(GoToNext));
         }
     }
 
-    private void GoToNext() {
+    private void GoToNext()
+    {
         NextLevelComponent.NextLevel();
     }
 }

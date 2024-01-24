@@ -8,10 +8,10 @@ public partial class TutorialPart3 : Node2D
     public PlayerKillBoxComponent PlayerKillBox { get; set; }
 
     [Export]
-    public ResetLevelComponent ResetLevel {get;set;}
+    public ResetLevelComponent ResetLevel { get; set; }
 
     [Export]
-    public TimerTrackerComponent Timers {get;set;}
+    public TimerTrackerComponent Timers { get; set; }
 
     private StateTracker states;
 
@@ -42,9 +42,12 @@ public partial class TutorialPart3 : Node2D
 
     private void PlayerFell(object sender, EventArgs e)
     {
-        if(!states.States["HasCompletedTutorial"]) {
+        if (!states.States["HasCompletedTutorial"])
+        {
             Timers.StartTimer("KillboxDelay");
-        } else {
+        }
+        else
+        {
             ResetLevel.ResetLevel();
             states.States["HasFallen"] = false;
         }

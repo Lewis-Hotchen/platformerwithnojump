@@ -1,0 +1,100 @@
+[gd_scene load_steps=10 format=3 uid="uid://dk1nv15ovodop"]
+
+[ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/UI/InGameLabel.tscn" id="1_pqhw0"]
+
+[sub_resource type="Animation" id="Animation_llhu5"]
+resource_name = "Exit Arrow"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExitLabel:Text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Exit ", "Exit -", "Exit --", "Exit -->"]
+}
+
+[sub_resource type="Animation" id="Animation_bdnhw"]
+resource_name = "Exit Hover"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExitLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(2.46229, 1.7411, 2.14355, 2.21914, 1.93187),
+"update": 0,
+"values": [Vector2(0, 3), Vector2(0, 0), Vector2(0, 3), Vector2(0, 0), Vector2(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_t5mdy"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExitLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3bpya"]
+_data = {
+"Exit Arrow": SubResource("Animation_llhu5"),
+"Exit Hover": SubResource("Animation_bdnhw"),
+"RESET": SubResource("Animation_t5mdy")
+}
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_mqj3o"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5yynu"]
+animation = &"Exit Arrow"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yxesh"]
+animation = &"Exit Hover"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_n37t3"]
+graph_offset = Vector2(-480.778, 422.379)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_mqj3o")
+nodes/Blend2/position = Vector2(20, 460)
+"nodes/Exit Arrow/node" = SubResource("AnimationNodeAnimation_5yynu")
+"nodes/Exit Arrow/position" = Vector2(-320, 420)
+nodes/Hover/node = SubResource("AnimationNodeAnimation_yxesh")
+nodes/Hover/position = Vector2(-320, 580)
+nodes/output/position = Vector2(340, 440)
+node_connections = [&"Blend2", 0, &"Exit Arrow", &"Blend2", 1, &"Hover", &"output", 0, &"Blend2"]
+
+[node name="ExitLabel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3bpya")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3bpya")
+}
+tree_root = SubResource("AnimationNodeBlendTree_n37t3")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Blend2/blend_amount = 0.5
+
+[node name="ExitLabel" parent="." instance=ExtResource("1_pqhw0")]
+layout_mode = 1
+offset_right = 24.0
+Text = "Exit --"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqtqbh3px1bdj"
-path="res://.godot/imported/blacknwhite.png-b3cf2617d9d40b0c3988fb80a6cb0bc4.ctex"
+uid="uid://rgtc7xgyhtic"
+path="res://.godot/imported/PWNJ-transparent-sheet-sheet.png-ae324820d90f84f9e14b2522beed7280.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/blacknwhite.png"
-dest_files=["res://.godot/imported/blacknwhite.png-b3cf2617d9d40b0c3988fb80a6cb0bc4.ctex"]
+source_file="res://Assets/PWNJ-transparent-sheet-sheet.png"
+dest_files=["res://.godot/imported/PWNJ-transparent-sheet-sheet.png-ae324820d90f84f9e14b2522beed7280.ctex"]
 
 [params]
 

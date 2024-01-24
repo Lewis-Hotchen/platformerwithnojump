@@ -2,7 +2,8 @@ using Godot;
 
 namespace PlatformerWithNoJump;
 
-public partial class ToolComponent : Node2D {
+public partial class ToolComponent : Node2D
+{
     [Export]
     public Tools ToolType { get; set; }
 

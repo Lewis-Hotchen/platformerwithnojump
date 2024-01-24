@@ -13,11 +13,13 @@ public partial class DeployedToolsComponent : Node2D
         base._Ready();
     }
 
-    public void Add(Node2D tool) {
+    public void Add(Node2D tool)
+    {
         deployedTools.Add(tool);
     }
 
-    public void Reset() {
+    public void Reset()
+    {
         deployedTools.ForEach(x => x.QueueFree());
         deployedTools.Clear();
     }

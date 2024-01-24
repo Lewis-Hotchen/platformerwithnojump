@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://d1d0v2yux7x8h"]
 
 [ext_resource type="Script" path="res://Scripts/Tools/AFP.cs" id="1_n1pk1"]
-[ext_resource type="Texture2D" uid="uid://bp1d7mjlgquq" path="res://Assets/PWNJ-transparent.png" id="2_ypkfi"]
+[ext_resource type="Texture2D" uid="uid://rgtc7xgyhtic" path="res://Assets/PWNJ-transparent-sheet-sheet.png" id="2_o52hh"]
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="3_esbsh"]
 [ext_resource type="PackedScene" uid="uid://dr38747f1mtht" path="res://Scripts/Components/BodyImpulseComponent.tscn" id="4_3e4sv"]
 [ext_resource type="PackedScene" uid="uid://62v6f1rei8oi" path="res://Scenes/Components/ToolComponent.tscn" id="5_yjwng"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_82pva"]
-atlas = ExtResource("2_ypkfi")
+atlas = ExtResource("2_o52hh")
 region = Rect2(0.026001, 0, 63.974, 32)
 filter_clip = true
 

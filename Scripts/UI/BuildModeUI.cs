@@ -24,6 +24,12 @@ public partial class BuildModeUI : Control
         base._Ready();
     }
 
+    public override void _ExitTree()
+    {
+        BuildModeComponent.ToolBuilt -= OnToolBuilt;
+        base._ExitTree();
+    }
+
     private void OnToolBuilt(object sender, ToolBuiltEventArgs e)
     {
         DeployedToolsComponent.Add(e.ToolBuilt);
@@ -32,12 +38,15 @@ public partial class BuildModeUI : Control
 
     public override void _Process(double delta)
     {
-        if(Input.IsActionJustPressed("build_mode") && !states.States["IsBuildMode"]) {
-            // if(states.States["ToolSelectorOpen"] && !states.States["IsBuildMode"]) {
+        if (Input.IsActionJustPressed("build_mode") && !states.States["IsBuildMode"])
+        {
+            ToolSelector.Visible = true;
             BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
-            // }
-        } else if(Input.IsActionJustPressed("build_mode") && states.States["IsBuildMode"]) {
+        }
+        else if (Input.IsActionJustPressed("build_mode") && states.States["IsBuildMode"])
+        {
             states.States["IsBuildMode"] = false;
+            ToolSelector.Visible = false;
         }
 
         base._Process(delta);

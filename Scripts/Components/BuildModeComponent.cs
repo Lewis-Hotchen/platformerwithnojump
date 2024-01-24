@@ -31,7 +31,7 @@ public partial class BuildModeComponent : Node2D
 
     public void StartBuild(Node2D toolPreivew)
     {
-        Preview = (Node2D) toolPreivew.Duplicate();
+        Preview = (Node2D)toolPreivew.Duplicate();
         states.States["IsBuildMode"] = true;
     }
 
@@ -39,7 +39,8 @@ public partial class BuildModeComponent : Node2D
     {
         if (states.States["IsBuildMode"])
         {
-            if(!IsInstanceValid(Preview) || Preview == null) {
+            if (!IsInstanceValid(Preview) || Preview == null)
+            {
                 Preview = DefaultToolPreview;
             }
 
@@ -52,7 +53,7 @@ public partial class BuildModeComponent : Node2D
                     Preview.GlobalPosition = GetCentreofScreen().Snapped(Snap);
                 }
 
-                 if (!isShapeColliding && Input.IsActionJustPressed("build"))
+                if (!isShapeColliding && Input.IsActionJustPressed("build"))
                 {
                     states.States["IsBuildMode"] = false;
                     LockIn();
@@ -75,7 +76,9 @@ public partial class BuildModeComponent : Node2D
                     isShapeColliding = true;
                 }
             }
-        } else if(!states.States["IsBuildMode"] && Node2D.IsInstanceValid(Preview)) {
+        }
+        else if (!states.States["IsBuildMode"] && Node2D.IsInstanceValid(Preview))
+        {
             Preview.QueueFree();
         }
 
@@ -84,21 +87,21 @@ public partial class BuildModeComponent : Node2D
 
     private static Vector2 GetDirection()
     {
-        if(Input.IsActionJustPressed("up"))
+        if (Input.IsActionJustPressed("up"))
             return Vector2.Up;
-        if(Input.IsActionJustPressed("down"))
+        if (Input.IsActionJustPressed("down"))
             return Vector2.Down;
-        if(Input.IsActionJustPressed("right"))
+        if (Input.IsActionJustPressed("right"))
             return Vector2.Right;
-        if(Input.IsActionJustPressed("left"))
+        if (Input.IsActionJustPressed("left"))
             return Vector2.Left;
-        
+
         return Vector2.Zero;
     }
 
     private static Vector2 GetCentreofScreen()
     {
-        return new Vector2(1280/2,680/2);
+        return new Vector2(1280 / 2, 680 / 2);
     }
 
     private void LockIn()
@@ -111,7 +114,7 @@ public partial class BuildModeComponent : Node2D
 
     private static bool IsInBounds(Node2D tool)
     {
-       return true;
+        return true;
     }
 
     private void ListenForCollision(Rid bodyRid, Node2D body, long bodyShapeIndex, long localShapeIndex)
