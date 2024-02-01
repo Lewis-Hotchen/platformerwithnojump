@@ -12,6 +12,9 @@ public partial class MainGame : Node2D
     [Export]
     public string[] Levels { get; set; }
 
+    [Export]
+    public DialogueManagerComponent DialogueManager;
+
     private StateTracker states;
     private BuildModeComponent buildModeComponent;
 
@@ -31,7 +34,7 @@ public partial class MainGame : Node2D
         currentLevel?.QueueFree();
         CurrentLevelScenePathPointer++;
         currentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
-        AddChild(currentLevel);
+         GetNode<CanvasLayer>("Game").AddChild(currentLevel);
     }
 
     public override void _Process(double delta)

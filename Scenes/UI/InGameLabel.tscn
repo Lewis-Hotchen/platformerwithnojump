@@ -13,4 +13,5 @@ script = ExtResource("1_31ccs")
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 theme = ExtResource("1_rppuk")
+theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1

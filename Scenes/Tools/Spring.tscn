@@ -1,17 +1,17 @@
 [gd_scene load_steps=10 format=3 uid="uid://dlukxcrf1ukf6"]
 
 [ext_resource type="Script" path="res://Scripts/Tools/Spring.cs" id="1_ck1b6"]
-[ext_resource type="Texture2D" uid="uid://rgtc7xgyhtic" path="res://Assets/PWNJ-transparent-sheet-sheet.png" id="2_6qseq"]
+[ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="2_qr71u"]
 [ext_resource type="PackedScene" uid="uid://dr38747f1mtht" path="res://Scripts/Components/BodyImpulseComponent.tscn" id="3_0p147"]
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="4_jmn2p"]
 [ext_resource type="PackedScene" uid="uid://62v6f1rei8oi" path="res://Scenes/Components/ToolComponent.tscn" id="5_uu5i4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fr74x"]
-atlas = ExtResource("2_6qseq")
+atlas = ExtResource("2_qr71u")
 region = Rect2(64, 0, 64, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wh6i"]
-size = Vector2(61, 9)
+size = Vector2(60.5, 9)
 
 [sub_resource type="Animation" id="Animation_3hbc5"]
 resource_name = "Extend"
@@ -50,7 +50,7 @@ region_rect = Rect2(0, 0, 64, 32)
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(31.5, 13.5)
+position = Vector2(31.25, 14)
 shape = SubResource("RectangleShape2D_5wh6i")
 
 [node name="BodyImpulseComponent" parent="." instance=ExtResource("3_0p147")]

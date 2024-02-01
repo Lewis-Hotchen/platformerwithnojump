@@ -13,7 +13,6 @@ config_version=5
 config/name="The Platformer with no jump"
 run/main_scene="res://Scenes/SceneManager.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
-run/max_fps=120
 
 [autoload]
 
@@ -22,7 +21,7 @@ StateTracker="*res://Scripts/Autoload/StateTracker.cs"
 [display]
 
 window/size/viewport_width=1280
-window/size/viewport_height=680
+window/size/viewport_height=640
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 namespace PlatformerWithNoJump;
 
 public partial class PlayerJumpComponent : Node2D
@@ -12,11 +11,11 @@ public partial class PlayerJumpComponent : Node2D
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("ui_accept"))
+        if (Input.IsActionJustPressed("jump"))
         {
             if (Player.IsOnFloor)
             {
-                Player.ApplyImpulse(Vector2.Up * Force);
+                Player.GetNode<AnimatedSprite2D>("ChumSprite").Play("chum_hurt");
             }
         }
 

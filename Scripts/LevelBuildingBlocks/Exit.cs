@@ -18,7 +18,6 @@ public partial class Exit : Node2D
 
         if (body is Player p)
         {
-            GD.Print("Entered exit");
             CallDeferred(nameof(GoToNext));
         }
     }

@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/Tools/ToolSelector.cs" id="1_w8hbm"]
 [ext_resource type="PackedScene" uid="uid://d1d0v2yux7x8h" path="res://Scenes/Tools/AFP.tscn" id="2_re0j8"]
+[ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="3_g33ud"]
 [ext_resource type="Theme" uid="uid://b1p7nnt8jkew" path="res://Resources/Theme.tres" id="3_liuca"]
-[ext_resource type="Texture2D" uid="uid://rgtc7xgyhtic" path="res://Assets/PWNJ-transparent-sheet-sheet.png" id="3_ya7b8"]
 [ext_resource type="PackedScene" uid="uid://dlukxcrf1ukf6" path="res://Scenes/Tools/Spring.tscn" id="5_j4lgv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_attth"]
-atlas = ExtResource("3_ya7b8")
+atlas = ExtResource("3_g33ud")
 region = Rect2(0, 160, 32, 32)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sbods"]

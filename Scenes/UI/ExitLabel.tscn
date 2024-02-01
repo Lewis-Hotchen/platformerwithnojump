@@ -67,7 +67,6 @@ animation = &"Exit Arrow"
 animation = &"Exit Hover"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_n37t3"]
-graph_offset = Vector2(-480.778, 422.379)
 nodes/Blend2/node = SubResource("AnimationNodeBlend2_mqj3o")
 nodes/Blend2/position = Vector2(20, 460)
 "nodes/Exit Arrow/node" = SubResource("AnimationNodeAnimation_5yynu")
@@ -97,4 +96,4 @@ parameters/Blend2/blend_amount = 0.5
 [node name="ExitLabel" parent="." instance=ExtResource("1_pqhw0")]
 layout_mode = 1
 offset_right = 24.0
-Text = "Exit --"
+Text = "Exit -->"

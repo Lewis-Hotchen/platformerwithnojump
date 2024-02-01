@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -20,14 +21,34 @@ public partial class Player : RigidBody2D
     [Export]
     public float MaxVelocity { get; set; } = 200f;
 
+    [Export]
+    public AudioStreamPlayer2D ChumRun { get; set; }
+
+    [Export]
+    public AnimatedSprite2D ChumSprite { get; set; }
+
     public List<RayCast2D> GroundCasts { get; set; }
 
     public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
 
+
     private StateTracker stateTracker;
+
+    private bool firstPass;
+    private bool isMoving;
+    private bool pickUp = false;
+    private bool pickedUp = false;
+    private bool left;
 
     public override void _Ready()
     {
+#if DEBUG
+        pickUp = true;
+#endif
+
+        ChumSprite.FrameChanged += OnFrameChanged;
+
+        ChumSprite.AnimationFinished += AnimationFinished;
         GroundCasts = new()
         {
             GetNode<RayCast2D>("IsOnGround"),
@@ -36,14 +57,40 @@ public partial class Player : RigidBody2D
         };
 
         stateTracker = GetNode<StateTracker>("/root/StateTracker");
-        GetNode<ColorRect>("ColorRect").Color = Colors.White;
-
         base._Ready();
+    }
+
+    private void OnFrameChanged()
+    {
+        if(ChumSprite.Animation == "chum_run" && IsOnFloor){
+            if(ChumSprite.Frame == 0 || ChumSprite.Frame == 2) {
+                ChumRun.Play();
+            }
+        }
+    }
+
+
+    private void AnimationFinished()
+    {
+        firstPass = true;
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if(@event is InputEventMouseButton me) {
+            if(me.ButtonIndex == MouseButton.Left && me.IsPressed()) {
+                pickedUp = true;
+            } else if(me.ButtonIndex == MouseButton.Left && !me.IsPressed()) {
+                pickedUp = false;
+            }
+        }
+        
+        base._Input(@event);
     }
 
     public override void _IntegrateForces(PhysicsDirectBodyState2D state)
     {
-
+        isMoving = false;
         //If we are in IsBuildMode we don't want the player to be able to move.
         if (stateTracker.States["IsBuildMode"])
         {
@@ -64,12 +111,18 @@ public partial class Player : RigidBody2D
         if (Input.IsActionPressed("left"))
         {
             direction = Vector2.Left;
+            left = true;
             offset = new Vector2(0, 6);
+            isMoving = true;
+            firstPass = true;
         }
         else if (Input.IsActionPressed("right"))
         {
             direction = Vector2.Right;
+            left = false;
             offset = new Vector2(12, 6);
+            isMoving = true;
+            firstPass = true;
         }
 
         if (LinearVelocity.X >= MaxVelocity || LinearVelocity.X <= -MaxVelocity)
@@ -83,6 +136,23 @@ public partial class Player : RigidBody2D
 
     public override void _Process(double delta)
     {
+        if (!isMoving && firstPass)
+        {
+            ChumSprite.Animation = "chum_idle";
+            ChumSprite.Play();
+            firstPass = false;
+        }
+
+        if(isMoving) {
+            ChumSprite.Animation = "chum_run";
+            ChumSprite.Play();
+            ChumSprite.FlipH = !left;
+        }
+
+        if(pickedUp) {
+            Position = GetViewport().GetMousePosition();
+        }
+
         base._Process(delta);
     }
 

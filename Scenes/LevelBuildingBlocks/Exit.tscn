@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://cr51p5xbm6q05"]
 
 [ext_resource type="Script" path="res://Scripts/LevelBuildingBlocks/Exit.cs" id="1_dbhut"]
-[ext_resource type="Texture2D" uid="uid://rgtc7xgyhtic" path="res://Assets/PWNJ-transparent-sheet-sheet.png" id="2_pmguj"]
+[ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="2_ti47n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_egg5c"]
-atlas = ExtResource("2_pmguj")
+atlas = ExtResource("2_ti47n")
 region = Rect2(63, 160, 49, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ix6xi"]
