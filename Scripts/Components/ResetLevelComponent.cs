@@ -26,6 +26,6 @@ public partial class ResetLevelComponent : Node2D
     public void ResetLevel()
     {
         Player.Position = SpawnPosition.Position;
-        GetNode<StateTracker>("/root/StateTracker").States["PlayerHasFallen"] = false;
+        GetNode<StateTracker>("/root/StateTracker").SetState("PlayerHasFallen", false);
     }
 }

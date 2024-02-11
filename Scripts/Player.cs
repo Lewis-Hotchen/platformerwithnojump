@@ -62,8 +62,10 @@ public partial class Player : RigidBody2D
 
     private void OnFrameChanged()
     {
-        if(ChumSprite.Animation == "chum_run" && IsOnFloor){
-            if(ChumSprite.Frame == 0 || ChumSprite.Frame == 2) {
+        if (ChumSprite.Animation == "chum_run" && IsOnFloor)
+        {
+            if (ChumSprite.Frame == 0 || ChumSprite.Frame == 2)
+            {
                 ChumRun.Play();
             }
         }
@@ -77,14 +79,18 @@ public partial class Player : RigidBody2D
 
     public override void _Input(InputEvent @event)
     {
-        if(@event is InputEventMouseButton me) {
-            if(me.ButtonIndex == MouseButton.Left && me.IsPressed()) {
+        if (@event is InputEventMouseButton me)
+        {
+            if (me.ButtonIndex == MouseButton.Left && me.IsPressed())
+            {
                 pickedUp = true;
-            } else if(me.ButtonIndex == MouseButton.Left && !me.IsPressed()) {
+            }
+            else if (me.ButtonIndex == MouseButton.Left && !me.IsPressed())
+            {
                 pickedUp = false;
             }
         }
-        
+
         base._Input(@event);
     }
 
@@ -92,7 +98,7 @@ public partial class Player : RigidBody2D
     {
         isMoving = false;
         //If we are in IsBuildMode we don't want the player to be able to move.
-        if (stateTracker.States["IsBuildMode"])
+        if (stateTracker.GetState("IsBuildMode"))
         {
             return;
         }
@@ -143,13 +149,15 @@ public partial class Player : RigidBody2D
             firstPass = false;
         }
 
-        if(isMoving) {
+        if (isMoving)
+        {
             ChumSprite.Animation = "chum_run";
             ChumSprite.Play();
             ChumSprite.FlipH = !left;
         }
 
-        if(pickedUp) {
+        if (pickedUp)
+        {
             Position = GetViewport().GetMousePosition();
         }
 

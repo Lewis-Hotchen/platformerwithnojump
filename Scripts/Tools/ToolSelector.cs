@@ -28,17 +28,16 @@ public partial class ToolSelector : Node2D
 
     public override void _Ready()
     {
-        toolsPointer = new List<Tools>(){
-            PlatformerWithNoJump.Tools.AFP,
-            PlatformerWithNoJump.Tools.Spring
-        };
+        states = GetNode<StateTracker>("/root/StateTracker");
+
+        toolsPointer = new List<Tools>(states.UnlockedTools);
 
         Tools = new()
         {
-            {
-                PlatformerWithNoJump.Tools.AFP,
-                AFP
-            },
+            // {
+            //     PlatformerWithNoJump.Tools.AFP,
+            //     AFP
+            // },
             {
                 PlatformerWithNoJump.Tools.Spring,
                 Spring
@@ -51,13 +50,12 @@ public partial class ToolSelector : Node2D
             ToolsList.AddItem(tool.Key.ToString(), tex);
         }
 
-        states = GetNode<StateTracker>("/root/StateTracker");
         base._Ready();
     }
 
     public override void _Process(double delta)
     {
-        if (!states.States["IsBuildMode"])
+        if (!states.GetState("IsBuildMode"))
         {
             CyclePointer();
         }

@@ -32,12 +32,12 @@ public partial class BuildModeComponent : Node2D
     public void StartBuild(Node2D toolPreivew)
     {
         Preview = (Node2D)toolPreivew.Duplicate();
-        states.States["IsBuildMode"] = true;
+        states.SetState("IsBuildMode", true);
     }
 
     public override void _Process(double delta)
     {
-        if (states.States["IsBuildMode"])
+        if (states.GetState("IsBuildMode"))
         {
             if (!IsInstanceValid(Preview) || Preview == null)
             {
@@ -55,7 +55,7 @@ public partial class BuildModeComponent : Node2D
 
                 if (!isShapeColliding && Input.IsActionJustPressed("build"))
                 {
-                    states.States["IsBuildMode"] = false;
+                    states.SetState("IsBuildMode", false);
                     LockIn();
                     return;
                 }
@@ -77,7 +77,7 @@ public partial class BuildModeComponent : Node2D
                 }
             }
         }
-        else if (!states.States["IsBuildMode"] && Node2D.IsInstanceValid(Preview))
+        else if (!states.GetState("IsBuildMode") && Node2D.IsInstanceValid(Preview))
         {
             Preview.QueueFree();
         }

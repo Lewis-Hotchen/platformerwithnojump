@@ -13,14 +13,27 @@ public partial class TutorialPart3 : Node2D
     [Export]
     public TimerTrackerComponent Timers { get; set; }
 
+    [Export]
+    public DialogueManagerComponent Dialogue { get; set; }
+
     private StateTracker states;
 
     public override void _Ready()
     {
         states = GetNode<StateTracker>("/root/StateTracker");
+        Dialogue.SetDialogueOnBox();
+        Dialogue.DialogueComplete += OnDialogueComplete;
         PlayerKillBox.OnPlayerFell += OnPlayerFell;
         base._Ready();
     }
+
+    private void OnDialogueComplete(object sender, DialogueCompleteArgs e)
+    {
+        if(e.CompletedStep == "Press B to activate build mode.") {
+            states.SetState("BuildEnabled", true);
+        }
+    }
+
 
     private void OnPlayerFell(object sender, EventArgs e)
     {
@@ -31,8 +44,8 @@ public partial class TutorialPart3 : Node2D
     private void SplashScreenTimeout()
     {
         GetNode<Node2D>("Splash").QueueFree();
-        states.States["HasCompletedTutorial"] = true;
-        states.States["HasFallen"] = false;
+        states.SetState("HasCompletedTutorial", true);
+        states.SetState("HasFallen", false);
         ResetLevel.ResetLevel();
     }
 

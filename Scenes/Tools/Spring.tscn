@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dlukxcrf1ukf6"]
+[gd_scene load_steps=11 format=3 uid="uid://dlukxcrf1ukf6"]
 
 [ext_resource type="Script" path="res://Scripts/Tools/Spring.cs" id="1_ck1b6"]
 [ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="2_qr71u"]
@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="4_jmn2p"]
 [ext_resource type="PackedScene" uid="uid://62v6f1rei8oi" path="res://Scenes/Components/ToolComponent.tscn" id="5_uu5i4"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2a5t2"]
+atlas = ExtResource("2_qr71u")
+region = Rect2(128, 8, 64, 40)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_fr74x"]
 atlas = ExtResource("2_qr71u")
 region = Rect2(64, 0, 64, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wh6i"]
-size = Vector2(60.5, 9)
 
 [sub_resource type="Animation" id="Animation_3hbc5"]
 resource_name = "Extend"
@@ -19,7 +20,7 @@ step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:position")
+tracks/0/path = NodePath("Normal:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -34,24 +35,26 @@ _data = {
 "Extend": SubResource("Animation_3hbc5")
 }
 
-[node name="Spring" type="Node2D" node_paths=PackedStringArray("TimeTracker", "BodyImpulseComponent", "Tool")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wh6i"]
+size = Vector2(60.5, 9)
+
+[node name="Spring" type="RigidBody2D" node_paths=PackedStringArray("TimeTracker", "BodyImpulseComponent", "Tool")]
 script = ExtResource("1_ck1b6")
 TimeTracker = NodePath("TimerTrackerComponent")
 BodyImpulseComponent = NodePath("BodyImpulseComponent")
 Tool = NodePath("ToolComponent")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Extend" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_2a5t2")
+centered = false
+
+[node name="Normal" type="Sprite2D" parent="."]
 scale = Vector2(0.975746, 1)
 texture = SubResource("AtlasTexture_fr74x")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 32)
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(31.25, 14)
-shape = SubResource("RectangleShape2D_5wh6i")
 
 [node name="BodyImpulseComponent" parent="." instance=ExtResource("3_0p147")]
 Force = 1000.0
@@ -67,3 +70,7 @@ libraries = {
 [node name="ToolComponent" parent="." instance=ExtResource("5_uu5i4")]
 ToolType = 1
 IsBuildable = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(31.25, 14)
+shape = SubResource("RectangleShape2D_5wh6i")

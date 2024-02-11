@@ -14,7 +14,8 @@ public class DialogueManager
 
     public DialogueManager(string path, string dialogueEntry)
     {
-        if(string.IsNullOrEmpty(dialogueEntry)) {
+        if (string.IsNullOrEmpty(dialogueEntry))
+        {
             throw new ArgumentException("dialogue wasnt given, stoopid", dialogueEntry);
         }
 
@@ -26,11 +27,13 @@ public class DialogueManager
         var dialogueAsArr = desYaml.ToList();
     }
 
-    public bool NextStep() {
+    public bool NextStep()
+    {
         return Entry.IncrementStep();
     }
 
-    public string GetStep() {
+    public string GetStep()
+    {
         return Entry.GetCurrentStep;
     }
 }

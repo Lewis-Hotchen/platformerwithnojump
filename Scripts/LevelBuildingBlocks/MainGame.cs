@@ -30,16 +30,16 @@ public partial class MainGame : Node2D
 
     public void NextLevel()
     {
-        RemoveChild(currentLevel);
+        GetNode<CanvasLayer>("Game").RemoveChild(currentLevel);
         currentLevel?.QueueFree();
         CurrentLevelScenePathPointer++;
         currentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
-         GetNode<CanvasLayer>("Game").AddChild(currentLevel);
+        GetNode<CanvasLayer>("Game").AddChild(currentLevel);
     }
 
     public override void _Process(double delta)
     {
-        if (states.States["IsBuildMode"])
+        if (states.GetState("IsBuildMode"))
         {
             QueueRedraw();
         }
@@ -51,7 +51,7 @@ public partial class MainGame : Node2D
     {
         var viewPortRect = GetNode<CanvasLayer>("Game").GetViewport().GetVisibleRect().Size;
 
-        if (states.States["IsBuildMode"])
+        if (states.GetState("IsBuildMode"))
         {
             Vector2I squareSize = (Vector2I)buildModeComponent.Snap;
             var gameRect = new Vector2(viewPortRect.X - viewPortRect.X * 0.1f, viewPortRect.Y);
@@ -75,7 +75,7 @@ public partial class MainGame : Node2D
     public void OnBuildModeUIToolBuilt(Node2D tool, Vector2 globalPosition)
     {
         currentLevel.AddChild(tool);
-        states.States["IsBuildMode"] = false;
+        states.SetState("IsBuildMode", false);
         tool.GlobalPosition = globalPosition;
     }
 }

@@ -1,7 +1,7 @@
 using Godot;
 namespace PlatformerWithNoJump;
 
-public partial class Spring : Node2D
+public partial class Spring : RigidBody2D
 {
     [Export]
     public TimerTrackerComponent TimeTracker { get; set; }

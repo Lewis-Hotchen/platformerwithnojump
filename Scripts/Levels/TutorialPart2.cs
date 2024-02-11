@@ -48,15 +48,16 @@ public partial class TutorialPart2 : Node2D
 
     private void OnDialogueComplete(object sender, DialogueCompleteArgs e)
     {
-        if(e.CompletedStep == "Take this.") {
+        if (e.CompletedStep == "Take this.")
+        {
             var springOne = SceneManager.LoadScene<Node2D>("res://Scenes/Tools/Spring.tscn");
             var springTwo = SceneManager.LoadScene<Node2D>("res://Scenes/Tools/Spring.tscn");
 
             AddChild(springOne);
             AddChild(springTwo);
 
-            springOne.Position = SpringLocOne.Position.Snapped(new Vector2(32,32));
-            springTwo.Position = SpringLocTwo.Position.Snapped(new Vector2(32,32));
+            springOne.Position = SpringLocOne.Position.Snapped(new Vector2(32, 32));
+            springTwo.Position = SpringLocTwo.Position.Snapped(new Vector2(32, 32));
             Dialogue.CanSkip = false;
             Dialogue.CanTimeOut = false;
         }

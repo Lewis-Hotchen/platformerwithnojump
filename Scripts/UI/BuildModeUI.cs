@@ -1,3 +1,4 @@
+using System;
 using Godot;
 namespace PlatformerWithNoJump;
 
@@ -20,8 +21,18 @@ public partial class BuildModeUI : Control
     public override void _Ready()
     {
         states = GetNode<StateTracker>("/root/StateTracker");
+        states.StateChanged += OnStateChanged;
         BuildModeComponent.ToolBuilt += OnToolBuilt;
         base._Ready();
+    }
+
+    private void OnStateChanged(string state, bool value)
+    {
+        switch(state) {
+            case "BuildEnabled":
+                Visible = value;
+                break;
+        }
     }
 
     public override void _ExitTree()
@@ -38,14 +49,14 @@ public partial class BuildModeUI : Control
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("build_mode") && !states.States["IsBuildMode"])
+        if (Input.IsActionJustPressed("build_mode") && !states.GetState("IsBuildMode"))
         {
             ToolSelector.Visible = true;
             BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
         }
-        else if (Input.IsActionJustPressed("build_mode") && states.States["IsBuildMode"])
+        else if (Input.IsActionJustPressed("build_mode") && states.GetState("IsBuildMode"))
         {
-            states.States["IsBuildMode"] = false;
+            states.SetState("IsBuildMode", false);
             ToolSelector.Visible = false;
         }
 

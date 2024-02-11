@@ -7,7 +7,7 @@ public partial class ScreenCamera : Camera2D
     public float RandomStrength { get; set; } = 30.0f;
 
     [Export]
-    public float ShakeFade {  get; set; } = 5;
+    public float ShakeFade { get; set; } = 5;
 
     private RandomNumberGenerator rng = new();
 
@@ -47,19 +47,22 @@ public partial class ScreenCamera : Camera2D
 
     public override void _Process(double delta)
     {
-        if(shakeStrength > 0) {
-            shakeStrength = Mathf.Lerp(shakeStrength, 0, ShakeFade * (float) delta);
+        if (shakeStrength > 0)
+        {
+            shakeStrength = Mathf.Lerp(shakeStrength, 0, ShakeFade * (float)delta);
         }
 
         Offset = RandomOffset();
         base._Process(delta);
     }
 
-    public void ApplyShake() {
+    public void ApplyShake()
+    {
         shakeStrength = RandomStrength;
     }
 
-    public Vector2 RandomOffset() {
+    public Vector2 RandomOffset()
+    {
         return new Vector2(rng.RandfRange(-shakeStrength, shakeStrength), rng.RandfRange(-shakeStrength, shakeStrength));
     }
 }

@@ -57,7 +57,8 @@ public partial class DialogueManagerComponent : Control
         }
 
         GetNode<RichTextLabel>("DialogueBox/SkipText").Visible = CanSkip;
-        if(GetNode<RichTextLabel>("DialogueBox/SkipText").Visible && !ContinueAnim.IsPlaying()) {
+        if (GetNode<RichTextLabel>("DialogueBox/SkipText").Visible && !ContinueAnim.IsPlaying())
+        {
             ContinueAnim.Play("Animations/SkipIndicator");
         }
 
@@ -90,7 +91,8 @@ public partial class DialogueManagerComponent : Control
             sb.Append(character);
             textPaintAnimation.TrackInsertKey(0, 0.05f * index, sb.ToString());
 
-            if(DialogueManager.GetStep().IndexOf(character) % 2 == 0) {
+            if (DialogueManager.GetStep().IndexOf(character) % 2 == 0)
+            {
                 textPaintAnimation.TrackInsertKey(1, 0.05f * index, true);
             }
 
@@ -99,11 +101,12 @@ public partial class DialogueManagerComponent : Control
 
         AnimationPlayer.Play("dialogue_painter/text_paint");
 
-        if(CanTimeOut) {
+        if (CanTimeOut)
+        {
             TextTimeout.WaitTime = textPaintAnimation.Length + 1;
             TextTimeout.Start();
         }
-        
+
         DialogueComplete?.Invoke(this, new DialogueCompleteArgs(DialogueManager.GetStep()));
         return TextTimeout.WaitTime;
     }

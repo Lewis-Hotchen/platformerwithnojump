@@ -2,7 +2,8 @@ using Godot;
 
 namespace PlatformerWithNoJump;
 
-public class DialogueEntry {
+public class DialogueEntry
+{
 
     public string Level { get; set; }
     public string[] DialogueSteps { get; set; }
@@ -17,13 +18,16 @@ public class DialogueEntry {
         CurrentStep = 0;
     }
 
-    public void SetStep(int step) {
+    public void SetStep(int step)
+    {
         CurrentStep = step;
     }
 
-    public bool IncrementStep() {
-        if(CurrentStep < NumberOfSteps-1){
-            CurrentStep+=1;
+    public bool IncrementStep()
+    {
+        if (CurrentStep < NumberOfSteps - 1)
+        {
+            CurrentStep += 1;
             return true;
         }
 

@@ -38,6 +38,7 @@ theme = ExtResource("3_liuca")
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 40
 theme_override_constants/icon_margin = 0
+theme_override_font_sizes/font_size = 8
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sbods")
 allow_search = false
 max_text_lines = 2
