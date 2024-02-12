@@ -1,8 +1,9 @@
 namespace PlatformerWithNoJump;
 
-public enum Tools {
-    Springboard,
-    Rope,
-    Bouncepad,
-    ActualJump
-    }
+public enum Tools
+{
+    AFP,
+    Spring,
+    ActualJump,
+    Rope
+}

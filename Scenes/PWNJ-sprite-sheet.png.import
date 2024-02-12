@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbh5ea54jpmpd"
-path="res://.godot/imported/sprite-sheet.png-9dc8d3ca42a573cb58ae8f616749dd8f.ctex"
+uid="uid://cnei45yc162jp"
+path="res://.godot/imported/PWNJ-sprite-sheet.png-35ed23eeab777f995135c823307deca3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/sprite-sheet.png"
-dest_files=["res://.godot/imported/sprite-sheet.png-9dc8d3ca42a573cb58ae8f616749dd8f.ctex"]
+source_file="res://Scenes/PWNJ-sprite-sheet.png"
+dest_files=["res://.godot/imported/PWNJ-sprite-sheet.png-35ed23eeab777f995135c823307deca3.ctex"]
 
 [params]
 

@@ -4,28 +4,27 @@ namespace PlatformerWithNoJump;
 public partial class TutorialPart1 : Node2D
 {
     [Export]
-    public StateTrackerComponent StateTracker { get; set; }
+    public DialogueManagerComponent Dialogue;
+    
     public override void _Ready()
     {
-        GetNode<Timer>("MoveTimer").Timeout += OnMoveTimeout;
+        states = GetNode<StateTracker>("/root/StateTracker");
+        states.SetState("BuildEnabled", false);
+        Dialogue.SetDialogueOnBox();
+        GetNode<Area2D>("Area2D").BodyShapeEntered += OnBodyShapeEntered;
         base._Ready();
     }
-
-    private void OnMoveTimeout()
+ 
+    private void OnBodyShapeEntered(Rid bodyRid, Node2D body, long bodyShapeIndex, long localShapeIndex)
     {
-        GetNode<InGameLabel>("InGameLabel").QueueFree();
+        Dialogue.SetNextDialogueStep();
+        Dialogue.SetDialogueOnBox();
     }
 
+    private StateTracker states;
 
     public override void _Process(double delta)
     {
-        if(Input.IsActionJustPressed("ui_right") || Input.IsActionJustPressed("ui_left")) {
-            if(!StateTracker.States["DidMove"]) {
-                GetNode<Timer>("MoveTimer").Start();
-                StateTracker.States["DidMove"] = true;
-            }     
-        }
-
         base._Process(delta);
     }
 }

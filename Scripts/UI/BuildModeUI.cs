@@ -1,5 +1,6 @@
+using System;
 using Godot;
-using PlatformerWithNoJump;
+namespace PlatformerWithNoJump;
 
 public partial class BuildModeUI : Control
 {
@@ -7,45 +8,54 @@ public partial class BuildModeUI : Control
     public BuildModeComponent BuildModeComponent { get; set; }
 
     [Signal]
-    public delegate void ToolBuiltEventHandler(Node2D tool);
+    public delegate void ToolBuiltEventHandler(Node2D tool, Vector2 globalPosition);
 
     [Export]
     public ToolSelector ToolSelector { get; set; }
 
     [Export]
-    public StateTrackerComponent StateTrackerComponent { get; set;}
-
-    [Export]
     public DeployedToolsComponent DeployedToolsComponent { get; set; }
+
+    private StateTracker states;
 
     public override void _Ready()
     {
-        BuildModeComponent.StateTrackerComponent = StateTrackerComponent;
-        ToolSelector.States = StateTrackerComponent;
-        StateTrackerComponent.States["ToolSelectorOpen"] = ToolSelector.Visible;
+        states = GetNode<StateTracker>("/root/StateTracker");
+        states.StateChanged += OnStateChanged;
         BuildModeComponent.ToolBuilt += OnToolBuilt;
-        ToolSelector.ToolSelected += OnToolSelected;
         base._Ready();
+    }
+
+    private void OnStateChanged(string state, bool value)
+    {
+        switch(state) {
+            case "BuildEnabled":
+                Visible = value;
+                break;
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        BuildModeComponent.ToolBuilt -= OnToolBuilt;
+        base._ExitTree();
     }
 
     private void OnToolBuilt(object sender, ToolBuiltEventArgs e)
     {
         DeployedToolsComponent.Add(e.ToolBuilt);
-        e.ToolBuilt.GlobalPosition = e.GlobalPos;
-        EmitSignal(SignalName.ToolBuilt, e.ToolBuilt);
+        EmitSignal(SignalName.ToolBuilt, e.ToolBuilt, e.GlobalPos);
     }
-
-
-    private void OnToolSelected(object sender, ToolSelectedEventArgs e)
-    {
-    }
-
 
     public override void _Process(double delta)
     {
-        if(Input.IsActionJustPressed("ui_up")) {
-            StateTrackerComponent.States["ToolSelectorOpen"] = !StateTrackerComponent.States["ToolSelectorOpen"];
-            ToolSelector.Visible = StateTrackerComponent.States["ToolSelectorOpen"];
+        if (Input.IsActionJustPressed("build_mode") && !states.GetState("IsBuildMode"))
+        {
+            BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
+        }
+        else if (Input.IsActionJustPressed("build_mode") && states.GetState("IsBuildMode"))
+        {
+            states.SetState("IsBuildMode", false);
         }
 
         base._Process(delta);

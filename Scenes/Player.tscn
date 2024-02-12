@@ -1,43 +1,208 @@
-[gd_scene load_steps=3 format=3 uid="uid://efel0vjy5yr5"]
+[gd_scene load_steps=26 format=3 uid="uid://efel0vjy5yr5"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_luxqd"]
+[ext_resource type="Texture2D" uid="uid://buljbx85hm1n5" path="res://Assets/Chum-idle.png" id="2_lms8l"]
+[ext_resource type="Texture2D" uid="uid://dndx6l85bnghl" path="res://Assets/Chum-hurt.png" id="2_nqk3t"]
+[ext_resource type="Texture2D" uid="uid://dt0eyjr87gfvq" path="res://Assets/Chum-run.png" id="3_lph36"]
+[ext_resource type="AudioStream" uid="uid://bweg238x56t04" path="res://Assets/chum-walk.wav" id="5_u4e0m"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ctbbq"]
-size = Vector2(12, 12)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h077e"]
+radius = 13.0
+height = 35.0
 
-[node name="Player" type="RigidBody2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwc4j"]
+atlas = ExtResource("2_nqk3t")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sge5"]
+atlas = ExtResource("2_nqk3t")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7l4b"]
+atlas = ExtResource("2_nqk3t")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62wpg"]
+atlas = ExtResource("2_nqk3t")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_titve"]
+atlas = ExtResource("2_nqk3t")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8t4ak"]
+atlas = ExtResource("2_nqk3t")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ll7st"]
+atlas = ExtResource("2_nqk3t")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkxvy"]
+atlas = ExtResource("2_nqk3t")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tc8sn"]
+atlas = ExtResource("2_lms8l")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpw02"]
+atlas = ExtResource("2_lms8l")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0gj6"]
+atlas = ExtResource("2_lms8l")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v2m5"]
+atlas = ExtResource("2_lms8l")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70xie"]
+atlas = ExtResource("2_lms8l")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkxxx"]
+atlas = ExtResource("2_lms8l")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mctq"]
+atlas = ExtResource("3_lph36")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7v7ad"]
+atlas = ExtResource("3_lph36")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8iu0k"]
+atlas = ExtResource("3_lph36")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_erml0"]
+atlas = ExtResource("3_lph36")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pbq5q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwc4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sge5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7l4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62wpg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_titve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8t4ak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ll7st")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkxvy")
+}],
+"loop": false,
+"name": &"chum_hurt",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tc8sn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpw02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0gj6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v2m5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70xie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkxxx")
+}],
+"loop": true,
+"name": &"chum_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mctq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7v7ad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8iu0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_erml0")
+}],
+"loop": true,
+"name": &"chum_run",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Chum" type="RigidBody2D" node_paths=PackedStringArray("ChumRun", "ChumSprite")]
+disable_mode = 1
 collision_mask = 14
-mass = 2.0
-center_of_mass_mode = 1
-center_of_mass = Vector2(6, 6)
+can_sleep = false
 lock_rotation = true
 script = ExtResource("1_luxqd")
+Force = 5000.0
+InAirMovementReduction = 1.0
+DefaultGravity = 1.8
+ChumRun = NodePath("ChumWalk")
+ChumSprite = NodePath("ChumSprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6, 6)
-shape = SubResource("RectangleShape2D_ctbbq")
+position = Vector2(1, 4)
+shape = SubResource("CapsuleShape2D_h077e")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 12.0
-offset_bottom = 12.0
+[node name="ChumSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pbq5q")
+animation = &"chum_run"
+autoplay = "chum_idle"
+flip_h = true
 
 [node name="IsOnGround" type="RayCast2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(-11, -9)
 scale = Vector2(2, 2)
-target_position = Vector2(0, 6.5)
+target_position = Vector2(0, 17)
 collision_mask = 2
 collide_with_areas = true
 
 [node name="IsOnGround2" type="RayCast2D" parent="."]
-position = Vector2(6, 0)
+position = Vector2(0, -9)
 scale = Vector2(2, 2)
-target_position = Vector2(0, 6.5)
+target_position = Vector2(0, 17)
 collision_mask = 2
 collide_with_areas = true
 
 [node name="IsOnGround3" type="RayCast2D" parent="."]
-position = Vector2(11, 0)
+position = Vector2(11, -9)
 scale = Vector2(2, 2)
-target_position = Vector2(0, 6.5)
+target_position = Vector2(0, 17)
 collision_mask = 2
 collide_with_areas = true
+
+[node name="ChumWalk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_u4e0m")
+volume_db = -18.996
+pitch_scale = 1.17

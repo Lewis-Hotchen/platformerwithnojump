@@ -1,22 +1,25 @@
 using System;
 using Godot;
-using PlatformerWithNoJump;
+namespace PlatformerWithNoJump;
 
 public partial class BuildModeComponent : Node2D
 {
-    public ITool ToolSelected { get; set; }
+    [Export]
+    public Node2D DefaultToolPreview { get; set; }
+
+    public Node2D Preview { get; set; }
+
+    public Tools ToolSelected { get; set; }
+
+    public float Direction { get; set; }
 
     [Export]
     public bool IsBuildMode { get; set; }
 
     [Export]
-    public ToolSelector ToolSelector { get; set; }
-
-    [Export]
     public Vector2 Snap { get; set; }
 
-    [Export]
-    public StateTrackerComponent StateTrackerComponent { get; set; }
+    private StateTracker states;
 
     public event EventHandler<ToolBuiltEventArgs> ToolBuilt;
 
@@ -24,67 +27,91 @@ public partial class BuildModeComponent : Node2D
 
     public override void _Ready()
     {
-        ToolSelector.ToolSelected += OnToolSelected;
+        states = GetNode<StateTracker>("/root/StateTracker");
         base._Ready();
     }
 
-    private void OnToolSelected(object sender, ToolSelectedEventArgs e)
+    public void StartBuild(Node2D toolPreivew)
     {
-        ToolSelected = e.Tool;
-        StateTrackerComponent.States["IsBuildMode"] = true;
+        Preview = (Node2D)toolPreivew.Duplicate();
+        states.SetState("IsBuildMode", true);
     }
 
     public override void _Process(double delta)
     {
-        if (StateTrackerComponent.States["IsBuildMode"] && ToolSelected.IsPlaceable)
+        if (states.GetState("IsBuildMode"))
         {
-            if (ToolSelected is Springboard s)
+            if (!IsInstanceValid(Preview) || Preview == null)
             {
-                if (s.GetParent() != this)
-                {
-                    AddChild(s);
-                    s.Visible = true;
-                }
+                Preview = DefaultToolPreview;
+            }
 
-                //s.GetNode<Area2D>("Area2D").BodyShapeEntered += ListenForCollision;
-                s.GlobalPosition = GetGlobalMousePosition().Snapped(Snap);
-                if (IsInBounds(s))
+            if (IsInstanceValid(Preview) && Preview != null)
+            {
+                if (Preview.GetParent() != this)
                 {
-                    s.Modulate = new Color(s.Modulate.R, s.Modulate.B, s.Modulate.G, 1);
-                    isShapeColliding = false;
-                }
-                else
-                {
-                    s.Modulate = new Color(s.Modulate.R, s.Modulate.B, s.Modulate.G, s.Modulate.A);
-                    isShapeColliding = true;
+                    AddChild(Preview);
+                    Direction = 0;
+                    Preview.Visible = true;
+                    Preview.GlobalPosition = GetCentreofScreen().Snapped(Snap);
                 }
 
                 if (!isShapeColliding && Input.IsActionJustPressed("build"))
                 {
-                    StateTrackerComponent.States["IsBuildMode"] = false;
-                    LockIn(s);
+                    states.SetState("IsBuildMode", false);
+                    LockIn();
+                    return;
+                }
+
+                Vector2 move = GetMove();
+
+                Preview.GlobalPosition += move * Snap;
+
+                if(Input.IsActionJustPressed("rotate")) {
+                    RotateDirection();
+                    Preview.RotationDegrees = Direction;
                 }
             }
+        }
+        else if (!states.GetState("IsBuildMode") && Node2D.IsInstanceValid(Preview))
+        {
+            Preview.QueueFree();
         }
 
         base._Process(delta);
     }
 
-    private void LockIn(ITool selectedTool)
+    private void RotateDirection()
     {
-        var tool = (Node2D) selectedTool;
-        var newTool = SceneManager.LoadScene<Node2D>("res://scenes/tools/Springboard.tscn");
-        ToolBuilt?.Invoke(this, new ToolBuiltEventArgs(newTool, tool.GlobalPosition));
-        tool.QueueFree();
+        Direction += 90 % 360;
     }
 
-    private static bool IsInBounds(Springboard s)
+    private static Vector2 GetMove()
     {
-       return true;
+        if (Input.IsActionJustPressed("up"))
+            return Vector2.Up;
+        if (Input.IsActionJustPressed("down"))
+            return Vector2.Down;
+        if (Input.IsActionJustPressed("right"))
+            return Vector2.Right;
+        if (Input.IsActionJustPressed("left"))
+            return Vector2.Left;
+
+        return Vector2.Zero;
     }
 
-    private void ListenForCollision(Rid bodyRid, Node2D body, long bodyShapeIndex, long localShapeIndex)
+    private static Vector2 GetCentreofScreen()
     {
-        isShapeColliding = true;
+        return new Vector2(1280 / 2, 680 / 2);
+    }
+
+    private void LockIn()
+    {
+        var tool = Preview.GetNode<ToolComponent>("ToolComponent").ToolType;
+        var newTool = SceneManager.LoadScene<Node2D>($"res://scenes/tools/{tool}.tscn");
+        newTool.Set("Active", false);
+        newTool.RotationDegrees = Direction; // Replace with enum logic to pair up enum with tool scene.
+        ToolBuilt?.Invoke(this, new ToolBuiltEventArgs(newTool, Preview.GlobalPosition));
+        Preview.QueueFree();
     }
 }

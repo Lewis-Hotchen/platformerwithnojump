@@ -1,70 +1,68 @@
-[gd_scene load_steps=17 format=3 uid="uid://cdjrhfy4clb8"]
+[gd_scene load_steps=20 format=3 uid="uid://cdjrhfy4clb8"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart3.cs" id="1_wchyx"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="3_o3dnp"]
 [ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/LevelBuildingBlocks/Exit.tscn" id="4_l8an4"]
-[ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/UI/InGameLabel.tscn" id="5_cnj2s"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="5_rgvdd"]
 [ext_resource type="PackedScene" uid="uid://bemn7318ginyx" path="res://Scenes/Components/PlayerKillBoxComponent.tscn" id="6_xggxr"]
-[ext_resource type="PackedScene" uid="uid://c6b3mkpri1v5t" path="res://Scenes/Components/StateTrackerComponent.tscn" id="7_bwp11"]
 [ext_resource type="PackedScene" uid="uid://cetle8nppygjd" path="res://Scenes/Components/ResetLevelComponent.tscn" id="8_g0u55"]
+[ext_resource type="PackedScene" uid="uid://c5ijmfmd1jxx2" path="res://Scenes/Components/DialogueManagerComponent.tscn" id="9_5fbcu"]
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="9_ykn1u"]
+[ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="10_iu88r"]
 [ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="10_yj8me"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7am11"]
-size = Vector2(12, 36)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36ght"]
+size = Vector2(32, 224)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b4a2v"]
-size = Vector2(12, 96)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1neko"]
+size = Vector2(32, 320)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgywk"]
-size = Vector2(60, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ci7g7"]
+size = Vector2(160, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_srj4s"]
-size = Vector2(216, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hwbm6"]
+size = Vector2(192, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q82ae"]
-size = Vector2(60, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3qk31"]
+size = Vector2(1184, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wss3"]
-size = Vector2(12, 84)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hu3wp"]
+size = Vector2(160, 32)
 
-[node name="TutorialPart3" type="Node2D" node_paths=PackedStringArray("PlayerKillBox", "StateTracker", "ResetLevel", "Timers")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qxp7"]
+size = Vector2(288, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8uwm"]
+size = Vector2(32, 448)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0y5t6"]
+size = Vector2(32, 128)
+
+[node name="TutorialPart3" type="Node2D" node_paths=PackedStringArray("PlayerKillBox", "ResetLevel", "Timers", "Dialogue")]
 script = ExtResource("1_wchyx")
 PlayerKillBox = NodePath("PlayerKillBoxComponent")
-StateTracker = NodePath("StateTrackerComponent")
 ResetLevel = NodePath("ResetLevelComponent")
 Timers = NodePath("TimerTrackerComponent")
+Dialogue = NodePath("DialogueManagerComponent")
 
 [node name="Tiles" parent="." instance=ExtResource("3_o3dnp")]
-layer_0/tile_data = PackedInt32Array(589838, 65538, 0, 589839, 65538, 0, 589840, 65538, 0, 589841, 65538, 0, 327680, 131074, 1, 393216, 131074, 1, 458752, 131074, 1, 524288, 131074, 1, 589824, 131074, 1, 655360, 131074, 1, 720896, 131074, 1, 786432, 131074, 1, 589837, 131074, 3, 458769, 2, 1, 393233, 2, 1, 327697, 2, 1, 262161, 2, 1, 196625, 2, 1, 131089, 2, 1, 65553, 2, 1, 17, 131074, 805306371, 16, 65538, 0, 15, 65538, 0, 14, 65538, 0, 13, 65538, 0, 12, 65538, 0, 11, 65538, 0, 10, 65538, 0, 9, 65538, 0, 8, 65538, 0, 7, 65538, 0, 6, 65538, 0, 5, 65538, 0, 4, 65538, 0, 3, 65538, 0, 2, 65538, 0, 1, 65538, 0, 262145, 65538, 0, 262146, 65538, 0, 262147, 65538, 0, 262148, 196610, 3, 196608, 131074, 1, 131072, 131074, 1, 65536, 131074, 1, 262144, 131074, 1, 0, 196610, 805306371)
+layer_0/tile_data = PackedInt32Array(0, 0, 3, 1, 393216, 805306370, 2, 393216, 805306370, 3, 393216, 805306370, 4, 393216, 805306370, 5, 393216, 805306370, 6, 393216, 805306370, 7, 393216, 805306370, 8, 393216, 805306370, 9, 393216, 805306370, 10, 393216, 805306370, 11, 393216, 805306370, 12, 393216, 805306370, 13, 393216, 805306370, 14, 393216, 805306370, 15, 393216, 805306370, 16, 393216, 805306370, 17, 393216, 805306370, 18, 393216, 805306370, 19, 393216, 805306370, 20, 393216, 805306370, 21, 393216, 805306370, 22, 393216, 805306370, 23, 393216, 805306370, 24, 393216, 805306370, 25, 393216, 805306370, 26, 393216, 805306370, 27, 393216, 805306370, 28, 393216, 805306370, 29, 393216, 805306370, 31, 393216, 805306370, 32, 393216, 805306370, 33, 393216, 805306370, 34, 393216, 805306370, 35, 393216, 805306370, 36, 0, 1342177283, 30, 393216, 805306370, 1245220, 0, 805306371, 1179684, 327680, 1342177282, 1114148, 327680, 1342177282, 1048612, 327680, 1342177282, 983076, 589824, 2, 917540, 327680, 1342177282, 852004, 327680, 1342177282, 786468, 327680, 1342177282, 720932, 327680, 1342177282, 655396, 327680, 1342177282, 589860, 327680, 1342177282, 524324, 327680, 1342177282, 65572, 327680, 1342177282, 131108, 327680, 1342177282, 393252, 327680, 1342177282, 458788, 327680, 1342177282, 327716, 327680, 1342177282, 262180, 327680, 1342177282, 196644, 327680, 1342177282, 1179648, 327680, 1610612738, 1114112, 327680, 1610612738, 1048576, 327680, 1610612738, 983040, 327680, 1610612738, 917504, 327680, 1610612738, 851968, 327680, 1610612738, 786432, 327680, 1610612738, 720896, 327680, 1610612738, 655360, 327680, 1610612738, 589824, 327680, 1610612738, 524288, 589824, 805306370, 458752, 327680, 1610612738, 393216, 327680, 1610612738, 327680, 327680, 1610612738, 262144, 327680, 1610612738, 196608, 327680, 1610612738, 131072, 327680, 1610612738, 65536, 327680, 1610612738, 524289, 327680, 2, 524290, 327680, 2, 524291, 327680, 2, 983075, 327680, 2, 983074, 327680, 2, 983073, 327680, 2, 983072, 327680, 2, 983071, 327680, 2, 983070, 327680, 2, 983069, 327680, 2, 983068, 589824, 805306370, 524292, 589824, 2, 655369, 589824, 805306370, 655370, 262144, 2, 655371, 262144, 2, 655372, 262144, 2, 655373, 262144, 2, 917525, 262144, 2, 917526, 262144, 2, 917527, 262144, 2, 917528, 589824, 2, 917524, 589824, 805306370, 655374, 589824, 2)
 
-[node name="Exit" parent="." instance=ExtResource("4_l8an4")]
-position = Vector2(416, 196)
-
-[node name="JumpBaitLabel" parent="." instance=ExtResource("5_cnj2s")]
-offset_left = 71.0
-offset_top = 20.0
-offset_right = 117.0
-offset_bottom = 32.0
-Text = "Press Space to jump"
+[node name="Exit" parent="." node_paths=PackedStringArray("NextLevelComponent") instance=ExtResource("4_l8an4")]
+position = Vector2(1054, 415)
+NextLevelComponent = NodePath("../NextLevelComponent")
 
 [node name="Player" parent="." instance=ExtResource("5_rgvdd")]
-position = Vector2(48, 84)
+position = Vector2(48, 232)
 
-[node name="PlayerKillBoxComponent" parent="." node_paths=PackedStringArray("Player", "StateTracker") instance=ExtResource("6_xggxr")]
+[node name="PlayerKillBoxComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("6_xggxr")]
+position = Vector2(584, 681)
 Player = NodePath("../Player")
-KillFloorY = 120.0
-StateTracker = NodePath("../StateTrackerComponent")
+KillFloorY = 680.0
 
-[node name="StateTrackerComponent" parent="." instance=ExtResource("7_bwp11")]
-StateNames = PackedStringArray("HasCompletedTutorial", "HasFallen")
-
-[node name="ResetLevelComponent" parent="." node_paths=PackedStringArray("StateTracker", "Player") instance=ExtResource("8_g0u55")]
+[node name="ResetLevelComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("8_g0u55")]
 position = Vector2(1, 0)
-StateTracker = NodePath("../StateTrackerComponent")
 Player = NodePath("../Player")
-StartPosition = Vector2(24, 42)
 
 [node name="TimerTrackerComponent" parent="." node_paths=PackedStringArray("Timers") instance=ExtResource("9_ykn1u")]
 Timers = [null, null]
@@ -73,25 +71,48 @@ Timers = [null, null]
 tilemap_nodepath = NodePath("../Tiles")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(6, 30)
-shape = SubResource("RectangleShape2D_7am11")
+position = Vector2(16, 144)
+shape = SubResource("RectangleShape2D_36ght")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(6, 108)
-shape = SubResource("RectangleShape2D_b4a2v")
+position = Vector2(16, 448)
+shape = SubResource("RectangleShape2D_1neko")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(30, 54)
-shape = SubResource("RectangleShape2D_vgywk")
+position = Vector2(80, 272)
+shape = SubResource("RectangleShape2D_ci7g7")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(108, 6)
-shape = SubResource("RectangleShape2D_srj4s")
+position = Vector2(384, 336)
+shape = SubResource("RectangleShape2D_hwbm6")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(186, 114)
-shape = SubResource("RectangleShape2D_q82ae")
+position = Vector2(592, 16)
+shape = SubResource("RectangleShape2D_3qk31")
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(210, 54)
-shape = SubResource("RectangleShape2D_4wss3")
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(720, 464)
+shape = SubResource("RectangleShape2D_hu3wp")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1040, 496)
+shape = SubResource("RectangleShape2D_0qxp7")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1168, 256)
+shape = SubResource("RectangleShape2D_f8uwm")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1168, 576)
+shape = SubResource("RectangleShape2D_0y5t6")
+
+[node name="DialogueManagerComponent" parent="." instance=ExtResource("9_5fbcu")]
+offset_left = -41.0
+offset_top = 40.0
+offset_right = -41.0
+offset_bottom = 40.0
+NextTextAction = "jump"
+DialogueEntry = "tutorial_3"
+CanSkip = true
+
+[node name="NextLevelComponent" parent="." instance=ExtResource("10_iu88r")]

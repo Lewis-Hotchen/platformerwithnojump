@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bemn7318ginyx"]
+[gd_scene load_steps=4 format=3 uid="uid://bemn7318ginyx"]
 
 [ext_resource type="Script" path="res://Scripts/Components/PlayerKillBoxComponent.cs" id="1_7qkll"]
+[ext_resource type="PackedScene" uid="uid://cnyvc7xbxujyw" path="res://Scenes/Particles/ChumDeath.tscn" id="2_ofvrx"]
+[ext_resource type="AudioStream" uid="uid://bnvtgkd4f83dx" path="res://Assets/chum-explode.wav" id="3_yojfx"]
 
 [node name="PlayerKillBoxComponent" type="Node2D"]
 script = ExtResource("1_7qkll")
+
+[node name="ChumDeathLegs" parent="." instance=ExtResource("2_ofvrx")]
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_yojfx")
+volume_db = -5.58

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqtqbh3px1bdj"
-path="res://.godot/imported/blacknwhite.png-b3cf2617d9d40b0c3988fb80a6cb0bc4.ctex"
+uid="uid://dndx6l85bnghl"
+path="res://.godot/imported/Chum-hurt.png-ada836e299cea3dcaa8bd2741b139c27.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/blacknwhite.png"
-dest_files=["res://.godot/imported/blacknwhite.png-b3cf2617d9d40b0c3988fb80a6cb0bc4.ctex"]
+source_file="res://Assets/Chum-hurt.png"
+dest_files=["res://.godot/imported/Chum-hurt.png-ada836e299cea3dcaa8bd2741b139c27.ctex"]
 
 [params]
 

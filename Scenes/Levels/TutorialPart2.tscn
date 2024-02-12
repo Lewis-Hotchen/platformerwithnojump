@@ -1,55 +1,64 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwlyocvh6ah6l"]
+[gd_scene load_steps=20 format=3 uid="uid://bwlyocvh6ah6l"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart2.cs" id="1_2k0mm"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="3_ny3g8"]
 [ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/LevelBuildingBlocks/Exit.tscn" id="4_gm3cp"]
-[ext_resource type="PackedScene" uid="uid://723y5e2s41" path="res://Scenes/UI/InGameLabel.tscn" id="5_7pgcw"]
 [ext_resource type="PackedScene" uid="uid://ptthk6wo0w3k" path="res://Scenes/Components/PlayerJumpComponent.tscn" id="5_riw14"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="6_w01bj"]
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="8_4f7ro"]
 [ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="8_hg3a6"]
+[ext_resource type="PackedScene" uid="uid://c5ijmfmd1jxx2" path="res://Scenes/Components/DialogueManagerComponent.tscn" id="9_qo75l"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrfet"]
-size = Vector2(12, 60)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vait6"]
+size = Vector2(32, 320)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6xj3"]
-size = Vector2(12, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbe70"]
+size = Vector2(32, 224)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j08rr"]
-size = Vector2(12, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrbgj"]
+size = Vector2(32, 96)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r277x"]
-size = Vector2(240, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ji33g"]
+size = Vector2(1184, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfcbx"]
-size = Vector2(12, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npvvm"]
+size = Vector2(1184, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_083wy"]
-size = Vector2(12, 60)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bu1nj"]
+size = Vector2(1184, 32)
 
-[node name="TutorialPart2" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5doqt"]
+size = Vector2(32, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cefb"]
+size = Vector2(32, 320)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xwpn"]
+size = Vector2(32, 224)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atmy4"]
+size = Vector2(28, 271)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3tfq"]
+size = Vector2(20, 255)
+
+[node name="TutorialPart2" type="Node2D" node_paths=PackedStringArray("Dialogue", "DialogueCooldown", "SpringLocOne", "SpringLocTwo")]
 script = ExtResource("1_2k0mm")
-
-[node name="Tiles" parent="." instance=ExtResource("3_ny3g8")]
-layer_0/tile_data = PackedInt32Array(393216, 65538, 0, 393217, 65538, 0, 393218, 65538, 0, 393219, 65538, 0, 393220, 65538, 0, 393221, 65538, 0, 393222, 65538, 0, 393223, 65538, 0, 393224, 65538, 0, 393225, 65538, 0, 393226, 65538, 0, 393227, 65538, 0, 393228, 65538, 0, 393229, 65538, 0, 393230, 65538, 0, 393231, 65538, 0, 393232, 65538, 0, 393233, 65538, 0, 327684, 65538, 0, 327688, 65538, 0, 327694, 65538, 0, 458751, 2, 2, 393215, 2, 2, 327679, 2, 2, 262143, 2, 2, 196607, 2, 2, 131071, 2, 2, 65554, 2, 2, 131090, 2, 2, 196626, 2, 2, 262162, 2, 2, 327698, 2, 2, 393234, 2, 2)
+Dialogue = NodePath("DialogueManagerComponent")
+DialogueCooldown = NodePath("DialogueCooldown")
+SpringLocOne = NodePath("SpringOneloc")
+SpringLocTwo = NodePath("SpringTwoLoc")
 
 [node name="Exit" parent="." node_paths=PackedStringArray("NextLevelComponent") instance=ExtResource("4_gm3cp")]
-position = Vector2(416, 124)
+position = Vector2(1054, 290)
 NextLevelComponent = NodePath("../NextLevelComponent")
-
-[node name="InGameLabel" parent="." instance=ExtResource("5_7pgcw")]
-offset_left = 81.0
-offset_top = 17.0
-offset_right = 127.0
-offset_bottom = 29.0
-Text = "Press \"Space\" to jump"
 
 [node name="PlayerJumpComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("5_riw14")]
 Player = NodePath("../Player")
 Force = 800.0
 
 [node name="Player" parent="." instance=ExtResource("6_w01bj")]
-position = Vector2(6, 131)
+position = Vector2(55, 321)
 
 [node name="NextLevelComponent" parent="." instance=ExtResource("8_4f7ro")]
 
@@ -57,25 +66,72 @@ position = Vector2(6, 131)
 tilemap_nodepath = NodePath("../Tiles")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(-6, 42)
-shape = SubResource("RectangleShape2D_xrfet")
+position = Vector2(16, 192)
+shape = SubResource("RectangleShape2D_vait6")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(54, 66)
-shape = SubResource("RectangleShape2D_w6xj3")
+position = Vector2(16, 496)
+shape = SubResource("RectangleShape2D_pbe70")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(102, 66)
-shape = SubResource("RectangleShape2D_j08rr")
+position = Vector2(304, 304)
+shape = SubResource("RectangleShape2D_lrbgj")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(108, 78)
-shape = SubResource("RectangleShape2D_r277x")
+position = Vector2(592, 16)
+shape = SubResource("RectangleShape2D_ji33g")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(174, 66)
-shape = SubResource("RectangleShape2D_gfcbx")
+position = Vector2(592, 368)
+shape = SubResource("RectangleShape2D_npvvm")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(222, 42)
-shape = SubResource("RectangleShape2D_083wy")
+position = Vector2(592, 624)
+shape = SubResource("RectangleShape2D_bu1nj")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(880, 304)
+shape = SubResource("RectangleShape2D_5doqt")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1168, 192)
+shape = SubResource("RectangleShape2D_5cefb")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="TileMapCollisionBaker"]
+position = Vector2(1168, 496)
+shape = SubResource("RectangleShape2D_4xwpn")
+
+[node name="DialogueCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="DialogueManagerComponent" parent="." instance=ExtResource("9_qo75l")]
+offset_left = -62.0
+offset_top = 24.0
+offset_right = -62.0
+offset_bottom = 24.0
+NextTextAction = "jump"
+DialogueEntry = "tutorial_2"
+CanSkip = true
+
+[node name="Tiles" parent="." instance=ExtResource("3_ny3g8")]
+layer_0/tile_data = PackedInt32Array(0, 65536, 1610612739, 1, 393216, 2, 2, 393216, 2, 3, 393216, 2, 4, 393216, 2, 5, 393216, 2, 6, 393216, 2, 7, 393216, 2, 8, 393216, 2, 9, 393216, 2, 10, 393216, 2, 11, 393216, 2, 12, 393216, 2, 13, 393216, 2, 14, 393216, 2, 15, 393216, 2, 16, 393216, 2, 17, 393216, 2, 18, 393216, 2, 19, 393216, 2, 20, 393216, 2, 21, 393216, 2, 22, 393216, 2, 23, 393216, 2, 24, 393216, 2, 25, 393216, 2, 26, 393216, 2, 27, 393216, 2, 28, 393216, 2, 29, 393216, 2, 30, 393216, 2, 31, 393216, 2, 32, 393216, 2, 33, 393216, 2, 34, 393216, 2, 35, 393216, 2, 36, 196608, 1342177283, 1245220, 196608, 805306371, 1245219, 327680, 2, 1245218, 327680, 2, 1245217, 327680, 2, 1245216, 327680, 2, 1245215, 327680, 2, 1245214, 327680, 2, 1245205, 327680, 2, 1245206, 327680, 2, 1245207, 327680, 2, 1245208, 327680, 2, 1245209, 327680, 2, 1245210, 327680, 2, 1245211, 327680, 2, 1245212, 327680, 2, 1245213, 327680, 2, 1245204, 327680, 2, 1245203, 327680, 2, 1245196, 327680, 2, 1245195, 327680, 2, 1245194, 327680, 2, 1245193, 327680, 2, 1245192, 327680, 2, 1245191, 327680, 2, 1245190, 327680, 2, 1245189, 327680, 2, 1245188, 327680, 2, 1245187, 327680, 2, 1245186, 327680, 2, 1245185, 327680, 2, 1245184, 196608, 1610612739, 1245197, 327680, 2, 1245198, 327680, 2, 1245199, 327680, 2, 1245200, 327680, 2, 1245201, 327680, 2, 1245202, 327680, 2, 1179648, 393216, 1342177282, 1114112, 393216, 1342177282, 1048576, 393216, 1342177282, 983040, 393216, 1342177282, 917504, 393216, 1342177282, 786432, 393216, 1342177282, 720896, 393216, 1342177282, 851968, 393216, 1342177282, 655360, 393216, 1342177282, 589824, 393216, 1342177282, 524288, 393216, 1342177282, 458752, 393216, 1342177282, 393216, 393216, 1342177282, 327680, 393216, 1342177282, 262144, 393216, 1342177282, 196608, 393216, 1342177282, 131072, 393216, 1342177282, 65536, 393216, 1342177282, 720897, 131072, 2, 720898, 131072, 2, 720899, 131072, 2, 720900, 131072, 2, 720901, 131072, 2, 720902, 131072, 2, 720903, 131072, 2, 720904, 131072, 2, 720905, 131072, 2, 720906, 131072, 2, 720907, 131072, 2, 720908, 131072, 2, 720909, 131072, 2, 720910, 131072, 2, 720911, 131072, 2, 720912, 131072, 2, 720913, 131072, 2, 720914, 131072, 2, 720915, 131072, 2, 720916, 131072, 2, 720917, 131072, 2, 720918, 131072, 2, 720919, 131072, 2, 720920, 131072, 2, 720921, 131072, 2, 720922, 131072, 2, 720923, 131072, 2, 720924, 131072, 2, 720925, 131072, 2, 720926, 131072, 2, 720927, 131072, 2, 720928, 131072, 2, 720929, 131072, 2, 720930, 131072, 2, 720931, 131072, 2, 720932, 262144, 1342177282, 655387, 327680, 1342177282, 65572, 262144, 1342177282, 131108, 262144, 1342177282, 196644, 262144, 1342177282, 262180, 262144, 1342177282, 327716, 262144, 1342177282, 393252, 262144, 1342177282, 458788, 262144, 1342177282, 524324, 262144, 1342177282, 589860, 262144, 1342177282, 655396, 262144, 1342177282, 786468, 262144, 1342177282, 852004, 262144, 1342177282, 917540, 262144, 1342177282, 983076, 262144, 1342177282, 1048612, 262144, 1342177282, 1114148, 262144, 1342177282, 1179684, 262144, 1342177282, 655369, 262144, 1342177282, 589833, 262144, 1342177282, 524297, 589824, 1610612738, 589851, 327680, 1342177282, 524315, 589824, 1610612738)
+
+[node name="SpringOneloc" type="Marker2D" parent="."]
+position = Vector2(223, 331)
+
+[node name="SpringTwoLoc" type="Marker2D" parent="."]
+position = Vector2(787, 331)
+
+[node name="Jump1Trigger" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jump1Trigger"]
+position = Vector2(470, 305)
+shape = SubResource("RectangleShape2D_atmy4")
+
+[node name="Jump2Trigger" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jump2Trigger"]
+position = Vector2(792, 316)
+shape = SubResource("RectangleShape2D_r3tfq")

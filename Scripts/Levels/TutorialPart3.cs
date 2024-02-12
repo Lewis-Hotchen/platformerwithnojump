@@ -8,46 +8,50 @@ public partial class TutorialPart3 : Node2D
     public PlayerKillBoxComponent PlayerKillBox { get; set; }
 
     [Export]
-    public StateTrackerComponent StateTracker { get; set; }
+    public ResetLevelComponent ResetLevel { get; set; }
 
     [Export]
-    public ResetLevelComponent ResetLevel {get;set;}
+    public TimerTrackerComponent Timers { get; set; }
 
     [Export]
-    public TimerTrackerComponent Timers {get;set;}
+    public DialogueManagerComponent Dialogue { get; set; }
+
+    private StateTracker states;
 
     public override void _Ready()
     {
-        var killboxDelayTimer = Timers.AddTimer(2, "KillboxDelay");
-        var splashScreenTimer = Timers.AddTimer(4, "SplashScreenTimeout");
-        PlayerKillBox.OnPlayerFell += PlayerFell;
-        killboxDelayTimer.Timeout += FirstTimeTimeout;
-        splashScreenTimer.Timeout += SplashScreenTimeout;
+        states = GetNode<StateTracker>("/root/StateTracker");
+        Dialogue.SetDialogueOnBox();
+        Dialogue.DialogueComplete += OnDialogueComplete;
+        PlayerKillBox.OnPlayerFell += OnPlayerFell;
         base._Ready();
     }
+
+    private void OnDialogueComplete(object sender, DialogueCompleteArgs e)
+    {
+        if(e.CompletedStep == "Press B to activate build mode.") {
+            states.SetState("BuildEnabled", true);
+        }
+    }
+
+
+    private void OnPlayerFell(object sender, EventArgs e)
+    {
+        GetNode<ScreenCamera>("../../Camera").ApplyShake();
+    }
+
 
     private void SplashScreenTimeout()
     {
         GetNode<Node2D>("Splash").QueueFree();
-        StateTracker.States["HasCompletedTutorial"] = true;
-        StateTracker.States["HasFallen"] = false;
+        states.SetState("HasCompletedTutorial", true);
+        states.SetState("HasFallen", false);
         ResetLevel.ResetLevel();
-
     }
 
     private void FirstTimeTimeout()
     {
         AddChild(SceneManager.LoadScene<Node2D>("res://Scenes/UI/Splash.tscn"));
         Timers.StartTimer("SplashScreenTimeout");
-    }
-
-    private void PlayerFell(object sender, EventArgs e)
-    {
-        if(!StateTracker.States["HasCompletedTutorial"]) {
-            Timers.StartTimer("KillboxDelay");
-        } else {
-            ResetLevel.ResetLevel();
-            StateTracker.States["HasFallen"] = false;
-        }
     }
 }
