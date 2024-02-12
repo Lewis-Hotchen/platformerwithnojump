@@ -22,8 +22,8 @@ public partial class Spring : StaticBody2D
     public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
 
     private bool isPlaced;
+    
     private bool active;
-
 
     public bool CanFall { get; set; }
 

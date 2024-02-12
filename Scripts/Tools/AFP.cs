@@ -23,6 +23,26 @@ public partial class AFP : Node2D
         base._Ready();
     }
 
+    public void SetDirection(float degrees)
+    {
+        switch (degrees)
+        {
+            case 0:
+                ImpulseComponent.Direction = new Vector2(1, -1);
+                break;
+            case 90:
+                ImpulseComponent.Direction = new Vector2(1, 1);
+                break;
+            case 180:
+                ImpulseComponent.Direction = new Vector2(-1, 1);
+                break;
+            case 270:
+                ImpulseComponent.Direction = new Vector2(1, -1);
+                break;
+        }
+
+    }
+
     private void OnBodyEntered(Node2D body)
     {
         if (!Timers.GetTimerRunning("cooldown"))

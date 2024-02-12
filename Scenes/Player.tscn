@@ -8,7 +8,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h077e"]
 radius = 13.0
-height = 35.0
+height = 40.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rwc4j"]
 atlas = ExtResource("2_nqk3t")
@@ -172,7 +172,7 @@ ChumRun = NodePath("ChumWalk")
 ChumSprite = NodePath("ChumSprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 4)
+position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_h077e")
 
 [node name="ChumSprite" type="AnimatedSprite2D" parent="."]
