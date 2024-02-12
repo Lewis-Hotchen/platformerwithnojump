@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dlukxcrf1ukf6"]
+[gd_scene load_steps=12 format=3 uid="uid://dlukxcrf1ukf6"]
 
 [ext_resource type="Script" path="res://Scripts/Tools/Spring.cs" id="1_ck1b6"]
 [ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="2_qr71u"]
@@ -36,9 +36,14 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wh6i"]
-size = Vector2(60.5, 9)
+size = Vector2(62, 19.9982)
 
-[node name="Spring" type="RigidBody2D" node_paths=PackedStringArray("TimeTracker", "BodyImpulseComponent", "Tool")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uppxt"]
+size = Vector2(62, 20)
+
+[node name="Spring" type="StaticBody2D" node_paths=PackedStringArray("TimeTracker", "BodyImpulseComponent", "Tool")]
+collision_layer = 18
+collision_mask = 3
 script = ExtResource("1_ck1b6")
 TimeTracker = NodePath("TimerTrackerComponent")
 BodyImpulseComponent = NodePath("BodyImpulseComponent")
@@ -71,6 +76,31 @@ libraries = {
 ToolType = 1
 IsBuildable = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(31.25, 14)
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="Col" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(30.9963, 22.0009)
+rotation = -3.13977
 shape = SubResource("RectangleShape2D_5wh6i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(31, 22)
+rotation = -3.1367
+shape = SubResource("RectangleShape2D_uppxt")
+one_way_collision = true
+
+[node name="IsOnGround1" type="RayCast2D" parent="."]
+position = Vector2(2, 12)
+target_position = Vector2(0, 21)
+collision_mask = 2
+
+[node name="IsOnGround2" type="RayCast2D" parent="."]
+position = Vector2(31, 12)
+target_position = Vector2(0, 21)
+collision_mask = 2
+
+[node name="IsOnGround3" type="RayCast2D" parent="."]
+position = Vector2(60, 12)
+target_position = Vector2(0, 21)
+collision_mask = 2

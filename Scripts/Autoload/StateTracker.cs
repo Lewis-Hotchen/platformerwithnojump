@@ -14,7 +14,8 @@ public partial class StateTracker : Node
     public override void _Ready()
     {
         UnlockedTools = new() {
-            Tools.Spring
+            Tools.Spring,
+            Tools.AFP
         };
 
         states = new Dictionary<string, bool> {

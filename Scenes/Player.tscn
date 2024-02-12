@@ -204,5 +204,5 @@ collide_with_areas = true
 
 [node name="ChumWalk" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_u4e0m")
-volume_db = -7.44
+volume_db = -18.996
 pitch_scale = 1.17

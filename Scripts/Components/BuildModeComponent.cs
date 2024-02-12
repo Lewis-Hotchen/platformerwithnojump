@@ -11,6 +11,8 @@ public partial class BuildModeComponent : Node2D
 
     public Tools ToolSelected { get; set; }
 
+    public float Direction { get; set; }
+
     [Export]
     public bool IsBuildMode { get; set; }
 
@@ -49,6 +51,7 @@ public partial class BuildModeComponent : Node2D
                 if (Preview.GetParent() != this)
                 {
                     AddChild(Preview);
+                    Direction = 0;
                     Preview.Visible = true;
                     Preview.GlobalPosition = GetCentreofScreen().Snapped(Snap);
                 }
@@ -60,20 +63,13 @@ public partial class BuildModeComponent : Node2D
                     return;
                 }
 
-                //s.GetNode<Area2D>("Area2D").BodyShapeEntered += ListenForCollision;
-                Vector2 direction = GetDirection();
+                Vector2 move = GetMove();
 
-                Preview.GlobalPosition += direction * Snap;
+                Preview.GlobalPosition += move * Snap;
 
-                if (IsInBounds(Preview))
-                {
-                    Preview.Modulate = new Color(Preview.Modulate.R, Preview.Modulate.B, Preview.Modulate.G, 1);
-                    isShapeColliding = false;
-                }
-                else
-                {
-                    Preview.Modulate = new Color(Preview.Modulate.R, Preview.Modulate.B, Preview.Modulate.G, Preview.Modulate.A);
-                    isShapeColliding = true;
+                if(Input.IsActionJustPressed("rotate")) {
+                    RotateDirection();
+                    Preview.RotationDegrees = Direction;
                 }
             }
         }
@@ -85,7 +81,12 @@ public partial class BuildModeComponent : Node2D
         base._Process(delta);
     }
 
-    private static Vector2 GetDirection()
+    private void RotateDirection()
+    {
+        Direction += 90 % 360;
+    }
+
+    private static Vector2 GetMove()
     {
         if (Input.IsActionJustPressed("up"))
             return Vector2.Up;
@@ -107,18 +108,10 @@ public partial class BuildModeComponent : Node2D
     private void LockIn()
     {
         var tool = Preview.GetNode<ToolComponent>("ToolComponent").ToolType;
-        var newTool = SceneManager.LoadScene<Node2D>($"res://scenes/tools/{tool}.tscn"); // Replace with enum logic to pair up enum with tool scene.
+        var newTool = SceneManager.LoadScene<Node2D>($"res://scenes/tools/{tool}.tscn");
+        newTool.Set("Active", false);
+        newTool.RotationDegrees = Direction; // Replace with enum logic to pair up enum with tool scene.
         ToolBuilt?.Invoke(this, new ToolBuiltEventArgs(newTool, Preview.GlobalPosition));
         Preview.QueueFree();
-    }
-
-    private static bool IsInBounds(Node2D tool)
-    {
-        return true;
-    }
-
-    private void ListenForCollision(Rid bodyRid, Node2D body, long bodyShapeIndex, long localShapeIndex)
-    {
-        isShapeColliding = true;
     }
 }

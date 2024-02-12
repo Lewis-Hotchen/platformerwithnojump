@@ -51,13 +51,11 @@ public partial class BuildModeUI : Control
     {
         if (Input.IsActionJustPressed("build_mode") && !states.GetState("IsBuildMode"))
         {
-            ToolSelector.Visible = true;
             BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
         }
         else if (Input.IsActionJustPressed("build_mode") && states.GetState("IsBuildMode"))
         {
             states.SetState("IsBuildMode", false);
-            ToolSelector.Visible = false;
         }
 
         base._Process(delta);

@@ -31,7 +31,6 @@ public partial class Player : RigidBody2D
 
     public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
 
-
     private StateTracker stateTracker;
 
     private bool firstPass;

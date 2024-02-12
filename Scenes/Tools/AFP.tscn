@@ -43,7 +43,7 @@ Tool = NodePath("ToolComponent")
 Timers = NodePath("TimerTrackerComponent")
 Area = NodePath("Area2D")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Normal" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_82pva")
 centered = false
 region_rect = Rect2(5, 0, 59, 18)

@@ -77,5 +77,13 @@ public partial class MainGame : Node2D
         currentLevel.AddChild(tool);
         states.SetState("IsBuildMode", false);
         tool.GlobalPosition = globalPosition;
+
+        // Not a fan of this but what can ye do
+        // We can call the nodes properties directly and set some variables and call methods
+        // Useful but honestly is kind of hidden.
+
+        tool.Set("CanFall", true);
+        tool.Call("SetDirection", tool.RotationDegrees);
+        tool.Set("Active", true);
     }
 }

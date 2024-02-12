@@ -34,19 +34,19 @@ public partial class ToolSelector : Node2D
 
         Tools = new()
         {
-            // {
-            //     PlatformerWithNoJump.Tools.AFP,
-            //     AFP
-            // },
             {
                 PlatformerWithNoJump.Tools.Spring,
                 Spring
+            },
+            {
+                PlatformerWithNoJump.Tools.AFP,
+                AFP
             }
         };
 
         foreach (var tool in Tools)
         {
-            var tex = tool.Value.GetNode<Sprite2D>("Sprite").Texture as AtlasTexture;
+            var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
             ToolsList.AddItem(tool.Key.ToString(), tex);
         }
 
