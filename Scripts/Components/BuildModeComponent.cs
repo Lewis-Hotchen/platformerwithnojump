@@ -71,15 +71,25 @@ public partial class BuildModeComponent : Node2D
                     RotateDirection();
                     Preview.RotationDegrees = Direction;
                 }
+
+                if(!IsInBounds()){
+                    
+                }
             }
         }
-        else if (!states.GetState("IsBuildMode") && Node2D.IsInstanceValid(Preview))
+        else if (!states.GetState("IsBuildMode") && IsInstanceValid(Preview))
         {
             Preview.QueueFree();
         }
 
         base._Process(delta);
     }
+
+    private bool IsInBounds()
+    {
+        return false;
+    }
+
 
     private void RotateDirection()
     {

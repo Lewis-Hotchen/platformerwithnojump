@@ -1,4 +1,6 @@
+using System.Linq;
 using Godot;
+using Godot.Collections;
 namespace PlatformerWithNoJump;
 
 public partial class AFP : Node2D
@@ -14,13 +16,40 @@ public partial class AFP : Node2D
     public TimerTrackerComponent Timers { get; set; }
 
     [Export]
+
     public Area2D Area { get; set; }
+
+    public Array<RayCast2D> GroundCasts { get; set; }
+
+    public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
 
     public override void _Ready()
     {
+        GroundCasts = new()
+        {
+            GetNode<RayCast2D>("IsOnGround1"),
+            GetNode<RayCast2D>("IsOnGround2"),
+            GetNode<RayCast2D>("IsOnGround3"),
+        };
+
         Timers.AddTimer(1, "cooldown");
         Area.BodyEntered += OnBodyEntered;
         base._Ready();
+    }
+
+    public override void _Process(double delta)
+    {
+        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = !Tool.IsActive;
+        GetNode<Area2D>("Area2D").Monitoring = Tool.IsActive;
+
+        if (!IsOnFloor && Tool.CanFall)
+        {
+            Position += Vector2.Down * 500 * (float)delta;
+        }
+
+        Tool.IsActive = IsOnFloor;
+
+        base._Process(delta);
     }
 
     public void SetDirection(float degrees)
@@ -45,7 +74,7 @@ public partial class AFP : Node2D
 
     private void OnBodyEntered(Node2D body)
     {
-        if (!Timers.GetTimerRunning("cooldown"))
+        if (!Timers.GetTimerRunning("cooldown") && Tool.IsActive)
         {
             if (body is Player player)
             {

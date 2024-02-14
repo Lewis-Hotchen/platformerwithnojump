@@ -89,4 +89,5 @@ sources/0 = SubResource("TileSetAtlasSource_1k6u0")
 tile_set = SubResource("TileSet_secpw")
 rendering_quadrant_size = 32
 format = 2
+layer_0/name = "Level"
 script = ExtResource("2_gq6li")

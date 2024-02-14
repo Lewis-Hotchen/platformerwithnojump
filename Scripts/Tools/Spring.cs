@@ -22,21 +22,9 @@ public partial class Spring : StaticBody2D
     public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
 
     private bool isPlaced;
-    
-    private bool active;
-
-    public bool CanFall { get; set; }
-
-    public bool Active { get => active; set {
-        active = value;
-        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = !active;
-        GetNode<Area2D>("Area2D").Monitoring = active;
-    } }
 
     public override void _Ready()
     {
-        Active = false;
-        CanFall = false;
         GroundCasts = new()
         {
             GetNode<RayCast2D>("IsOnGround1"),
@@ -51,7 +39,12 @@ public partial class Spring : StaticBody2D
 
     public override void _Process(double delta)
     {
-        if (!IsOnFloor && CanFall)
+        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = !Tool.IsActive;
+        GetNode<Area2D>("Area2D").Monitoring = Tool.IsActive;
+
+        Tool.IsActive = IsOnFloor;
+
+        if (!IsOnFloor && Tool.CanFall)
         {
             Position += Vector2.Down * 500 * (float)delta;
         }
@@ -80,7 +73,7 @@ public partial class Spring : StaticBody2D
 
     private void OnBodyEntered(Node2D body)
     {
-        if (!TimeTracker.GetTimerRunning("cooldown") && Active)
+        if (!TimeTracker.GetTimerRunning("cooldown") && Tool.IsActive)
         {
             if (body is Player player)
             {

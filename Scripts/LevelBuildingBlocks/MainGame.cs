@@ -7,7 +7,7 @@ public partial class MainGame : Node2D
     [Export]
     public int CurrentLevelScenePathPointer { get; set; }
 
-    private Node2D currentLevel;
+    public Node2D CurrentLevel {get; private set; }
 
     [Export]
     public string[] Levels { get; set; }
@@ -23,18 +23,18 @@ public partial class MainGame : Node2D
         buildModeComponent = GetNode<BuildModeComponent>("UI/HBoxContainer/BuildModeUI/BuildModeComponent");
         states = GetNode<StateTracker>("/root/StateTracker");
         CurrentLevelScenePathPointer = 0;
-        currentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
-        GetNode<CanvasLayer>("Game").AddChild(currentLevel);
+        CurrentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
+        GetNode<CanvasLayer>("Game").AddChild(CurrentLevel);
         base._Ready();
     }
 
     public void NextLevel()
     {
-        GetNode<CanvasLayer>("Game").RemoveChild(currentLevel);
-        currentLevel?.QueueFree();
+        GetNode<CanvasLayer>("Game").RemoveChild(CurrentLevel);
+        CurrentLevel?.QueueFree();
         CurrentLevelScenePathPointer++;
-        currentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
-        GetNode<CanvasLayer>("Game").AddChild(currentLevel);
+        CurrentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
+        GetNode<CanvasLayer>("Game").AddChild(CurrentLevel);
     }
 
     public override void _Process(double delta)
@@ -74,16 +74,12 @@ public partial class MainGame : Node2D
 
     public void OnBuildModeUIToolBuilt(Node2D tool, Vector2 globalPosition)
     {
-        currentLevel.AddChild(tool);
+        CurrentLevel.AddChild(tool);
         states.SetState("IsBuildMode", false);
         tool.GlobalPosition = globalPosition;
-
-        // Not a fan of this but what can ye do
-        // We can call the nodes properties directly and set some variables and call methods
-        // Useful but honestly is kind of hidden.
-
-        tool.Set("CanFall", true);
-        tool.Call("SetDirection", tool.RotationDegrees);
-        tool.Set("Active", true);
+        var toolComp = tool.GetNode<ToolComponent>("ToolComponent");
+        toolComp.CanFall = true;
+        toolComp.SetDirection(tool.RotationDegrees);
+        toolComp.IsActive = true;
     }
 }
