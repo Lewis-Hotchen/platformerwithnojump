@@ -1,15 +1,8 @@
 using Godot;
-
-namespace PlatformerWithNoJump;
+using System;
 
 public partial class ToolComponent : Node2D
 {
-    [Export]
-    public Tools ToolType { get; set; }
-
-    [Export]
-    public bool IsBuildable { get; set; }
-    
     [Export]
     public bool IsActive { get; set; }
 

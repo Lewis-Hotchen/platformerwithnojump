@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1d0v2yux7x8h"]
+[gd_scene load_steps=11 format=3 uid="uid://d1d0v2yux7x8h"]
 
 [ext_resource type="Script" path="res://Scripts/Tools/AFP.cs" id="1_n1pk1"]
 [ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="2_bnd4e"]
@@ -36,7 +36,10 @@ _data = {
 "Extend": SubResource("Animation_ixad8")
 }
 
-[node name="AFP" type="Node2D" node_paths=PackedStringArray("ImpulseComponent", "Tool", "Timers", "Area")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5r5n"]
+size = Vector2(50, 13)
+
+[node name="AFP" type="StaticBody2D" node_paths=PackedStringArray("ImpulseComponent", "Tool", "Timers", "Area")]
 script = ExtResource("1_n1pk1")
 ImpulseComponent = NodePath("BodyImpulseComponent")
 Tool = NodePath("ToolComponent")
@@ -53,7 +56,7 @@ position = Vector2(16, 0)
 collision_layer = 16
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="Col" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(19, 25.5)
 shape = SubResource("RectangleShape2D_rypih")
 
@@ -72,3 +75,22 @@ Direction = Vector2(1, -1)
 
 [node name="ToolComponent" parent="." instance=ExtResource("5_yjwng")]
 IsBuildable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(37, 25.5)
+shape = SubResource("RectangleShape2D_a5r5n")
+
+[node name="IsOnGround1" type="RayCast2D" parent="."]
+position = Vector2(13, 19)
+target_position = Vector2(0, 15)
+collision_mask = 2
+
+[node name="IsOnGround2" type="RayCast2D" parent="."]
+position = Vector2(38, 20)
+target_position = Vector2(0, 14)
+collision_mask = 2
+
+[node name="IsOnGround3" type="RayCast2D" parent="."]
+position = Vector2(61, 19)
+target_position = Vector2(0, 15)
+collision_mask = 2
