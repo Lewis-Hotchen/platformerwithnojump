@@ -11,7 +11,7 @@ public partial class EventBus : Node
     public delegate void ToolBuiltEventHandler(Node sender, Node2D tool, Vector2 globalPosition);
 
     [Signal]
-    public delegate void ToolFailedEventHandler();
+    public delegate void ToolFailedEventHandler(Node sender);
 
     public void RaiseEvent(string @event, params Variant[] args) {
         GD.Print(

@@ -38,6 +38,7 @@ public partial class Player : RigidBody2D
     private bool pickUp = false;
     private bool pickedUp = false;
     private bool left;
+    private EventBus eventBus;
 
     public override void _Ready()
     {
@@ -56,8 +57,16 @@ public partial class Player : RigidBody2D
         };
 
         stateTracker = GetNode<StateTracker>("/root/StateTracker");
+        eventBus = GetNode<EventBus>("/root/EventBus");
+        eventBus.ToolFailed += OnToolFailed;
         base._Ready();
     }
+
+    private void OnToolFailed(Node sender)
+    {
+        ChumSprite.Play("chum_hurt");
+    }
+
 
     private void OnFrameChanged()
     {
@@ -69,7 +78,6 @@ public partial class Player : RigidBody2D
             }
         }
     }
-
 
     private void AnimationFinished()
     {

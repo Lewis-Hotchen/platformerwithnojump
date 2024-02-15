@@ -177,7 +177,7 @@ shape = SubResource("CapsuleShape2D_h077e")
 
 [node name="ChumSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pbq5q")
-animation = &"chum_run"
+animation = &"chum_hurt"
 autoplay = "chum_idle"
 flip_h = true
 
