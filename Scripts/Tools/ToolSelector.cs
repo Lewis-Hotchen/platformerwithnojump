@@ -18,7 +18,10 @@ public partial class ToolSelector : Node2D
 
     public Node2D CurrentTool => GetSelectedTool();
 
+    public Tools CurrentToolType => toolsPointer[currentToolPointer];
+
     private StateTracker states;
+    private EventBus eventBus;
 
     private Dictionary<Tools, Node2D> Tools { get; set; }
 
@@ -26,10 +29,23 @@ public partial class ToolSelector : Node2D
 
     private int currentToolPointer = 0;
 
+    private void OnStateChanged(Node sender, string state, Variant value)
+    {
+        ToolsList.Clear();
+        foreach (var tool in Tools)
+        {
+            var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
+            ToolsList.AddItem(tool.Key.ToString() + " x" + states.Resources[tool.Key], tex);
+        }
+
+        QueueRedraw();
+    }
+
+
     public override void _Ready()
     {
         states = GetNode<StateTracker>("/root/StateTracker");
-
+        eventBus = GetNode<EventBus>("/root/EventBus");
         toolsPointer = new List<Tools>(states.UnlockedTools);
 
         Tools = new()
@@ -47,8 +63,10 @@ public partial class ToolSelector : Node2D
         foreach (var tool in Tools)
         {
             var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
-            ToolsList.AddItem(tool.Key.ToString(), tex);
+            ToolsList.AddItem(tool.Key.ToString() + " x" + states.Resources[tool.Key], tex);
         }
+
+        eventBus.StateChanged += OnStateChanged;
 
         base._Ready();
     }

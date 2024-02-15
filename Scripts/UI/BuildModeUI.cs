@@ -7,9 +7,6 @@ public partial class BuildModeUI : Control
     [Export]
     public BuildModeComponent BuildModeComponent { get; set; }
 
-    [Signal]
-    public delegate void ToolBuiltEventHandler(Node2D tool, Vector2 globalPosition);
-
     [Export]
     public ToolSelector ToolSelector { get; set; }
 
@@ -17,20 +14,22 @@ public partial class BuildModeUI : Control
     public DeployedToolsComponent DeployedToolsComponent { get; set; }
 
     private StateTracker states;
+    private EventBus eventBus;
 
     public override void _Ready()
     {
         states = GetNode<StateTracker>("/root/StateTracker");
-        states.StateChanged += OnStateChanged;
+        eventBus = GetNode<EventBus>("/root/EventBus");
+        eventBus.StateChanged += OnStateChanged;
         BuildModeComponent.ToolBuilt += OnToolBuilt;
         base._Ready();
     }
 
-    private void OnStateChanged(string state, bool value)
+    private void OnStateChanged(Node sender, string state, Variant value)
     {
         switch(state) {
             case "BuildEnabled":
-                Visible = value;
+                Visible = value.AsBool();
                 break;
         }
     }
@@ -44,14 +43,19 @@ public partial class BuildModeUI : Control
     private void OnToolBuilt(object sender, ToolBuiltEventArgs e)
     {
         DeployedToolsComponent.Add(e.ToolBuilt);
-        EmitSignal(SignalName.ToolBuilt, e.ToolBuilt, e.GlobalPos);
+        eventBus.RaiseEvent(EventBus.SignalName.ToolBuilt, this, e.ToolBuilt, e.GlobalPos);
+        states.UpdateResource(ToolSelector.CurrentToolType, states.Resources[ToolSelector.CurrentToolType]-1);
     }
 
     public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("build_mode") && !states.GetState("IsBuildMode"))
         {
-            BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
+            if(states.Resources[ToolSelector.CurrentToolType] > 0) {
+                BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
+            } else {
+                eventBus.RaiseEvent(EventBus.SignalName.ToolFailed, this);
+            }
         }
         else if (Input.IsActionJustPressed("build_mode") && states.GetState("IsBuildMode"))
         {

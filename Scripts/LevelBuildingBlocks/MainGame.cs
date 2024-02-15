@@ -16,15 +16,18 @@ public partial class MainGame : Node2D
     public DialogueManagerComponent DialogueManager;
 
     private StateTracker states;
+    private EventBus eventBus;
     private BuildModeComponent buildModeComponent;
 
     public override void _Ready()
     {
         buildModeComponent = GetNode<BuildModeComponent>("UI/HBoxContainer/BuildModeUI/BuildModeComponent");
         states = GetNode<StateTracker>("/root/StateTracker");
+        eventBus = GetNode<EventBus>("/root/EventBus");
         CurrentLevelScenePathPointer = 0;
         CurrentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
         GetNode<CanvasLayer>("Game").AddChild(CurrentLevel);
+        eventBus.ToolBuilt += OnToolBuilt;
         base._Ready();
     }
 
@@ -72,7 +75,7 @@ public partial class MainGame : Node2D
         base._Draw();
     }
 
-    public void OnBuildModeUIToolBuilt(Node2D tool, Vector2 globalPosition)
+    public void OnToolBuilt(Node sender, Node2D tool, Vector2 globalPosition)
     {
         CurrentLevel.AddChild(tool);
         states.SetState("IsBuildMode", false);
