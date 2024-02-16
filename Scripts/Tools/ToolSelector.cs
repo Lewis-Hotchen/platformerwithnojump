@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 namespace PlatformerWithNoJump;
@@ -27,6 +28,9 @@ public partial class ToolSelector : Node2D
 
     private List<Tools> toolsPointer;
 
+    private Vector2 velocity = new(0, 32);
+    private Vector2 desiredPosition = new(0,0);
+
     private int currentToolPointer = 0;
 
     private void OnStateChanged(Node sender, string state, Variant value)
@@ -44,6 +48,7 @@ public partial class ToolSelector : Node2D
 
     public override void _Ready()
     {
+        desiredPosition = Selector.Position; 
         states = GetNode<StateTracker>("/root/StateTracker");
         eventBus = GetNode<EventBus>("/root/EventBus");
         toolsPointer = new List<Tools>(states.UnlockedTools);
@@ -77,6 +82,13 @@ public partial class ToolSelector : Node2D
         {
             CyclePointer();
         }
+        
+        if(velocity.Y < 0) {
+            Selector.Position = new Vector2(Selector.Position.X, Mathf.InverseLerp(Selector.Position.Y, desiredPosition.Y, (float) delta*velocity.Y));
+        } else {
+            Selector.Position = new Vector2(Selector.Position.X, Mathf.Lerp(Selector.Position.Y, desiredPosition.Y, (float) delta*velocity.Y));
+        }
+
 
         base._Process(delta);
     }
@@ -88,7 +100,7 @@ public partial class ToolSelector : Node2D
             if (currentToolPointer > 0)
             {
                 currentToolPointer--;
-                Selector.Position = ToolsList.GetItemRect(currentToolPointer).Position;
+                desiredPosition = ToolsList.GetItemRect(currentToolPointer).Position;
             }
 
         }
@@ -97,7 +109,7 @@ public partial class ToolSelector : Node2D
             if (currentToolPointer < Tools.Count - 1)
             {
                 currentToolPointer++;
-                Selector.Position = ToolsList.GetItemRect(currentToolPointer).Position;
+                desiredPosition = ToolsList.GetItemRect(currentToolPointer).Position;
             }
         }
     }
