@@ -22,6 +22,7 @@ public partial class TutorialPart3 : Node2D
     {
         states = GetNode<StateTracker>("/root/StateTracker");
         Dialogue.SetDialogueOnBox();
+        states.UpdateResource(Tools.Spring, 3);
         Dialogue.DialogueComplete += OnDialogueComplete;
         PlayerKillBox.OnPlayerFell += OnPlayerFell;
         base._Ready();
@@ -38,6 +39,9 @@ public partial class TutorialPart3 : Node2D
     private void OnPlayerFell(object sender, EventArgs e)
     {
         GetNode<ScreenCamera>("../../Camera").ApplyShake();
+        Timers.OneShot(3, () => {
+            Dialogue.OneShotDialog("We've all been there.");
+        });
     }
 
 

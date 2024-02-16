@@ -9,7 +9,7 @@ public partial class L11 : Node2D
     public override void _Ready()
     {
         states = GetNode<StateTracker>("/root/StateTracker");
-        states.UpdateResource(Tools.Spring, 3);
+        states.UpdateResource(Tools.Spring, 4);
         base._Ready();
     }
 }

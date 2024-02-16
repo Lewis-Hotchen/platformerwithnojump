@@ -1,14 +1,103 @@
-[gd_scene load_steps=12 format=3 uid="uid://dlukxcrf1ukf6"]
+[gd_scene load_steps=25 format=3 uid="uid://dlukxcrf1ukf6"]
 
 [ext_resource type="Script" path="res://Scripts/Tools/Spring.cs" id="1_ck1b6"]
+[ext_resource type="Texture2D" uid="uid://0w63slyxefg2" path="res://Assets/spring-extend.png" id="2_ly864"]
 [ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="2_qr71u"]
 [ext_resource type="PackedScene" uid="uid://dr38747f1mtht" path="res://Scripts/Components/BodyImpulseComponent.tscn" id="3_0p147"]
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="4_jmn2p"]
 [ext_resource type="PackedScene" uid="uid://62v6f1rei8oi" path="res://Scenes/Components/ToolComponent.tscn" id="5_uu5i4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2a5t2"]
-atlas = ExtResource("2_qr71u")
-region = Rect2(128, 8, 64, 40)
+[sub_resource type="AtlasTexture" id="AtlasTexture_18njx"]
+atlas = ExtResource("2_ly864")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d63c6"]
+atlas = ExtResource("2_ly864")
+region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5thmb"]
+atlas = ExtResource("2_ly864")
+region = Rect2(128, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bv2xe"]
+atlas = ExtResource("2_ly864")
+region = Rect2(192, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dspvy"]
+atlas = ExtResource("2_ly864")
+region = Rect2(256, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uj2p1"]
+atlas = ExtResource("2_ly864")
+region = Rect2(320, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ahq0"]
+atlas = ExtResource("2_ly864")
+region = Rect2(384, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_acaul"]
+atlas = ExtResource("2_ly864")
+region = Rect2(448, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w032s"]
+atlas = ExtResource("2_ly864")
+region = Rect2(512, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq6f8"]
+atlas = ExtResource("2_ly864")
+region = Rect2(576, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1i3s"]
+atlas = ExtResource("2_ly864")
+region = Rect2(640, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mw44j"]
+atlas = ExtResource("2_ly864")
+region = Rect2(704, 0, 64, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w1hry"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18njx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d63c6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5thmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bv2xe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dspvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uj2p1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ahq0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acaul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w032s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mq6f8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1i3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mw44j")
+}],
+"loop": false,
+"name": &"extend",
+"speed": 30.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fr74x"]
 atlas = ExtResource("2_qr71u")
@@ -41,20 +130,24 @@ size = Vector2(62, 19.9982)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uppxt"]
 size = Vector2(62, 20)
 
-[node name="Spring" type="StaticBody2D" node_paths=PackedStringArray("TimeTracker", "BodyImpulseComponent", "Tool")]
+[node name="Spring" type="StaticBody2D" node_paths=PackedStringArray("TimeTracker", "BodyImpulseComponent", "Tool", "Sprite")]
 collision_layer = 18
 collision_mask = 3
 script = ExtResource("1_ck1b6")
 TimeTracker = NodePath("TimerTrackerComponent")
 BodyImpulseComponent = NodePath("BodyImpulseComponent")
 Tool = NodePath("ToolComponent")
+Sprite = NodePath("Extend")
 
-[node name="Extend" type="Sprite2D" parent="."]
-visible = false
-texture = SubResource("AtlasTexture_2a5t2")
+[node name="Extend" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -64)
+sprite_frames = SubResource("SpriteFrames_w1hry")
+animation = &"extend"
+speed_scale = 2.0
 centered = false
 
 [node name="Normal" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.975746, 1)
 texture = SubResource("AtlasTexture_fr74x")
 centered = false
@@ -62,7 +155,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 64, 32)
 
 [node name="BodyImpulseComponent" parent="." instance=ExtResource("3_0p147")]
-Force = 1000.0
+Force = 750.0
 Direction = Vector2(0, -1)
 
 [node name="TimerTrackerComponent" parent="." instance=ExtResource("4_jmn2p")]
@@ -85,7 +178,7 @@ rotation = -3.13977
 shape = SubResource("RectangleShape2D_5wh6i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(31, 22)
+position = Vector2(32, 22)
 rotation = -3.1367
 shape = SubResource("RectangleShape2D_uppxt")
 one_way_collision = true

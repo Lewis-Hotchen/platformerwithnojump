@@ -111,6 +111,51 @@ public partial class DialogueManagerComponent : Control
         return TextTimeout.WaitTime;
     }
 
+    public double OneShotDialog(string dialogue) {
+        AnimationPlayer.GetAnimation("dialogue_painter/text_paint").Clear();
+        Visible = true;
+        GetNode<RichTextLabel>("DialogueBox/Text").Text = dialogue;
+        GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D").Playing = false;
+
+        var textPaintAnimation = AnimationPlayer.GetAnimation("dialogue_painter/text_paint");
+
+        textPaintAnimation.AddTrack(Animation.TrackType.Value, 0);
+        textPaintAnimation.ValueTrackSetUpdateMode(0, Animation.UpdateMode.Discrete);
+        textPaintAnimation.TrackSetPath(0, "DialogueBox/Text:text");
+
+        textPaintAnimation.AddTrack(Animation.TrackType.Value, 1);
+        textPaintAnimation.ValueTrackSetUpdateMode(1, Animation.UpdateMode.Discrete);
+        textPaintAnimation.TrackSetPath(1, "AudioStreamPlayer2D:playing");
+
+        var index = 0;
+        StringBuilder sb = new();
+        textPaintAnimation.Length = dialogue.Length * 0.05f;
+
+        foreach (var character in dialogue)
+        {
+            sb.Append(character);
+            textPaintAnimation.TrackInsertKey(0, 0.05f * index, sb.ToString());
+
+            if (dialogue.IndexOf(character) % 2 == 0)
+            {
+                textPaintAnimation.TrackInsertKey(1, 0.05f * index, true);
+            }
+
+            index++;
+        }
+
+        AnimationPlayer.Play("dialogue_painter/text_paint");
+
+        if (CanTimeOut)
+        {
+            TextTimeout.WaitTime = textPaintAnimation.Length + 1;
+            TextTimeout.Start();
+        }
+
+        DialogueComplete?.Invoke(this, new DialogueCompleteArgs(dialogue));
+        return TextTimeout.WaitTime;
+    }
+
     public void SetNextDialogueStep()
     {
         DialogueManager.NextStep();
