@@ -8,6 +8,12 @@ public partial class BuildModeUI : Control
     public BuildModeComponent BuildModeComponent { get; set; }
 
     [Export]
+    public AudioStreamPlayer2D BuildModeEnabled { get; set; }
+
+    [Export]
+    public AudioStreamPlayer2D BuildModeDisabled { get; set; }
+
+    [Export]
     public ToolSelector ToolSelector { get; set; }
 
     [Export]
@@ -25,11 +31,12 @@ public partial class BuildModeUI : Control
         base._Ready();
     }
 
-    private void OnStateChanged(Node sender, string state, Variant value)
+    private void OnStateChanged(object sender, StateChangedEventArgs e)
     {
-        switch(state) {
+        switch (e.State)
+        {
             case "BuildEnabled":
-                Visible = value.AsBool();
+                Visible = e.Value.AsBool();
                 break;
         }
     }
@@ -42,24 +49,39 @@ public partial class BuildModeUI : Control
 
     private void OnToolBuilt(object sender, ToolBuiltEventArgs e)
     {
-        DeployedToolsComponent.Add(e.ToolBuilt);
-        eventBus.RaiseEvent(EventBus.SignalName.ToolBuilt, this, e.ToolBuilt, e.GlobalPos);
-        states.UpdateResource(ToolSelector.CurrentToolType, states.Resources[ToolSelector.CurrentToolType]-1);
+        DeployedToolsComponent.Add(e.Tool);
+        eventBus.RaiseEvent(
+            nameof(EventBus.ToolBuilt),
+            this,
+            new ToolBuiltEventArgs(e.Tool, e.GlobalPosition));
+        states.UpdateResource(ToolSelector.CurrentToolType, states.Resources[ToolSelector.CurrentToolType] - 1);
     }
 
     public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("build_mode") && !states.GetState("IsBuildMode"))
         {
-            if(states.Resources[ToolSelector.CurrentToolType] > 0) {
+            if (states.Resources[ToolSelector.CurrentToolType] > 0)
+            {
                 BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
-            } else {
-                eventBus.RaiseEvent(EventBus.SignalName.ToolFailed, this);
+                states.SetState("IsBuildMode", true);
+                BuildModeEnabled.Play();
+            }
+            else
+            {
+                eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(ToolSelector.CurrentToolType, FailedToolReason.RESOURCE_EMPTY));
             }
         }
         else if (Input.IsActionJustPressed("build_mode") && states.GetState("IsBuildMode"))
         {
             states.SetState("IsBuildMode", false);
+            BuildModeDisabled.Play();
+        }
+
+        if (Input.IsActionJustPressed("revert"))
+        {
+            var refundedType = DeployedToolsComponent.RemoveLast();
+            states.UpdateResource(refundedType, states.Resources[refundedType] + 1);
         }
 
         base._Process(delta);

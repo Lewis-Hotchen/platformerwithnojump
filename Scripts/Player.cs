@@ -27,6 +27,8 @@ public partial class Player : RigidBody2D
     [Export]
     public AudioStreamPlayer2D ChumHurt { get; set; }
 
+    
+
     [Export]
     public AnimatedSprite2D ChumSprite { get; set; }
 
@@ -65,7 +67,7 @@ public partial class Player : RigidBody2D
         base._Ready();
     }
 
-    private void OnToolFailed(Node sender)
+    private void OnToolFailed(object sender, ToolFailedEventArgs e)
     {
         ChumSprite.Play("chum_hurt");
         ChumHurt.Play();

@@ -20,6 +20,9 @@ public partial class DialogueManagerComponent : Control
     public DialogueManager DialogueManager { get; set; }
 
     [Export]
+    public string DialoguePath { get; set; }
+
+    [Export]
     public bool CanSkip { get; set; }
 
     [Export]
@@ -33,7 +36,7 @@ public partial class DialogueManagerComponent : Control
     public override void _Ready()
     {
         TextTimeout.Timeout += OnTimeout;
-        using var file = FileAccess.Open(PWNJConstants.DialogueFilePath, FileAccess.ModeFlags.Read);
+        using var file = FileAccess.Open(PWNJConstants.DialogueFilePath(DialoguePath), FileAccess.ModeFlags.Read);
         DialogueManager = new(file.GetPathAbsolute(), DialogueEntry);
         base._Ready();
     }
@@ -45,24 +48,35 @@ public partial class DialogueManagerComponent : Control
 
     public override void _Process(double delta)
     {
-        if (CanSkip && !string.IsNullOrEmpty(NextTextAction) && !AnimationPlayer.IsPlaying())
-        {
-            if (Input.IsActionJustPressed(NextTextAction))
-            {
-                TextTimeout.Stop();
-                AnimationPlayer.GetAnimation("dialogue_painter/text_paint").Clear();
-                SetNextDialogueStep();
-                SetDialogueOnBox();
-            }
-        }
-
         GetNode<RichTextLabel>("DialogueBox/SkipText").Visible = CanSkip;
         if (GetNode<RichTextLabel>("DialogueBox/SkipText").Visible && !ContinueAnim.IsPlaying())
         {
             ContinueAnim.Play("Animations/SkipIndicator");
         }
 
+        if (CanSkip && !string.IsNullOrEmpty(NextTextAction))
+        {
+            if (Input.IsActionJustPressed(NextTextAction))
+            {
+                TextTimeout.Stop();
+                AnimationPlayer.GetAnimation("dialogue_painter/text_paint").Clear();
+                CycleDialogue();
+            }
+        }
+
         base._Process(delta);
+    }
+
+    private void CycleDialogue()
+    {
+        if (SetNextDialogueStep())
+        {
+            SetDialogueOnBox();
+        }
+        else
+        {
+            Visible = false;
+        }
     }
 
     public double SetDialogueOnBox()
@@ -103,7 +117,7 @@ public partial class DialogueManagerComponent : Control
 
         if (CanTimeOut)
         {
-            TextTimeout.WaitTime = textPaintAnimation.Length + 1;
+            TextTimeout.WaitTime = textPaintAnimation.Length * 2;
             TextTimeout.Start();
         }
 
@@ -111,7 +125,8 @@ public partial class DialogueManagerComponent : Control
         return TextTimeout.WaitTime;
     }
 
-    public double OneShotDialog(string dialogue) {
+    public double OneShotDialog(string dialogue)
+    {
         AnimationPlayer.GetAnimation("dialogue_painter/text_paint").Clear();
         Visible = true;
         GetNode<RichTextLabel>("DialogueBox/Text").Text = dialogue;
@@ -156,8 +171,8 @@ public partial class DialogueManagerComponent : Control
         return TextTimeout.WaitTime;
     }
 
-    public void SetNextDialogueStep()
+    public bool SetNextDialogueStep()
     {
-        DialogueManager.NextStep();
+        return DialogueManager.NextStep();
     }
 }

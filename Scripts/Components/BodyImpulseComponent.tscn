@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dr38747f1mtht"]
+[gd_scene load_steps=3 format=3 uid="uid://dr38747f1mtht"]
 
 [ext_resource type="Script" path="res://Scripts/Components/BodyImpulseComponent.cs" id="1_usgkf"]
+[ext_resource type="AudioStream" uid="uid://oi1vy4mvf0ns" path="res://Assets/chum_jump.wav" id="2_wmqmg"]
 
-[node name="BodyImpulseComponent" type="Node2D"]
+[node name="BodyImpulseComponent" type="Node2D" node_paths=PackedStringArray("ChumJump")]
 script = ExtResource("1_usgkf")
+ChumJump = NodePath("ChumJump")
+
+[node name="ChumJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_wmqmg")
+volume_db = -18.281

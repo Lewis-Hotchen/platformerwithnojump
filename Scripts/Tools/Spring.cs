@@ -37,7 +37,7 @@ public partial class Spring : StaticBody2D
 
         TimeTracker.AddTimer(1, "cooldown");
 
-         TimeTracker.Subscribe("cooldown", () => {
+        TimeTracker.Subscribe("cooldown", () => {
                     Sprite.PlayBackwards();
                 });
 
@@ -81,14 +81,14 @@ public partial class Spring : StaticBody2D
 
     private void OnBodyEntered(Node2D body)
     {
-        if (!TimeTracker.GetTimerRunning("cooldown") && Tool.IsActive)
+        if (Tool.IsActive)
         {
             if (body is Player player)
             {
-                BodyImpulseComponent.Apply(player);
+                BodyImpulseComponent.Apply(player, true);
                 GetNode<AnimationPlayer>("AnimationPlayer").Play("Extend");
-                TimeTracker.StartTimer("cooldown");
                 Sprite.Play();
+                TimeTracker.StartTimer("cooldown");
             }
         }
     }

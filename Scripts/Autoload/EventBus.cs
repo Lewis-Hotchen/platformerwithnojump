@@ -1,22 +1,46 @@
-using System.Linq;
-using System.Runtime.CompilerServices;
+using System;
+using System.ComponentModel;
+using System.Reflection;
+using System.Text;
 using Godot;
+
+namespace PlatformerWithNoJump;
 
 public partial class EventBus : Node
 {
-    [Signal]
-    public delegate void StateChangedEventHandler(Node sender, string state, Variant value);
+    private static readonly BindingFlags staticFlags = BindingFlags.Instance | BindingFlags.NonPublic;
 
-    [Signal]
-    public delegate void ToolBuiltEventHandler(Node sender, Node2D tool, Vector2 globalPosition);
+    public event EventHandler<StateChangedEventArgs> StateChanged;
 
-    [Signal]
-    public delegate void ToolFailedEventHandler(Node sender);
+    public event EventHandler<ToolBuiltEventArgs> ToolBuilt;
 
-    public void RaiseEvent(string @event, params Variant[] args) {
+    public event EventHandler<ToolFailedEventArgs> ToolFailed;
+
+    public event EventHandler<ToolsBuiltChangedEventArgs> ToolsBuiltChanged;
+
+    public void RaiseEvent<T>(string @event, object sender, T eventArgs) where T : EventArgs
+    {
+        var sb = new StringBuilder();
+
+        foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(eventArgs))
+        {
+            string name = descriptor.Name;
+            object value = descriptor.GetValue(eventArgs);
+            sb.Append($"\t{name} : {value} \n");
+        }
+
         GD.Print(
-            $"[Event Rasied!]\n{@event} sent signal \nArgs: [{string.Join(", ", args.Select(x => x.ToString()))}]"
-            );
-        EmitSignal(@event, args.ToArray());
+           $"[Event Rasied!]\n{@sender.GetType().Name} sent event {@event} \nArgs: [\n{sb}]\n-------------------------------------"
+           );
+
+        var type = GetType();
+        var eventField = type.GetField(@event, staticFlags) ?? throw new Exception($"Event with name {@event} could not be found.");
+        if (eventField.GetValue(this) is not MulticastDelegate multicastDelegate)
+            return;
+
+        var invocationList = multicastDelegate.GetInvocationList();
+
+        foreach (var invocationMethod in invocationList)
+            invocationMethod.DynamicInvoke(new object[] { sender, eventArgs });
     }
 }

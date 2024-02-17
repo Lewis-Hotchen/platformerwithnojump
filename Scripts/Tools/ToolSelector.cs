@@ -17,6 +17,9 @@ public partial class ToolSelector : Node2D
     [Export]
     public Sprite2D Selector { get; set; }
 
+    [Export]
+    public AudioStreamPlayer2D SelectSound { get; set; }
+
     public Node2D CurrentTool => GetSelectedTool();
 
     public Tools CurrentToolType => toolsPointer[currentToolPointer];
@@ -33,16 +36,18 @@ public partial class ToolSelector : Node2D
 
     private int currentToolPointer = 0;
 
-    private void OnStateChanged(Node sender, string state, Variant value)
+    private void OnStateChanged(object sender, StateChangedEventArgs e)
     {
-        ToolsList.Clear();
-        foreach (var tool in Tools)
-        {
-            var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
-            ToolsList.AddItem(tool.Key.ToString() + " x" + states.Resources[tool.Key], tex);
-        }
+        if(e.State == StateTracker.ResourcesState) {
+            ToolsList.Clear();
+            foreach (var tool in Tools)
+            {
+                var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
+                ToolsList.AddItem(tool.Key.ToString() + "\nx" + states.Resources[tool.Key], tex);
+            }
 
-        QueueRedraw();
+            QueueRedraw();
+        }
     }
 
 
@@ -101,8 +106,8 @@ public partial class ToolSelector : Node2D
             {
                 currentToolPointer--;
                 desiredPosition = ToolsList.GetItemRect(currentToolPointer).Position;
+                SelectSound.Play();
             }
-
         }
         else if (Input.IsActionJustPressed("down"))
         {
@@ -110,6 +115,7 @@ public partial class ToolSelector : Node2D
             {
                 currentToolPointer++;
                 desiredPosition = ToolsList.GetItemRect(currentToolPointer).Position;
+                SelectSound.Play();
             }
         }
     }

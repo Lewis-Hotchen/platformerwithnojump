@@ -75,14 +75,14 @@ public partial class MainGame : Node2D
         base._Draw();
     }
 
-    public void OnToolBuilt(Node sender, Node2D tool, Vector2 globalPosition)
+    public void OnToolBuilt(object sender, ToolBuiltEventArgs e)
     {
-        CurrentLevel.AddChild(tool);
+        CurrentLevel.AddChild(e.Tool);
         states.SetState("IsBuildMode", false);
-        tool.GlobalPosition = globalPosition;
-        var toolComp = tool.GetNode<ToolComponent>("ToolComponent");
+        e.Tool.GlobalPosition = e.GlobalPosition;
+        var toolComp = e.Tool.GetNode<ToolComponent>("ToolComponent");
         toolComp.CanFall = true;
-        toolComp.SetDirection(tool.RotationDegrees);
+        toolComp.SetDirection(e.Tool.RotationDegrees);
         toolComp.IsActive = true;
     }
 }

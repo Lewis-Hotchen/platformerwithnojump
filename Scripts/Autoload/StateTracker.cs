@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using Godot.Collections;
 namespace PlatformerWithNoJump;
@@ -7,16 +8,23 @@ public partial class StateTracker : Node
     private Dictionary<string, bool> states;
     private EventBus eventBus;
 
+    public readonly static string IsBuildMode = "IsBuildMode";
+    public readonly static string FirstTimeBuild = "FirstTimeBuild";
+    public readonly static string DidMove = "DidMove";
+    public readonly static string HasFallen = "HasFallen";
+    public readonly static string BuildEnabled = "BuildEnabled";
+    public readonly static string ResourcesState = "Resources";
+
     public Array<Tools> UnlockedTools { get; private set; }
     
     public Dictionary<Tools, int> Resources { get; set; }
 
     public void UpdateResource(Tools resource, int newVal) {
         if(newVal < 0) {
-            eventBus.RaiseEvent(EventBus.SignalName.ToolFailed, this);
+            eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(resource, FailedToolReason.RESOURCE_EMPTY));
         } else {
             Resources[resource] = newVal;
-            eventBus.RaiseEvent(EventBus.SignalName.StateChanged, this, nameof(Resources), resource.ToString());
+            eventBus.RaiseEvent(nameof(EventBus.StateChanged), this, new StateChangedEventArgs(nameof(Resources), resource.ToString()));
         }
     }
 
@@ -51,7 +59,7 @@ public partial class StateTracker : Node
 
     public void SetState(string state, bool value) {
         states[state] = value;
-        eventBus.RaiseEvent(EventBus.SignalName.StateChanged, this, state, value);
+        eventBus.RaiseEvent(nameof(EventBus.StateChanged), this, new StateChangedEventArgs(state, value));
     }
 
     public bool StateExists(string state) {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://efel0vjy5yr5"]
+[gd_scene load_steps=28 format=3 uid="uid://efel0vjy5yr5"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_luxqd"]
 [ext_resource type="Texture2D" uid="uid://buljbx85hm1n5" path="res://Assets/Chum-idle.png" id="2_lms8l"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dt0eyjr87gfvq" path="res://Assets/Chum-run.png" id="3_lph36"]
 [ext_resource type="AudioStream" uid="uid://bweg238x56t04" path="res://Assets/chum-walk.wav" id="5_u4e0m"]
 [ext_resource type="AudioStream" uid="uid://d1pdvqcouvchg" path="res://Assets/chum_hurt.wav" id="6_jladu"]
+[ext_resource type="AudioStream" uid="uid://oi1vy4mvf0ns" path="res://Assets/chum_jump.wav" id="7_wyi30"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h077e"]
 radius = 13.0
@@ -206,9 +207,11 @@ collide_with_areas = true
 
 [node name="ChumWalk" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_u4e0m")
-volume_db = -18.996
 pitch_scale = 1.17
 
 [node name="Chum_Hurt" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_jladu")
-volume_db = -15.672
+
+[node name="ChumJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_wyi30")
+pitch_scale = 1.08

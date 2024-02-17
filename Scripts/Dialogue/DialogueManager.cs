@@ -10,8 +10,6 @@ public class DialogueManager
 {
     public DialogueEntry Entry { get; set; }
 
-    public int CurrentDialogueEntry { get; set; }
-
     public DialogueManager(string path, string dialogueEntry)
     {
         if (string.IsNullOrEmpty(dialogueEntry))
