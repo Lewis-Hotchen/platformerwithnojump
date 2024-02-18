@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://clgnhxvd0vuci"]
+[gd_scene load_steps=9 format=3 uid="uid://clgnhxvd0vuci"]
 
 [ext_resource type="Script" path="res://Scripts/Tools/ToolSelector.cs" id="1_w8hbm"]
 [ext_resource type="PackedScene" uid="uid://d1d0v2yux7x8h" path="res://Scenes/Tools/AFP.tscn" id="2_re0j8"]
 [ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="3_g33ud"]
 [ext_resource type="Theme" uid="uid://b1p7nnt8jkew" path="res://Resources/Theme.tres" id="3_liuca"]
 [ext_resource type="PackedScene" uid="uid://dlukxcrf1ukf6" path="res://Scenes/Tools/Spring.tscn" id="5_j4lgv"]
+[ext_resource type="AudioStream" uid="uid://2sqvka85m8t" path="res://Assets/chum_select.wav" id="6_rfi5x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_attth"]
 atlas = ExtResource("3_g33ud")
@@ -12,13 +13,14 @@ region = Rect2(0, 160, 32, 32)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sbods"]
 
-[node name="ToolSelector" type="Node2D" node_paths=PackedStringArray("AFP", "Spring", "ToolsList", "Selector")]
+[node name="ToolSelector" type="Node2D" node_paths=PackedStringArray("AFP", "Spring", "ToolsList", "Selector", "SelectSound")]
 process_mode = 3
 script = ExtResource("1_w8hbm")
 AFP = NodePath("AFP")
 Spring = NodePath("Spring")
 ToolsList = NodePath("ToolsList")
 Selector = NodePath("Selector")
+SelectSound = NodePath("Select")
 
 [node name="AFP" parent="." instance=ExtResource("2_re0j8")]
 visible = false
@@ -52,3 +54,6 @@ icon_mode = 0
 visible = false
 z_index = 1
 position = Vector2(16, 18)
+
+[node name="Select" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_rfi5x")

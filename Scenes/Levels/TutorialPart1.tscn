@@ -121,3 +121,4 @@ shape = SubResource("RectangleShape2D_tmhrn")
 
 [node name="DialogueManagerComponent" parent="." instance=ExtResource("9_saajg")]
 DialogueEntry = "tutorial_1"
+DialoguePath = "tutorial"

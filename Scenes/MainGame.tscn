@@ -6,7 +6,7 @@
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_8a0pd")
-Levels = PackedStringArray("res://Scenes/Levels/Set1/L1-1.tscn", "res://Scenes/Levels/TutorialPart1.tscn", "res://Scenes/Levels/TutorialPart2.tscn", "res://Scenes/Levels/TutorialPart3.tscn", "res://Scenes/Levels/Debug.tscn")
+Levels = PackedStringArray("res://Scenes/Levels/Set1/L1-1.tscn", "res://Scenes/Levels/TutorialPart3.tscn", "res://Scenes/Levels/TutorialPart1.tscn", "res://Scenes/Levels/TutorialPart2.tscn", "res://Scenes/Levels/Debug.tscn")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -40,5 +40,3 @@ grow_horizontal = 0
 
 [node name="BuildModeUI" parent="UI/HBoxContainer" instance=ExtResource("2_0q522")]
 layout_mode = 2
-
-[connection signal="ToolBuilt" from="UI/HBoxContainer/BuildModeUI" to="." method="OnBuildModeUIToolBuilt"]

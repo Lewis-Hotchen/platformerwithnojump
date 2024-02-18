@@ -16,15 +16,18 @@ public partial class MainGame : Node2D
     public DialogueManagerComponent DialogueManager;
 
     private StateTracker states;
+    private EventBus eventBus;
     private BuildModeComponent buildModeComponent;
 
     public override void _Ready()
     {
         buildModeComponent = GetNode<BuildModeComponent>("UI/HBoxContainer/BuildModeUI/BuildModeComponent");
         states = GetNode<StateTracker>("/root/StateTracker");
+        eventBus = GetNode<EventBus>("/root/EventBus");
         CurrentLevelScenePathPointer = 0;
         CurrentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
         GetNode<CanvasLayer>("Game").AddChild(CurrentLevel);
+        eventBus.ToolBuilt += OnToolBuilt;
         base._Ready();
     }
 
@@ -72,14 +75,14 @@ public partial class MainGame : Node2D
         base._Draw();
     }
 
-    public void OnBuildModeUIToolBuilt(Node2D tool, Vector2 globalPosition)
+    public void OnToolBuilt(object sender, ToolBuiltEventArgs e)
     {
-        CurrentLevel.AddChild(tool);
+        CurrentLevel.AddChild(e.Tool);
         states.SetState("IsBuildMode", false);
-        tool.GlobalPosition = globalPosition;
-        var toolComp = tool.GetNode<ToolComponent>("ToolComponent");
+        e.Tool.GlobalPosition = e.GlobalPosition;
+        var toolComp = e.Tool.GetNode<ToolComponent>("ToolComponent");
         toolComp.CanFall = true;
-        toolComp.SetDirection(tool.RotationDegrees);
+        toolComp.SetDirection(e.Tool.RotationDegrees);
         toolComp.IsActive = true;
     }
 }

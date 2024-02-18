@@ -25,6 +25,11 @@ public partial class Player : RigidBody2D
     public AudioStreamPlayer2D ChumRun { get; set; }
 
     [Export]
+    public AudioStreamPlayer2D ChumHurt { get; set; }
+
+    
+
+    [Export]
     public AnimatedSprite2D ChumSprite { get; set; }
 
     public List<RayCast2D> GroundCasts { get; set; }
@@ -38,6 +43,7 @@ public partial class Player : RigidBody2D
     private bool pickUp = false;
     private bool pickedUp = false;
     private bool left;
+    private EventBus eventBus;
 
     public override void _Ready()
     {
@@ -56,7 +62,15 @@ public partial class Player : RigidBody2D
         };
 
         stateTracker = GetNode<StateTracker>("/root/StateTracker");
+        eventBus = GetNode<EventBus>("/root/EventBus");
+        eventBus.ToolFailed += OnToolFailed;
         base._Ready();
+    }
+
+    private void OnToolFailed(object sender, ToolFailedEventArgs e)
+    {
+        ChumSprite.Play("chum_hurt");
+        ChumHurt.Play();
     }
 
     private void OnFrameChanged()
@@ -69,7 +83,6 @@ public partial class Player : RigidBody2D
             }
         }
     }
-
 
     private void AnimationFinished()
     {

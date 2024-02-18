@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq86u6r7lkuuc"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_dpo4n"]
+script/source = "using Godot;
+using System;
+
+public partial class BuildableArea : StaticBody2D
+{
+}
+"
+
+[node name="BuildableArea" type="StaticBody2D"]
+script = SubResource("CSharpScript_dpo4n")

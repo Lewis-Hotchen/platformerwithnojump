@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Godot;
 
@@ -44,5 +45,24 @@ public partial class TimerTrackerComponent : Node2D
 
         AddChild(timer);
         return timer;
+    }
+
+    internal void OneShot(float time, Action onTimeout)
+    {
+        var timer = AddTimer(time, "oneshot");
+        timer.Timeout += onTimeout;
+        timer.Timeout += OnTimeoutCleanup;
+        timer.Start();
+    }
+
+    private void OnTimeoutCleanup()
+    {
+        GetTimer("oneshot").QueueFree();
+        GetTimer("oneshot").Dispose();
+    }
+
+    internal void Subscribe(string timer, Action onTimeout)
+    {
+        GetTimer(timer).Timeout += onTimeout;
     }
 }

@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://brcxb0dfipwg5"]
+[gd_scene load_steps=7 format=3 uid="uid://brcxb0dfipwg5"]
 
 [ext_resource type="Script" path="res://Scripts/UI/BuildModeUI.cs" id="1_1xd8h"]
 [ext_resource type="PackedScene" uid="uid://bjb80k820mtdk" path="res://Scenes/Components/BuilldModeComponent.tscn" id="1_27hqd"]
 [ext_resource type="PackedScene" uid="uid://bsk14ie6ge0k1" path="res://Scenes/Components/DeployedToolsComponent.tscn" id="4_63ey5"]
 [ext_resource type="PackedScene" uid="uid://clgnhxvd0vuci" path="res://Scenes/Tools/ToolSelector.tscn" id="4_njumo"]
+[ext_resource type="AudioStream" uid="uid://bolts5y11y86s" path="res://Assets/build_mode.wav" id="5_e0r67"]
+[ext_resource type="AudioStream" uid="uid://bplq7k3pdu1of" path="res://Assets/build_mode_disabled.wav" id="6_nqoig"]
 
-[node name="BuildModeUI" type="Control" node_paths=PackedStringArray("BuildModeComponent", "ToolSelector", "DeployedToolsComponent")]
+[node name="BuildModeUI" type="Control" node_paths=PackedStringArray("BuildModeComponent", "BuildModeEnabled", "BuildModeDisabled", "ToolSelector", "DeployedToolsComponent")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +17,8 @@ grow_vertical = 2
 scale = Vector2(2, 2)
 script = ExtResource("1_1xd8h")
 BuildModeComponent = NodePath("BuildModeComponent")
+BuildModeEnabled = NodePath("BuildModeDisabledNoise")
+BuildModeDisabled = NodePath("BuildModeEnabledNoise")
 ToolSelector = NodePath("ToolSelector")
 DeployedToolsComponent = NodePath("DeployedToolsComponent")
 
@@ -23,3 +27,13 @@ DeployedToolsComponent = NodePath("DeployedToolsComponent")
 [node name="ToolSelector" parent="." instance=ExtResource("4_njumo")]
 
 [node name="DeployedToolsComponent" parent="." instance=ExtResource("4_63ey5")]
+
+[node name="BuildModeEnabledNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_e0r67")
+volume_db = -13.0
+pitch_scale = 1.4
+
+[node name="BuildModeDisabledNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_nqoig")
+volume_db = -13.0
+pitch_scale = 1.2

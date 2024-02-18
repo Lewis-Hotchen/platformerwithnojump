@@ -113,6 +113,7 @@ offset_right = -41.0
 offset_bottom = 40.0
 NextTextAction = "jump"
 DialogueEntry = "tutorial_3"
+DialoguePath = "tutorial"
 CanSkip = true
 
 [node name="NextLevelComponent" parent="." instance=ExtResource("10_iu88r")]

@@ -15,6 +15,9 @@ public partial class Spring : StaticBody2D
     [Export]
     public ToolComponent Tool { get; set; }
 
+    [Export]
+    public AnimatedSprite2D Sprite { get; set; }
+
     public Tools ToolType = Tools.Spring;
 
     public Array<RayCast2D> GroundCasts { get; set; }
@@ -33,6 +36,11 @@ public partial class Spring : StaticBody2D
         };
 
         TimeTracker.AddTimer(1, "cooldown");
+
+        TimeTracker.Subscribe("cooldown", () => {
+                    Sprite.PlayBackwards();
+                });
+
         GetNode<Area2D>("Area2D").BodyEntered += OnBodyEntered;
         base._Ready();
     }
@@ -73,12 +81,13 @@ public partial class Spring : StaticBody2D
 
     private void OnBodyEntered(Node2D body)
     {
-        if (!TimeTracker.GetTimerRunning("cooldown") && Tool.IsActive)
+        if (Tool.IsActive)
         {
             if (body is Player player)
             {
-                BodyImpulseComponent.Apply(player);
+                BodyImpulseComponent.Apply(player, true);
                 GetNode<AnimationPlayer>("AnimationPlayer").Play("Extend");
+                Sprite.Play();
                 TimeTracker.StartTimer("cooldown");
             }
         }

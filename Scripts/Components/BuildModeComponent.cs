@@ -34,7 +34,6 @@ public partial class BuildModeComponent : Node2D
     public void StartBuild(Node2D toolPreivew)
     {
         Preview = (Node2D)toolPreivew.Duplicate();
-        states.SetState("IsBuildMode", true);
     }
 
     public override void _Process(double delta)

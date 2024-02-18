@@ -2,6 +2,6 @@ namespace PlatformerWithNoJump;
 
 public static class PWNJConstants
 {
-    public static readonly string DialogueFilePath = "res://Assets/dialogue/tutorial_dialogue.yml";
+    public static string DialogueFilePath(string file) => $"res://Assets/dialogue/{file}_dialogue.yml";
 
 }
