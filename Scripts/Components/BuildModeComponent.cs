@@ -9,8 +9,6 @@ public partial class BuildModeComponent : Node2D
 
     public Node2D Preview { get; set; }
 
-    public Tools ToolSelected { get; set; }
-
     public float Direction { get; set; }
 
     [Export]
@@ -55,24 +53,21 @@ public partial class BuildModeComponent : Node2D
                     Preview.GlobalPosition = GetCentreofScreen().Snapped(Snap);
                 }
 
-                if (!isShapeColliding && Input.IsActionJustPressed("build"))
-                {
-                    states.SetState("IsBuildMode", false);
-                    LockIn();
-                    return;
-                }
+
 
                 Vector2 move = GetMove();
 
                 Preview.GlobalPosition += move * Snap;
 
-                if(Input.IsActionJustPressed("rotate")) {
+                if (Input.IsActionJustPressed("rotate"))
+                {
                     RotateDirection();
                     Preview.RotationDegrees = Direction;
                 }
 
-                if(!IsInBounds()){
-                    
+                if (!IsInBounds())
+                {
+
                 }
             }
         }
@@ -122,5 +117,17 @@ public partial class BuildModeComponent : Node2D
         newTool.RotationDegrees = Direction; // Replace with enum logic to pair up enum with tool scene.
         ToolBuilt?.Invoke(this, new ToolBuiltEventArgs(newTool, Preview.GlobalPosition));
         Preview.QueueFree();
+    }
+
+    public bool FinishBuild()
+    {
+        if (!isShapeColliding && states.Resources[Preview.GetNode<ToolComponent>("ToolComponent").ToolType] > 0)
+        {
+            states.SetState("IsBuildMode", false);
+            LockIn();
+            return true;
+        }
+
+        return false;
     }
 }

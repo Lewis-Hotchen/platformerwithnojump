@@ -59,24 +59,8 @@ public partial class BuildModeUI : Control
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("build_mode") && !states.GetState("IsBuildMode"))
-        {
-            if (states.Resources[ToolSelector.CurrentToolType] > 0)
-            {
-                BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
-                states.SetState("IsBuildMode", true);
-                BuildModeEnabled.Play();
-            }
-            else
-            {
-                eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(ToolSelector.CurrentToolType, FailedToolReason.RESOURCE_EMPTY));
-            }
-        }
-        else if (Input.IsActionJustPressed("build_mode") && states.GetState("IsBuildMode"))
-        {
-            states.SetState("IsBuildMode", false);
-            BuildModeDisabled.Play();
-        }
+
+        HandleBuildModeInput();
 
         if (Input.IsActionJustPressed("revert"))
         {
@@ -85,5 +69,33 @@ public partial class BuildModeUI : Control
         }
 
         base._Process(delta);
+    }
+
+    private void HandleBuildModeInput()
+    {
+        if(Input.IsActionJustPressed("cancel") && states.GetState("IsBuildMode")) {
+            states.SetState("IsBuildMode", false);
+        }
+
+        if (Input.IsActionJustPressed("build_mode"))
+        {
+            if (!states.GetState("IsBuildMode"))
+            {
+                BuildModeComponent.StartBuild(ToolSelector.CurrentTool);
+                states.SetState("IsBuildMode", true);
+                BuildModeEnabled.Play();
+            }
+            else
+            {
+                bool success = BuildModeComponent.FinishBuild();
+                if(success) {
+                    states.SetState("IsBuildMode", false);
+                    BuildModeDisabled.Play();
+                } else {
+                    eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(ToolSelector.CurrentToolType, FailedToolReason.RESOURCE_EMPTY));
+                }
+                
+            }
+        }
     }
 }
