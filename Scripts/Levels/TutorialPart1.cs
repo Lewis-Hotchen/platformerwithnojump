@@ -9,7 +9,7 @@ public partial class TutorialPart1 : Node2D
     public override void _Ready()
     {
         states = GetNode<StateTracker>("/root/StateTracker");
-        states.SetState("BuildEnabled", false);
+        states.SetupLevel(new System.Collections.Generic.Dictionary<Tools, ToolResource>(), false, System.Array.Empty<Tools>());
         Dialogue.SetDialogueOnBox();
         GetNode<Area2D>("Area2D").BodyShapeEntered += OnBodyShapeEntered;
         base._Ready();

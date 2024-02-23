@@ -57,6 +57,8 @@ public partial class TutorialPart2 : Node2D
             AddChild(springTwo);
 
             springOne.Position = SpringLocOne.Position.Snapped(new Vector2(32, 32));
+            springOne.GetNode<ToolComponent>("ToolComponent").CanFall = true;
+            springTwo.GetNode<ToolComponent>("ToolComponent").CanFall = true;
             springTwo.Position = SpringLocTwo.Position.Snapped(new Vector2(32, 32));
             Dialogue.CanSkip = false;
             Dialogue.CanTimeOut = false;

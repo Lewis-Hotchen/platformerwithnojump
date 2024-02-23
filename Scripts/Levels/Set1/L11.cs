@@ -21,6 +21,10 @@ public partial class L11 : Node2D
                     Current = 4
                 }
                 }
+            },
+            true,
+            new Tools[] {
+                Tools.Spring
             }
         );
 

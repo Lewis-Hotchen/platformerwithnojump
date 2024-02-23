@@ -80,6 +80,10 @@ public partial class BuildModeUI : Control, IDisposable
 
     private void HandleBuildModeInput()
     {
+        if(!states.GetState(StateTracker.BuildEnabled)) {
+            return;
+        }
+
         if(Input.IsActionJustPressed("cancel") && states.GetState("IsBuildMode")) {
             states.SetState("IsBuildMode", false);
         }

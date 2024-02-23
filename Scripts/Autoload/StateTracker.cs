@@ -38,13 +38,16 @@ public partial class StateTracker : Node
         }
     }
 
-    public void SetupLevel(Dictionary<Tools, ToolResource> resources) {
-        if(!resources.Keys.Any(x => UnlockedTools.Any(y => y == x))) {
+    public void SetupLevel(Dictionary<Tools, ToolResource> resources, bool buildEnabled, Tools[] unlockedTools) {
+        UnlockedTools = new(unlockedTools);
+
+        if(!resources.Keys.Any(x => UnlockedTools.Any(y => y == x)) && resources.Any()) {
             throw new ArgumentException("Added a tool which was not unlocked");
         }
 
         Resources = resources;
         eventBus.RaiseEvent(nameof(EventBus.StateChanged), this, new StateChangedEventArgs(nameof(Resources), ResourcesState));
+        SetState(BuildEnabled, buildEnabled);
     }
 
     public override void _Ready()

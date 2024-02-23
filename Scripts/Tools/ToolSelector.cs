@@ -81,7 +81,6 @@ public partial class ToolSelector : Node2D
         }
 
         eventBus.StateChanged += OnStateChanged;
-
         base._Ready();
     }
 
