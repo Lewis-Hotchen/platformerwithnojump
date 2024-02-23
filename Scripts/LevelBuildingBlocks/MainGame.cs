@@ -7,13 +7,13 @@ public partial class MainGame : Node2D
     [Export]
     public int CurrentLevelScenePathPointer { get; set; }
 
-    public Node2D CurrentLevel {get; private set; }
+    public Node2D CurrentLevel { get; private set; }
 
     [Export]
     public string[] Levels { get; set; }
 
     [Export]
-    public DialogueManagerComponent DialogueManager;
+    public DialogueManagerComponent DialogueManager { get; set; }
 
     private StateTracker states;
     private EventBus eventBus;
@@ -28,16 +28,34 @@ public partial class MainGame : Node2D
         CurrentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
         GetNode<CanvasLayer>("Game").AddChild(CurrentLevel);
         eventBus.ToolBuilt += OnToolBuilt;
+        eventBus.ToolFailed += OnToolFailed;
         base._Ready();
     }
 
+    private void OnToolFailed(object sender, ToolFailedEventArgs e)
+    {
+        switch (e.FailedToolReason)
+        {
+            case FailedToolReason.RESOURCE_EMPTY:
+                DialogueManager.OneShotDialog($"You cannot place anymore {e.Tool}s.");
+                break;
+            case FailedToolReason.NO_REVERT:
+                DialogueManager.OneShotDialog($"You cannot revert anymore {e.Tool}s.");
+                break;
+        }
+    }
+
+
     public void NextLevel()
     {
+        var oldLevel = Levels[CurrentLevelScenePathPointer];
         GetNode<CanvasLayer>("Game").RemoveChild(CurrentLevel);
         CurrentLevel?.QueueFree();
         CurrentLevelScenePathPointer++;
         CurrentLevel = SceneManager.LoadScene<Node2D>(Levels[CurrentLevelScenePathPointer]);
+        var newLevel = Levels[CurrentLevelScenePathPointer];
         GetNode<CanvasLayer>("Game").AddChild(CurrentLevel);
+        eventBus.RaiseEvent(nameof(EventBus.LevelChanged), this, new LevelChangedEventArgs(oldLevel, newLevel));
     }
 
     public override void _Process(double delta)
@@ -84,5 +102,15 @@ public partial class MainGame : Node2D
         toolComp.CanFall = true;
         toolComp.SetDirection(e.Tool.RotationDegrees);
         toolComp.IsActive = true;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if(disposing) {
+            eventBus.ToolBuilt -= OnToolBuilt;
+            eventBus.ToolFailed -= OnToolFailed;
+        }
+
+        base.Dispose(disposing);
     }
 }

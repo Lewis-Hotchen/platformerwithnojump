@@ -37,7 +37,11 @@ public partial class DialogueManagerComponent : Control
     {
         TextTimeout.Timeout += OnTimeout;
         using var file = FileAccess.Open(PWNJConstants.DialogueFilePath(DialoguePath), FileAccess.ModeFlags.Read);
-        DialogueManager = new(file.GetPathAbsolute(), DialogueEntry);
+        
+        if(DialogueEntry != null) {
+            DialogueManager = new(file.GetPathAbsolute(), DialogueEntry);
+        }
+
         base._Ready();
     }
 
@@ -81,6 +85,10 @@ public partial class DialogueManagerComponent : Control
 
     public double SetDialogueOnBox()
     {
+        if(DialogueManager == null) {
+            OneShotDialog("It would appear my dialogue has not loaded correctly....This is a bug.");
+        } 
+
         AnimationPlayer.GetAnimation("dialogue_painter/text_paint").Clear();
         Visible = true;
         GetNode<RichTextLabel>("DialogueBox/Text").Text = DialogueManager.GetStep();

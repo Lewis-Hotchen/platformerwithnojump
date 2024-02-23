@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Godot;
 namespace PlatformerWithNoJump;
 
@@ -42,14 +43,15 @@ public partial class ToolSelector : Node2D
             ToolsList.Clear();
             foreach (var tool in Tools)
             {
-                var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
-                ToolsList.AddItem(tool.Key.ToString() + "\nx" + states.Resources[tool.Key], tex);
+                if(states.UnlockedTools.Contains(tool.Key)) {
+                    var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
+                    ToolsList.AddItem(tool.Key.ToString() + "\nx" + states.Resources[tool.Key].Current, tex);
+                }
             }
 
             QueueRedraw();
         }
     }
-
 
     public override void _Ready()
     {
@@ -57,7 +59,7 @@ public partial class ToolSelector : Node2D
         states = GetNode<StateTracker>("/root/StateTracker");
         eventBus = GetNode<EventBus>("/root/EventBus");
         toolsPointer = new List<Tools>(states.UnlockedTools);
-
+        
         Tools = new()
         {
             {
@@ -72,8 +74,10 @@ public partial class ToolSelector : Node2D
 
         foreach (var tool in Tools)
         {
-            var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
-            ToolsList.AddItem(tool.Key.ToString() + " x" + states.Resources[tool.Key], tex);
+            if(states.UnlockedTools.Contains(tool.Key)) {
+                    var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
+                    ToolsList.AddItem(tool.Key.ToString() + "\nx" + states.Resources[tool.Key].Current, tex);
+                }
         }
 
         eventBus.StateChanged += OnStateChanged;
@@ -123,5 +127,14 @@ public partial class ToolSelector : Node2D
     private Node2D GetSelectedTool()
     {
         return Tools[toolsPointer[currentToolPointer]];
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if(disposing) {
+            eventBus.StateChanged -= OnStateChanged;
+        }
+
+        base.Dispose(disposing);
     }
 }

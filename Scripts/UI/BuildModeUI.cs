@@ -2,7 +2,7 @@ using System;
 using Godot;
 namespace PlatformerWithNoJump;
 
-public partial class BuildModeUI : Control
+public partial class BuildModeUI : Control, IDisposable
 {
     [Export]
     public BuildModeComponent BuildModeComponent { get; set; }
@@ -18,6 +18,9 @@ public partial class BuildModeUI : Control
 
     [Export]
     public DeployedToolsComponent DeployedToolsComponent { get; set; }
+
+    [Export]
+    public DialogueManagerComponent DialogueManagerComponent { get; set; }
 
     private StateTracker states;
     private EventBus eventBus;
@@ -54,7 +57,7 @@ public partial class BuildModeUI : Control
             nameof(EventBus.ToolBuilt),
             this,
             new ToolBuiltEventArgs(e.Tool, e.GlobalPosition));
-        states.UpdateResource(ToolSelector.CurrentToolType, states.Resources[ToolSelector.CurrentToolType] - 1);
+        states.UpdateResource(ToolSelector.CurrentToolType, states.Resources[ToolSelector.CurrentToolType].Current - 1);
     }
 
     public override void _Process(double delta)
@@ -65,7 +68,11 @@ public partial class BuildModeUI : Control
         if (Input.IsActionJustPressed("revert"))
         {
             var refundedType = DeployedToolsComponent.RemoveLast();
-            states.UpdateResource(refundedType, states.Resources[refundedType] + 1);
+            if(refundedType == Tools.None) {
+                refundedType = ToolSelector.CurrentToolType;
+            }
+            
+            states.UpdateResource(refundedType, states.Resources[refundedType].Current + 1);
         }
 
         base._Process(delta);
@@ -94,8 +101,17 @@ public partial class BuildModeUI : Control
                 } else {
                     eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(ToolSelector.CurrentToolType, FailedToolReason.RESOURCE_EMPTY));
                 }
-                
             }
         }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if(disposing) {
+            eventBus.StateChanged -= OnStateChanged;
+            eventBus.ToolBuilt -= OnToolBuilt;
+        }
+
+        base.Dispose(disposing);
     }
 }

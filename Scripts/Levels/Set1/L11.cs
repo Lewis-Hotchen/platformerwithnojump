@@ -1,5 +1,5 @@
 using Godot;
-using PlatformerWithNoJump;
+namespace PlatformerWithNoJump;
 
 public partial class L11 : Node2D
 {
@@ -12,7 +12,18 @@ public partial class L11 : Node2D
     {
         DialogueManagerComponent.SetDialogueOnBox();
         states = GetNode<StateTracker>("/root/StateTracker");
-        states.UpdateResource(Tools.Spring, 4);
+        states.SetupLevel(
+            new System.Collections.Generic.Dictionary<Tools, ToolResource> {
+                {
+                Tools.Spring,
+                new ToolResource() {
+                    Max = 4,
+                    Current = 4
+                }
+                }
+            }
+        );
+
         base._Ready();
     }
 }

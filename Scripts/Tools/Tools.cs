@@ -5,5 +5,6 @@ public enum Tools
     AFP,
     Spring,
     ActualJump,
-    Rope
+    Rope,
+    None
 }

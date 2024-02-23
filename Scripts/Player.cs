@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 namespace PlatformerWithNoJump;
 
-public partial class Player : RigidBody2D
+public partial class Player : RigidBody2D, IDisposable
 {
     [Export]
     public float Force { get; set; } = 3000f;
@@ -182,5 +182,14 @@ public partial class Player : RigidBody2D
         {
             ApplyImpulse(Vector2.Up * force);
         }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if(disposing) {
+            eventBus.ToolFailed -= OnToolFailed;
+        }
+        
+        base.Dispose(disposing);
     }
 }

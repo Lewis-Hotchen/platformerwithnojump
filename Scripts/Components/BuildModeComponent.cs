@@ -121,7 +121,7 @@ public partial class BuildModeComponent : Node2D
 
     public bool FinishBuild()
     {
-        if (!isShapeColliding && states.Resources[Preview.GetNode<ToolComponent>("ToolComponent").ToolType] > 0)
+        if (!isShapeColliding && states.Resources[Preview.GetNode<ToolComponent>("ToolComponent").ToolType].Current > 0)
         {
             states.SetState("IsBuildMode", false);
             LockIn();

@@ -1,6 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Godot.Collections;
 namespace PlatformerWithNoJump;
 
 public partial class StateTracker : Node
@@ -15,31 +16,51 @@ public partial class StateTracker : Node
     public readonly static string BuildEnabled = "BuildEnabled";
     public readonly static string ResourcesState = "Resources";
 
-    public Array<Tools> UnlockedTools { get; private set; }
+    public List<Tools> UnlockedTools { get; private set; }
     
-    public Dictionary<Tools, int> Resources { get; set; }
+    public Dictionary<Tools, ToolResource> Resources { get; set; }
 
     public void UpdateResource(Tools resource, int newVal) {
+        if(resource == Tools.None) {
+            return;
+        }
+
         if(newVal < 0) {
             eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(resource, FailedToolReason.RESOURCE_EMPTY));
         } else {
-            Resources[resource] = newVal;
-            eventBus.RaiseEvent(nameof(EventBus.StateChanged), this, new StateChangedEventArgs(nameof(Resources), resource.ToString()));
+            if(Resources[resource].Max < newVal) {
+                eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(resource, FailedToolReason.NO_REVERT));
+            } else {
+                Resources[resource].Current = newVal;
+                eventBus.RaiseEvent(nameof(EventBus.StateChanged), this, new StateChangedEventArgs(nameof(Resources), resource.ToString()));
+            }
+
         }
+    }
+
+    public void SetupLevel(Dictionary<Tools, ToolResource> resources) {
+        if(!resources.Keys.Any(x => UnlockedTools.Any(y => y == x))) {
+            throw new ArgumentException("Added a tool which was not unlocked");
+        }
+
+        Resources = resources;
+        eventBus.RaiseEvent(nameof(EventBus.StateChanged), this, new StateChangedEventArgs(nameof(Resources), ResourcesState));
     }
 
     public override void _Ready()
     {
         eventBus = GetNode<EventBus>("/root/EventBus");
         UnlockedTools = new() {
-            Tools.Spring,
-            Tools.AFP
+            Tools.Spring
         };
 
         Resources = new();
 
         foreach(var tool in UnlockedTools) {
-            Resources[tool] = 0;
+            Resources[tool] = new ToolResource() {
+                Max = 0,
+                Current = 0
+            };
         }
 
         states = new Dictionary<string, bool> {
@@ -65,4 +86,10 @@ public partial class StateTracker : Node
     public bool StateExists(string state) {
         return states.ContainsKey(state);
     }
+}
+
+public class ToolResource
+{
+    public int Max { get; set;}
+    public int Current { get; set; }
 }
