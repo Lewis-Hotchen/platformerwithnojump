@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using Godot;
 
 namespace PlatformerWithNoJump;
@@ -22,7 +23,15 @@ public partial class TutorialPart3 : Node2D
     {
         states = GetNode<StateTracker>("/root/StateTracker");
         Dialogue.SetDialogueOnBox();
-        states.UpdateResource(Tools.Spring, 3);
+        states.SetupLevel(new System.Collections.Generic.Dictionary<Tools, ToolResource>() {
+            {
+                Tools.Spring,
+                new ToolResource() {
+                    Current = 3,
+                    Max = 3
+                }
+            }
+        }, true, new[]{Tools.Spring});
         Dialogue.DialogueComplete += OnDialogueComplete;
         PlayerKillBox.OnPlayerFell += OnPlayerFell;
         base._Ready();
@@ -31,10 +40,9 @@ public partial class TutorialPart3 : Node2D
     private void OnDialogueComplete(object sender, DialogueCompleteArgs e)
     {
         if(e.CompletedStep == "Press B to activate build mode.") {
-            states.SetState("BuildEnabled", true);
+            states.SetState("BuildEnabled", true); 
         }
     }
-
 
     private void OnPlayerFell(object sender, EventArgs e)
     {
@@ -43,7 +51,6 @@ public partial class TutorialPart3 : Node2D
             Dialogue.OneShotDialog("We've all been there.");
         });
     }
-
 
     private void SplashScreenTimeout()
     {

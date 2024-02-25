@@ -27,8 +27,6 @@ public partial class Player : RigidBody2D, IDisposable
     [Export]
     public AudioStreamPlayer2D ChumHurt { get; set; }
 
-    
-
     [Export]
     public AnimatedSprite2D ChumSprite { get; set; }
 

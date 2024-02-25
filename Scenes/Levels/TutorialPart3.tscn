@@ -117,3 +117,12 @@ DialoguePath = "tutorial"
 CanSkip = true
 
 [node name="NextLevelComponent" parent="." instance=ExtResource("10_iu88r")]
+
+[node name="SpringOneLoc" type="Marker2D" parent="."]
+position = Vector2(129, 246)
+
+[node name="SpringTwoLoc" type="Marker2D" parent="."]
+position = Vector2(451, 308)
+
+[node name="SpringThreeLoc" type="Marker2D" parent="."]
+position = Vector2(772, 439)
