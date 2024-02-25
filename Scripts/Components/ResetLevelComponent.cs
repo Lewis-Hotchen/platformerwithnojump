@@ -5,9 +5,6 @@ namespace PlatformerWithNoJump;
 public partial class ResetLevelComponent : Node2D
 {
     [Export]
-    public StateTrackerComponent StateTracker { get; set; }
-
-    [Export]
     public Player Player { get; set; }
 
     [Export]
@@ -26,6 +23,7 @@ public partial class ResetLevelComponent : Node2D
     public void ResetLevel()
     {
         Player.Position = SpawnPosition.Position;
-        GetNode<StateTracker>("/root/StateTracker").SetState("PlayerHasFallen", false);
+        GetNode<StateTracker>("/root/StateTracker").SetState(StateTracker.HasFallen, false);
+        Player.LinearVelocity = new Vector2(0, 0);
     }
 }

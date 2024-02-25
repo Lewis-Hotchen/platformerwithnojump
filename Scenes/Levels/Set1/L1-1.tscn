@@ -92,6 +92,7 @@ position = Vector2(784, 480)
 shape = SubResource("RectangleShape2D_mglwt")
 
 [node name="DialogueManagerComponent" parent="." instance=ExtResource("7_ka0vo")]
+visible = false
 offset_left = -72.0
 offset_top = 88.0
 offset_right = -72.0

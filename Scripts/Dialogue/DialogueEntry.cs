@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace PlatformerWithNoJump;
@@ -33,4 +34,15 @@ public class DialogueEntry
 
         return false;
     }
+
+    internal bool DecrementStep()
+    {
+        if(CurrentStep > 0) {
+            CurrentStep -= 1;
+            return true;
+        }
+
+        return false;
+    }
+
 }

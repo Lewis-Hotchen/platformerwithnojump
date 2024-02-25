@@ -23,7 +23,7 @@ public partial class PlayerKillBoxComponent : Node2D
 
     public override void _Process(double delta)
     {
-        if (Player.Position.Y >= KillFloorY && !states.GetState("HasFallen"))
+        if (Player.Position.Y >= KillFloorY && !states.GetState(StateTracker.HasFallen))
         {
             OnPlayerFell?.Invoke(this, new EventArgs());
             GetNode<ChumDeath>("ChumDeathLegs").Play(true);

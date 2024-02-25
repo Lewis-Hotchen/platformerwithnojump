@@ -30,6 +30,10 @@ public class DialogueManager
         return Entry.IncrementStep();
     }
 
+    public bool PrevStep() {
+        return Entry.DecrementStep();
+    }
+
     public string GetStep()
     {
         return Entry.GetCurrentStep;

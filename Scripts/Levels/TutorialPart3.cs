@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.Serialization;
 using Godot;
 
 namespace PlatformerWithNoJump;
@@ -32,8 +31,10 @@ public partial class TutorialPart3 : Node2D
                 }
             }
         }, true, new[]{Tools.Spring});
+
         Dialogue.DialogueComplete += OnDialogueComplete;
         PlayerKillBox.OnPlayerFell += OnPlayerFell;
+
         base._Ready();
     }
 
@@ -46,9 +47,16 @@ public partial class TutorialPart3 : Node2D
 
     private void OnPlayerFell(object sender, EventArgs e)
     {
+        var resetTimer = Timers.AddTimer(2, "reset", () => {
+            ResetLevel.ResetLevel();
+            Dialogue.SetDialogueOnBox();
+        });
+
         GetNode<ScreenCamera>("../../Camera").ApplyShake();
+        Dialogue.AnimationPlayer.Pause();
         Timers.OneShot(3, () => {
             Dialogue.OneShotDialog("We've all been there.");
+            resetTimer.Start();
         });
     }
 
@@ -56,7 +64,7 @@ public partial class TutorialPart3 : Node2D
     {
         GetNode<Node2D>("Splash").QueueFree();
         states.SetState("HasCompletedTutorial", true);
-        states.SetState("HasFallen", false);
+        states.SetState(StateTracker.HasFallen, false);
         ResetLevel.ResetLevel();
     }
 

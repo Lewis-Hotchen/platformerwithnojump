@@ -60,9 +60,10 @@ position = Vector2(584, 681)
 Player = NodePath("../Player")
 KillFloorY = 680.0
 
-[node name="ResetLevelComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("8_g0u55")]
+[node name="ResetLevelComponent" parent="." node_paths=PackedStringArray("Player", "SpawnPosition") instance=ExtResource("8_g0u55")]
 position = Vector2(1, 0)
 Player = NodePath("../Player")
+SpawnPosition = NodePath("../SpawnPostion")
 
 [node name="TimerTrackerComponent" parent="." node_paths=PackedStringArray("Timers") instance=ExtResource("9_ykn1u")]
 Timers = [null, null]
@@ -126,3 +127,7 @@ position = Vector2(451, 308)
 
 [node name="SpringThreeLoc" type="Marker2D" parent="."]
 position = Vector2(772, 439)
+
+[node name="SpawnPostion" type="Marker2D" parent="."]
+position = Vector2(83, 208)
+gizmo_extents = 0.0
