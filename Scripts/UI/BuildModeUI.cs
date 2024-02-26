@@ -20,10 +20,12 @@ public partial class BuildModeUI : Control, IDisposable
     public DeployedToolsComponent DeployedToolsComponent { get; set; }
 
     [Export]
-    public DialogueManagerComponent DialogueManagerComponent { get; set; }
+    public TimerTrackerComponent Timers { get; set; }
 
     private StateTracker states;
     private EventBus eventBus;
+    private bool isHoldingRevert;
+    private double heldTime;
 
     public override void _Ready()
     {
@@ -60,19 +62,53 @@ public partial class BuildModeUI : Control, IDisposable
         states.UpdateResource(ToolSelector.CurrentToolType, states.Resources[ToolSelector.CurrentToolType].Current - 1);
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("revert"))
+        {
+            isHoldingRevert = true;
+        } else {
+
+            if(isHoldingRevert) {
+                if(heldTime < 2) {
+                    Revert();
+                } else {
+                    RevertAll();
+                }
+
+                heldTime = 0;
+                isHoldingRevert = false;
+            }
+        }
+
+        base._Input(@event);
+    }
+
+    private void RevertAll()
+    {
+        DeployedToolsComponent.Reset();
+        states.UpdateResource(Tools.Spring, states.Resources[Tools.Spring].Max);
+    }
+
+    private void Revert()
+    {
+            var refundedType = DeployedToolsComponent.RemoveLast();
+            if (refundedType == Tools.None)
+            {
+                refundedType = ToolSelector.CurrentToolType;
+            }
+
+            states.UpdateResource(refundedType, states.Resources[refundedType].Current + 1);
+    }
+
+
     public override void _Process(double delta)
     {
 
         HandleBuildModeInput();
 
-        if (Input.IsActionJustPressed("revert"))
-        {
-            var refundedType = DeployedToolsComponent.RemoveLast();
-            if(refundedType == Tools.None) {
-                refundedType = ToolSelector.CurrentToolType;
-            }
-            
-            states.UpdateResource(refundedType, states.Resources[refundedType].Current + 1);
+        if(isHoldingRevert) {
+            heldTime += delta;
         }
 
         base._Process(delta);
@@ -80,11 +116,13 @@ public partial class BuildModeUI : Control, IDisposable
 
     private void HandleBuildModeInput()
     {
-        if(!states.GetState(StateTracker.BuildEnabled)) {
+        if (!states.GetState(StateTracker.BuildEnabled))
+        {
             return;
         }
 
-        if(Input.IsActionJustPressed("cancel") && states.GetState("IsBuildMode")) {
+        if (Input.IsActionJustPressed("cancel") && states.GetState("IsBuildMode"))
+        {
             states.SetState("IsBuildMode", false);
         }
 
@@ -99,10 +137,13 @@ public partial class BuildModeUI : Control, IDisposable
             else
             {
                 bool success = BuildModeComponent.FinishBuild();
-                if(success) {
+                if (success)
+                {
                     states.SetState("IsBuildMode", false);
                     BuildModeDisabled.Play();
-                } else {
+                }
+                else
+                {
                     eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(ToolSelector.CurrentToolType, FailedToolReason.RESOURCE_EMPTY));
                 }
             }
@@ -111,7 +152,8 @@ public partial class BuildModeUI : Control, IDisposable
 
     protected override void Dispose(bool disposing)
     {
-        if(disposing) {
+        if (disposing)
+        {
             eventBus.StateChanged -= OnStateChanged;
             eventBus.ToolBuilt -= OnToolBuilt;
         }

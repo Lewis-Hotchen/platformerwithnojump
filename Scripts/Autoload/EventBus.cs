@@ -16,8 +16,6 @@ public partial class EventBus : Node
 
     public event EventHandler<ToolFailedEventArgs> ToolFailed;
 
-    public event EventHandler<ToolsBuiltChangedEventArgs> ToolsBuiltChanged;
-
     public event EventHandler<LevelChangedEventArgs> LevelChanged;
 
     public void RaiseEvent<T>(string @event, object sender, T eventArgs) where T : EventArgs
