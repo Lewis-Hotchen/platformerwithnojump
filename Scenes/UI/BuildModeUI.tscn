@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://Scripts/UI/BuildModeUI.cs" id="1_1xd8h"]
 [ext_resource type="PackedScene" uid="uid://bjb80k820mtdk" path="res://Scenes/Components/BuilldModeComponent.tscn" id="1_27hqd"]
 [ext_resource type="PackedScene" uid="uid://bsk14ie6ge0k1" path="res://Scenes/Components/DeployedToolsComponent.tscn" id="4_63ey5"]
-[ext_resource type="PackedScene" path="res://Scenes/Tools/ToolSelector.tscn" id="4_njumo"]
+[ext_resource type="PackedScene" uid="uid://clgnhxvd0vuci" path="res://Scenes/Tools/ToolSelector.tscn" id="4_njumo"]
 [ext_resource type="AudioStream" uid="uid://bolts5y11y86s" path="res://Assets/build_mode.wav" id="5_e0r67"]
 [ext_resource type="AudioStream" uid="uid://bplq7k3pdu1of" path="res://Assets/build_mode_disabled.wav" id="6_nqoig"]
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="7_0lc14"]
 
-[node name="BuildModeUI" type="Control" node_paths=PackedStringArray("BuildModeComponent", "BuildModeEnabled", "BuildModeDisabled", "ToolSelector", "DeployedToolsComponent", "Timers")]
+[node name="BuildModeUI" type="Control" node_paths=PackedStringArray("BuildModeComponent", "BuildModeEnabled", "BuildModeDisabled", "ToolSelector", "DeployedToolsComponent")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,7 +22,6 @@ BuildModeEnabled = NodePath("BuildModeDisabledNoise")
 BuildModeDisabled = NodePath("BuildModeEnabledNoise")
 ToolSelector = NodePath("ToolSelector")
 DeployedToolsComponent = NodePath("DeployedToolsComponent")
-Timers = NodePath("TimerTrackerComponent")
 
 [node name="BuildModeComponent" parent="." instance=ExtResource("1_27hqd")]
 

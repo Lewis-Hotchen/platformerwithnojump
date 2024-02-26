@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 namespace PlatformerWithNoJump;
 
@@ -68,11 +69,10 @@ public partial class BuildModeUI : Control, IDisposable
         {
             isHoldingRevert = true;
         } else {
-
-            if(isHoldingRevert) {
-                if(heldTime < 2) {
+             {
+                if(heldTime < 2 && isHoldingRevert) {
                     Revert();
-                } else {
+                } else if(isHoldingRevert){
                     RevertAll();
                 }
 
@@ -106,12 +106,38 @@ public partial class BuildModeUI : Control, IDisposable
     {
 
         HandleBuildModeInput();
-
-        if(isHoldingRevert) {
-            heldTime += delta;
-        }
+        HandleRevertInput(delta);
 
         base._Process(delta);
+    }
+
+    private void HandleRevertInput(double delta)
+    {
+        if (Input.IsActionPressed("revert") && DeployedToolsComponent.DeployedTools.Any())
+        {
+            isHoldingRevert = true;
+        }
+        else
+        {
+            {
+                if (heldTime < 2 && isHoldingRevert)
+                {
+                    Revert();
+                }
+                else if (isHoldingRevert)
+                {
+                    RevertAll();
+                }
+
+                heldTime = 0;
+                isHoldingRevert = false;
+            }
+        }
+
+        if (isHoldingRevert)
+        {
+            heldTime += delta;
+        }
     }
 
     private void HandleBuildModeInput()
