@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://brcxb0dfipwg5"]
+[gd_scene load_steps=7 format=3 uid="uid://brcxb0dfipwg5"]
 
 [ext_resource type="Script" path="res://Scripts/UI/BuildModeUI.cs" id="1_1xd8h"]
 [ext_resource type="PackedScene" uid="uid://bjb80k820mtdk" path="res://Scenes/Components/BuilldModeComponent.tscn" id="1_27hqd"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://clgnhxvd0vuci" path="res://Scenes/Tools/ToolSelector.tscn" id="4_njumo"]
 [ext_resource type="AudioStream" uid="uid://bolts5y11y86s" path="res://Assets/build_mode.wav" id="5_e0r67"]
 [ext_resource type="AudioStream" uid="uid://bplq7k3pdu1of" path="res://Assets/build_mode_disabled.wav" id="6_nqoig"]
-[ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="7_0lc14"]
 
 [node name="BuildModeUI" type="Control" node_paths=PackedStringArray("BuildModeComponent", "BuildModeEnabled", "BuildModeDisabled", "ToolSelector", "DeployedToolsComponent")]
 layout_mode = 3
@@ -38,5 +37,3 @@ pitch_scale = 1.4
 stream = ExtResource("6_nqoig")
 volume_db = -13.0
 pitch_scale = 1.2
-
-[node name="TimerTrackerComponent" parent="." instance=ExtResource("7_0lc14")]
