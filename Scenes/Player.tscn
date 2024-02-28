@@ -1,9 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://efel0vjy5yr5"]
+[gd_scene load_steps=45 format=3 uid="uid://efel0vjy5yr5"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_luxqd"]
 [ext_resource type="Texture2D" uid="uid://buljbx85hm1n5" path="res://Assets/Chum-idle.png" id="2_lms8l"]
+[ext_resource type="Texture2D" uid="uid://b81dm5quex2b4" path="res://Assets/Chum-fall.png" id="2_mloxe"]
 [ext_resource type="Texture2D" uid="uid://dndx6l85bnghl" path="res://Assets/Chum-hurt.png" id="2_nqk3t"]
 [ext_resource type="Texture2D" uid="uid://dt0eyjr87gfvq" path="res://Assets/Chum-run.png" id="3_lph36"]
+[ext_resource type="Texture2D" uid="uid://ner4xiddagl8" path="res://Assets/chum-jump.png" id="5_2iwcm"]
 [ext_resource type="AudioStream" uid="uid://bweg238x56t04" path="res://Assets/chum-walk.wav" id="5_u4e0m"]
 [ext_resource type="AudioStream" uid="uid://d1pdvqcouvchg" path="res://Assets/chum_hurt.wav" id="6_jladu"]
 [ext_resource type="AudioStream" uid="uid://oi1vy4mvf0ns" path="res://Assets/chum_jump.wav" id="7_wyi30"]
@@ -11,6 +13,22 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h077e"]
 radius = 13.0
 height = 40.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36gx0"]
+atlas = ExtResource("2_mloxe")
+region = Rect2(0, 16, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esij4"]
+atlas = ExtResource("2_mloxe")
+region = Rect2(32, 16, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v5ud"]
+atlas = ExtResource("2_mloxe")
+region = Rect2(64, 16, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujmhq"]
+atlas = ExtResource("2_mloxe")
+region = Rect2(96, 16, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rwc4j"]
 atlas = ExtResource("2_nqk3t")
@@ -68,6 +86,50 @@ region = Rect2(192, 0, 48, 48)
 atlas = ExtResource("2_lms8l")
 region = Rect2(240, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0w1gi"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(0, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yegpw"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(32, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v211i"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(64, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4noku"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(96, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fx0tv"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(128, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq4bv"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(160, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lspgn"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(192, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06nla"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(224, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65b8x"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(256, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_la2il"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(288, 12, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv52x"]
+atlas = ExtResource("5_2iwcm")
+region = Rect2(320, 12, 32, 36)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_5mctq"]
 atlas = ExtResource("3_lph36")
 region = Rect2(0, 0, 48, 48)
@@ -86,6 +148,23 @@ region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pbq5q"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36gx0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esij4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v5ud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujmhq")
+}],
+"loop": false,
+"name": &"chum_fall",
+"speed": 15.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rwc4j")
@@ -140,6 +219,44 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0w1gi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yegpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v211i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4noku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fx0tv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq4bv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lspgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06nla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65b8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la2il")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tv52x")
+}],
+"loop": false,
+"name": &"chum_jump",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_5mctq")
 }, {
 "duration": 1.0,
@@ -180,8 +297,9 @@ shape = SubResource("CapsuleShape2D_h077e")
 
 [node name="ChumSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pbq5q")
-animation = &"chum_hurt"
-autoplay = "chum_idle"
+animation = &"chum_jump"
+frame = 10
+frame_progress = 1.0
 flip_h = true
 
 [node name="IsOnGround" type="RayCast2D" parent="."]

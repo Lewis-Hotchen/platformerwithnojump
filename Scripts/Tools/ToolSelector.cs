@@ -114,7 +114,7 @@ public partial class ToolSelector : Node2D
         }
         else if (Input.IsActionJustPressed("down"))
         {
-            if (currentToolPointer < Tools.Count - 1)
+            if (currentToolPointer < ToolsList.ItemCount - 1)
             {
                 currentToolPointer++;
                 desiredPosition = ToolsList.GetItemRect(currentToolPointer).Position;

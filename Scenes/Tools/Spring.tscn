@@ -136,6 +136,7 @@ collision_mask = 3
 script = ExtResource("1_ck1b6")
 TimeTracker = NodePath("TimerTrackerComponent")
 BodyImpulseComponent = NodePath("BodyImpulseComponent")
+Direction = Vector2(0, -1)
 Tool = NodePath("ToolComponent")
 Sprite = NodePath("Extend")
 

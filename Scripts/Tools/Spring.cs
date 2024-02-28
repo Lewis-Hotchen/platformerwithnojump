@@ -13,6 +13,9 @@ public partial class Spring : StaticBody2D
     public BodyImpulseComponent BodyImpulseComponent { get; set; }
 
     [Export]
+    public Vector2 Direction { get; set; }
+
+    [Export]
     public ToolComponent Tool { get; set; }
 
     [Export]
@@ -34,6 +37,8 @@ public partial class Spring : StaticBody2D
             GetNode<RayCast2D>("IsOnGround2"),
             GetNode<RayCast2D>("IsOnGround3"),
         };
+
+        BodyImpulseComponent.Direction = Direction;
 
         TimeTracker.AddTimer(1, "cooldown");
 

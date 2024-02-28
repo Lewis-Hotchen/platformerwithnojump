@@ -15,7 +15,7 @@ public partial class BodyImpulseComponent : Node2D
 
     public void Apply(RigidBody2D actor, bool playSound = false)
     {
-        actor.LinearVelocity = Vector2.Zero;
+        actor.LinearVelocity = new Vector2(actor.LinearVelocity.X, 0);
         actor.ApplyImpulse(Direction * Force);
 
         if(playSound) ChumJump.Play();

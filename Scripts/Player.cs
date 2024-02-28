@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using Godot;
 namespace PlatformerWithNoJump;
 
@@ -38,10 +39,20 @@ public partial class Player : RigidBody2D, IDisposable
 
     private bool firstPass;
     private bool isMoving;
+    private bool isJumping;
+    private bool isFalling;
+
     private bool pickUp = false;
     private bool pickedUp = false;
     private bool left;
     private EventBus eventBus;
+
+    private enum PlayerMoveStates {
+        MOVING,
+        IDLE,
+        JUMPING,
+        FALLING,
+    }
 
     public override void _Ready()
     {
@@ -107,6 +118,9 @@ public partial class Player : RigidBody2D, IDisposable
     public override void _IntegrateForces(PhysicsDirectBodyState2D state)
     {
         isMoving = false;
+        isJumping = false;
+        isFalling = false;
+
         //If we are in IsBuildMode we don't want the player to be able to move.
         if (stateTracker.GetState("IsBuildMode"))
         {
@@ -122,6 +136,11 @@ public partial class Player : RigidBody2D, IDisposable
         if (!IsOnFloor)
         {
             forceToApply *= InAirMovementReduction;
+            if(LinearVelocity.Y > 10) {
+                isFalling = true;
+            } else if (LinearVelocity.Y < -10) {
+                isJumping = true;
+            }
         }
 
         if (Input.IsActionPressed("left"))
@@ -152,24 +171,28 @@ public partial class Player : RigidBody2D, IDisposable
 
     public override void _Process(double delta)
     {
-        if (!isMoving && firstPass)
+        if(isJumping) {
+            ChumSprite.Animation = "chum_jump";
+        } else if (!isMoving && firstPass)
         {
             ChumSprite.Animation = "chum_idle";
-            ChumSprite.Play();
             firstPass = false;
         }
 
-        if (isMoving)
+        else if (isMoving && !isFalling && !isJumping)
         {
             ChumSprite.Animation = "chum_run";
-            ChumSprite.Play();
             ChumSprite.FlipH = !left;
+        } else if(isFalling) {
+            ChumSprite.Animation = "chum_fall";
         }
 
         if (pickedUp)
         {
             Position = GetViewport().GetMousePosition();
         }
+
+        ChumSprite.Play();
 
         base._Process(delta);
     }
