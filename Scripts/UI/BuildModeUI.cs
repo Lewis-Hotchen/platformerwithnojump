@@ -68,11 +68,16 @@ public partial class BuildModeUI : Control, IDisposable
         if (@event.IsActionPressed("revert"))
         {
             isHoldingRevert = true;
-        } else {
-             {
-                if(heldTime < 2 && isHoldingRevert) {
+        }
+        else
+        {
+            {
+                if (heldTime < 2 && isHoldingRevert)
+                {
                     Revert();
-                } else if(isHoldingRevert){
+                }
+                else if (isHoldingRevert)
+                {
                     RevertAll();
                 }
 
@@ -92,13 +97,13 @@ public partial class BuildModeUI : Control, IDisposable
 
     private void Revert()
     {
-            var refundedType = DeployedToolsComponent.RemoveLast();
-            if (refundedType == Tools.None)
-            {
-                refundedType = ToolSelector.CurrentToolType;
-            }
+        var refundedType = DeployedToolsComponent.RemoveLast();
+        if (refundedType == Tools.None)
+        {
+            refundedType = ToolSelector.CurrentToolType;
+        }
 
-            states.UpdateResource(refundedType, states.Resources[refundedType].Current + 1);
+        states.UpdateResource(refundedType, states.Resources[refundedType].Current + 1);
     }
 
 

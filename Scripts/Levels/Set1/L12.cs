@@ -28,7 +28,7 @@ public partial class L12 : Node2D
                 Tools.Spring
             }
         );
-        
+
         base._Ready();
     }
 }

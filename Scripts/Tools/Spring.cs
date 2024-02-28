@@ -42,9 +42,10 @@ public partial class Spring : StaticBody2D
 
         TimeTracker.AddTimer(1, "cooldown");
 
-        TimeTracker.Subscribe("cooldown", () => {
-                    Sprite.PlayBackwards();
-                });
+        TimeTracker.Subscribe("cooldown", () =>
+        {
+            Sprite.PlayBackwards();
+        });
 
         GetNode<Area2D>("Area2D").BodyEntered += OnBodyEntered;
         base._Ready();

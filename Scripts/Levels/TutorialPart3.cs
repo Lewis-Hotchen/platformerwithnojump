@@ -30,7 +30,7 @@ public partial class TutorialPart3 : Node2D
                     Max = 3
                 }
             }
-        }, true, new[]{Tools.Spring});
+        }, true, new[] { Tools.Spring });
 
         Dialogue.DialogueComplete += OnDialogueComplete;
         PlayerKillBox.OnPlayerFell += OnPlayerFell;
@@ -40,21 +40,25 @@ public partial class TutorialPart3 : Node2D
 
     private void OnDialogueComplete(object sender, DialogueCompleteArgs e)
     {
-        if(e.CompletedStep == "Press B to activate build mode.") {
-            states.SetState("BuildEnabled", true); 
+        if (e.CompletedStep == "Press B to activate build mode.")
+        {
+            states.SetState("BuildEnabled", true);
         }
     }
 
     private void OnPlayerFell(object sender, EventArgs e)
     {
-        var resetTimer = Timers.AddTimer(2, "reset", () => {
+        var resetTimer = Timers.AddTimer(2, "reset", () =>
+        {
             ResetLevel.ResetLevel();
-            Dialogue.SetDialogueOnBox();
+            if (Dialogue.DialogueEntry != "Exemplary.")
+                Dialogue.SetDialogueOnBox();
         });
 
         GetNode<ScreenCamera>("../../Camera").ApplyShake();
         Dialogue.AnimationPlayer.Pause();
-        Timers.OneShot(3, () => {
+        Timers.OneShot(3, () =>
+        {
             Dialogue.OneShotDialog("We've all been there.");
             resetTimer.Start();
         });

@@ -33,17 +33,19 @@ public partial class ToolSelector : Node2D
     private List<Tools> toolsPointer;
 
     private Vector2 velocity = new(0, 32);
-    private Vector2 desiredPosition = new(0,0);
+    private Vector2 desiredPosition = new(0, 0);
 
     private int currentToolPointer = 0;
 
     private void OnStateChanged(object sender, StateChangedEventArgs e)
     {
-        if(e.State == StateTracker.ResourcesState) {
+        if (e.State == StateTracker.ResourcesState)
+        {
             ToolsList.Clear();
             foreach (var tool in Tools)
             {
-                if(states.UnlockedTools.Contains(tool.Key)) {
+                if (states.UnlockedTools.Contains(tool.Key))
+                {
                     var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
                     ToolsList.AddItem(tool.Key.ToString() + "\nx" + states.Resources[tool.Key].Current, tex);
                 }
@@ -55,11 +57,11 @@ public partial class ToolSelector : Node2D
 
     public override void _Ready()
     {
-        desiredPosition = Selector.Position; 
+        desiredPosition = Selector.Position;
         states = GetNode<StateTracker>("/root/StateTracker");
         eventBus = GetNode<EventBus>("/root/EventBus");
         toolsPointer = new List<Tools>(states.UnlockedTools);
-        
+
         Tools = new()
         {
             {
@@ -74,10 +76,11 @@ public partial class ToolSelector : Node2D
 
         foreach (var tool in Tools)
         {
-            if(states.UnlockedTools.Contains(tool.Key)) {
-                    var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
-                    ToolsList.AddItem(tool.Key.ToString() + "\nx" + states.Resources[tool.Key].Current, tex);
-                }
+            if (states.UnlockedTools.Contains(tool.Key))
+            {
+                var tex = tool.Value.GetNode<Sprite2D>("Normal").Texture as AtlasTexture;
+                ToolsList.AddItem(tool.Key.ToString() + "\nx" + states.Resources[tool.Key].Current, tex);
+            }
         }
 
         eventBus.StateChanged += OnStateChanged;
@@ -90,11 +93,14 @@ public partial class ToolSelector : Node2D
         {
             CyclePointer();
         }
-        
-        if(velocity.Y < 0) {
-            Selector.Position = new Vector2(Selector.Position.X, Mathf.InverseLerp(Selector.Position.Y, desiredPosition.Y, (float) delta*velocity.Y));
-        } else {
-            Selector.Position = new Vector2(Selector.Position.X, Mathf.Lerp(Selector.Position.Y, desiredPosition.Y, (float) delta*velocity.Y));
+
+        if (velocity.Y < 0)
+        {
+            Selector.Position = new Vector2(Selector.Position.X, Mathf.InverseLerp(Selector.Position.Y, desiredPosition.Y, (float)delta * velocity.Y));
+        }
+        else
+        {
+            Selector.Position = new Vector2(Selector.Position.X, Mathf.Lerp(Selector.Position.Y, desiredPosition.Y, (float)delta * velocity.Y));
         }
 
 
@@ -130,7 +136,8 @@ public partial class ToolSelector : Node2D
 
     protected override void Dispose(bool disposing)
     {
-        if(disposing) {
+        if (disposing)
+        {
             eventBus.StateChanged -= OnStateChanged;
         }
 

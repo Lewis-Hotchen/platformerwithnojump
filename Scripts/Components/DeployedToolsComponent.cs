@@ -29,8 +29,10 @@ public partial class DeployedToolsComponent : Node2D, IDisposable
         deployedTools.Push(tool);
     }
 
-    public Tools RemoveLast() {
-        if(!deployedTools.Any()) {
+    public Tools RemoveLast()
+    {
+        if (!deployedTools.Any())
+        {
             eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(Tools.None, FailedToolReason.NO_REVERT));
             return Tools.None;
         }
@@ -43,7 +45,8 @@ public partial class DeployedToolsComponent : Node2D, IDisposable
 
     public void Reset()
     {
-        foreach(var tool in deployedTools) {
+        foreach (var tool in deployedTools)
+        {
             tool.QueueFree();
         }
 
@@ -52,10 +55,11 @@ public partial class DeployedToolsComponent : Node2D, IDisposable
 
     protected override void Dispose(bool disposing)
     {
-        if(disposing) {
+        if (disposing)
+        {
             eventBus.LevelChanged -= OnLevelChanged;
         }
-        
+
         base.Dispose(disposing);
     }
 

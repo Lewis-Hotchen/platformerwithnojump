@@ -23,10 +23,14 @@ public partial class ChumDeath : Node2D
         base._Ready();
     }
 
-    public void Play(bool delay = false) {
-        if(delay) {
+    public void Play(bool delay = false)
+    {
+        if (delay)
+        {
             timer.Start();
-        } else {
+        }
+        else
+        {
             ChumLeftLeg.Emitting = true;
             ChumRightLeg.Emitting = true;
             ChumBody.Emitting = true;

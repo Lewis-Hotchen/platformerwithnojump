@@ -19,6 +19,6 @@ public partial class BodyImpulseComponent : Node2D
         actor.LinearVelocity = new Vector2(actor.LinearVelocity.X, 0);
         actor.ApplyImpulse(Direction * (leftOrRight ? Force * 1.5f : Force));
 
-        if(playSound) ChumJump.Play();
+        if (playSound) ChumJump.Play();
     }
 }

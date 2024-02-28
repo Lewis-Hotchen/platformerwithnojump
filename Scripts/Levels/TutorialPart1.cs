@@ -5,7 +5,7 @@ public partial class TutorialPart1 : Node2D
 {
     [Export]
     public DialogueManagerComponent Dialogue;
-    
+
     public override void _Ready()
     {
         states = GetNode<StateTracker>("/root/StateTracker");
@@ -14,7 +14,7 @@ public partial class TutorialPart1 : Node2D
         GetNode<Area2D>("Area2D").BodyShapeEntered += OnBodyShapeEntered;
         base._Ready();
     }
- 
+
     private void OnBodyShapeEntered(Rid bodyRid, Node2D body, long bodyShapeIndex, long localShapeIndex)
     {
         Dialogue.SetNextDialogueStep();

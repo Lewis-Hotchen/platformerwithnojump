@@ -45,7 +45,6 @@ public partial class MainGame : Node2D
         }
     }
 
-
     public void NextLevel()
     {
         var oldLevel = Levels[CurrentLevelScenePathPointer];
@@ -106,7 +105,8 @@ public partial class MainGame : Node2D
 
     protected override void Dispose(bool disposing)
     {
-        if(disposing) {
+        if (disposing)
+        {
             eventBus.ToolBuilt -= OnToolBuilt;
             eventBus.ToolFailed -= OnToolFailed;
         }

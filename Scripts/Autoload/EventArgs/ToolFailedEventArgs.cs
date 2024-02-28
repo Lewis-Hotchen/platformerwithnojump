@@ -11,10 +11,11 @@ public class ToolFailedEventArgs : EventArgs
     }
 
     public Tools Tool { get; }
-    public FailedToolReason FailedToolReason {get;}
+    public FailedToolReason FailedToolReason { get; }
 }
 
-public enum FailedToolReason {
+public enum FailedToolReason
+{
     RESOURCE_EMPTY = 0,
     NO_REVERT = 1
 }

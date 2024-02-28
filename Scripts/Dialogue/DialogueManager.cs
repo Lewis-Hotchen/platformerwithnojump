@@ -30,7 +30,8 @@ public class DialogueManager
         return Entry.IncrementStep();
     }
 
-    public bool PrevStep() {
+    public bool PrevStep()
+    {
         return Entry.DecrementStep();
     }
 

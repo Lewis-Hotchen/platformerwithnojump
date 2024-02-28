@@ -17,20 +17,28 @@ public partial class StateTracker : Node
     public readonly static string ResourcesState = "Resources";
 
     public List<Tools> UnlockedTools { get; private set; }
-    
+
     public Dictionary<Tools, ToolResource> Resources { get; set; }
 
-    public void UpdateResource(Tools resource, int newVal) {
-        if(resource == Tools.None) {
+    public void UpdateResource(Tools resource, int newVal)
+    {
+        if (resource == Tools.None)
+        {
             return;
         }
 
-        if(newVal < 0) {
+        if (newVal < 0)
+        {
             eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(resource, FailedToolReason.RESOURCE_EMPTY));
-        } else {
-            if(Resources[resource].Max < newVal) {
+        }
+        else
+        {
+            if (Resources[resource].Max < newVal)
+            {
                 eventBus.RaiseEvent(nameof(EventBus.ToolFailed), this, new ToolFailedEventArgs(resource, FailedToolReason.NO_REVERT));
-            } else {
+            }
+            else
+            {
                 Resources[resource].Current = newVal;
                 eventBus.RaiseEvent(nameof(EventBus.StateChanged), this, new StateChangedEventArgs(nameof(Resources), resource.ToString()));
             }
@@ -38,10 +46,12 @@ public partial class StateTracker : Node
         }
     }
 
-    public void SetupLevel(Dictionary<Tools, ToolResource> resources, bool buildEnabled, Tools[] unlockedTools) {
+    public void SetupLevel(Dictionary<Tools, ToolResource> resources, bool buildEnabled, Tools[] unlockedTools)
+    {
         UnlockedTools = new(unlockedTools);
 
-        if(!resources.Keys.Any(x => UnlockedTools.Any(y => y == x)) && resources.Any()) {
+        if (!resources.Keys.Any(x => UnlockedTools.Any(y => y == x)) && resources.Any())
+        {
             throw new ArgumentException("Added a tool which was not unlocked");
         }
 
@@ -59,8 +69,10 @@ public partial class StateTracker : Node
 
         Resources = new();
 
-        foreach(var tool in UnlockedTools) {
-            Resources[tool] = new ToolResource() {
+        foreach (var tool in UnlockedTools)
+        {
+            Resources[tool] = new ToolResource()
+            {
                 Max = 0,
                 Current = 0
             };
@@ -77,22 +89,25 @@ public partial class StateTracker : Node
         base._Ready();
     }
 
-    public bool GetState(string state) {
+    public bool GetState(string state)
+    {
         return states[state];
     }
 
-    public void SetState(string state, bool value) {
+    public void SetState(string state, bool value)
+    {
         states[state] = value;
         eventBus.RaiseEvent(nameof(EventBus.StateChanged), this, new StateChangedEventArgs(state, value));
     }
 
-    public bool StateExists(string state) {
+    public bool StateExists(string state)
+    {
         return states.ContainsKey(state);
     }
 }
 
 public class ToolResource
 {
-    public int Max { get; set;}
+    public int Max { get; set; }
     public int Current { get; set; }
 }

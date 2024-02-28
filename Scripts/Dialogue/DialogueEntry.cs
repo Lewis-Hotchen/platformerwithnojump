@@ -37,7 +37,8 @@ public class DialogueEntry
 
     internal bool DecrementStep()
     {
-        if(CurrentStep > 0) {
+        if (CurrentStep > 0)
+        {
             CurrentStep -= 1;
             return true;
         }

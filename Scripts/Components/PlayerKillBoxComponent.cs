@@ -11,7 +11,7 @@ public partial class PlayerKillBoxComponent : Node2D
     public float KillFloorY { get; set; }
 
     public event EventHandler<EventArgs> OnPlayerFell;
-    
+
     private StateTracker states;
 
     public override void _Ready()

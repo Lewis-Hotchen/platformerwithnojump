@@ -9,7 +9,8 @@ public partial class ToolComponent : Node2D
     [Export]
     public bool CanFall { get; set; }
 
-    public void SetDirection(float rotation) { 
+    public void SetDirection(float rotation)
+    {
         GetParent<Node2D>().Call("SetDirection", rotation);
     }
 }

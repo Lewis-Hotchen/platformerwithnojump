@@ -47,7 +47,8 @@ public partial class TimerTrackerComponent : Node2D
         return timer;
     }
 
-    public Timer AddTimer(float waitTime, string name, Action timeout, bool isOneShot = true) {
+    public Timer AddTimer(float waitTime, string name, Action timeout, bool isOneShot = true)
+    {
         var timer = new Timer()
         {
             WaitTime = waitTime,

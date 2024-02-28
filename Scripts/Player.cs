@@ -47,7 +47,8 @@ public partial class Player : RigidBody2D, IDisposable
     private bool left;
     private EventBus eventBus;
 
-    private enum PlayerMoveStates {
+    private enum PlayerMoveStates
+    {
         MOVING,
         IDLE,
         JUMPING,
@@ -136,9 +137,12 @@ public partial class Player : RigidBody2D, IDisposable
         if (!IsOnFloor)
         {
             forceToApply *= InAirMovementReduction;
-            if(LinearVelocity.Y > 10) {
+            if (LinearVelocity.Y > 10)
+            {
                 isFalling = true;
-            } else if (LinearVelocity.Y < -10) {
+            }
+            else if (LinearVelocity.Y < -10)
+            {
                 isJumping = true;
             }
         }
@@ -171,9 +175,11 @@ public partial class Player : RigidBody2D, IDisposable
 
     public override void _Process(double delta)
     {
-        if(isJumping) {
+        if (isJumping)
+        {
             ChumSprite.Animation = "chum_jump";
-        } else if (!isMoving && firstPass)
+        }
+        else if (!isMoving && firstPass)
         {
             ChumSprite.Animation = "chum_idle";
             firstPass = false;
@@ -183,7 +189,9 @@ public partial class Player : RigidBody2D, IDisposable
         {
             ChumSprite.Animation = "chum_run";
             ChumSprite.FlipH = !left;
-        } else if(isFalling) {
+        }
+        else if (isFalling)
+        {
             ChumSprite.Animation = "chum_fall";
         }
 
@@ -207,10 +215,11 @@ public partial class Player : RigidBody2D, IDisposable
 
     protected override void Dispose(bool disposing)
     {
-        if(disposing) {
+        if (disposing)
+        {
             eventBus.ToolFailed -= OnToolFailed;
         }
-        
+
         base.Dispose(disposing);
     }
 }
