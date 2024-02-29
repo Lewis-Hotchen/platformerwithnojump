@@ -112,8 +112,26 @@ public partial class BuildModeUI : Control, IDisposable
 
         HandleBuildModeInput();
         HandleRevertInput(delta);
+        HandleLastResort();
 
         base._Process(delta);
+    }
+
+    private void HandleLastResort()
+    {
+        if(Input.IsActionJustPressed("jump") && states.GetState(StateTracker.IsBuildMode)) {
+            if(states.UnlockedTools.Contains(Tools.Leg)) {
+                return;
+            } else {
+                states.UnlockedTools.Add(Tools.Leg);
+                states.Resources.Add(Tools.Leg, new ToolResource() {
+                    Max = 2,
+                    Current = 0
+                });
+
+                states.UpdateResource(Tools.Leg, 2);
+            }
+        }
     }
 
     private void HandleRevertInput(double delta)

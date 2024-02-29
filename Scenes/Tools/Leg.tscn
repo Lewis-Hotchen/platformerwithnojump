@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvl3emfhvn3we"]
+
+[ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="1_8k0fe"]
+[ext_resource type="PackedScene" uid="uid://62v6f1rei8oi" path="res://Scenes/Components/ToolComponent.tscn" id="2_s57q2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56khp"]
+size = Vector2(8, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pto5"]
+atlas = ExtResource("1_8k0fe")
+region = Rect2(2, 220, 6, 20)
+
+[node name="Leg" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4, 15)
+shape = SubResource("RectangleShape2D_56khp")
+
+[node name="Normal" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = SubResource("AtlasTexture_3pto5")
+centered = false
+
+[node name="ToolComponent" parent="." instance=ExtResource("2_s57q2")]
+ToolType = 4
+IsBuildable = true

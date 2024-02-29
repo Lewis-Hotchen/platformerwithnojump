@@ -6,5 +6,6 @@ public enum Tools
     Spring,
     ActualJump,
     Rope,
-    None
+    Leg,
+    None,
 }

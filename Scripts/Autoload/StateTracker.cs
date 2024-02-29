@@ -48,8 +48,8 @@ public partial class StateTracker : Node
 
     public void SetupLevel(Dictionary<Tools, ToolResource> resources, bool buildEnabled, Tools[] unlockedTools)
     {
-        UnlockedTools = new(unlockedTools);
 
+        UnlockedTools = new(unlockedTools);
         if (!resources.Keys.Any(x => UnlockedTools.Any(y => y == x)) && resources.Any())
         {
             throw new ArgumentException("Added a tool which was not unlocked");

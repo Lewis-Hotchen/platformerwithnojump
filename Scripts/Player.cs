@@ -175,6 +175,7 @@ public partial class Player : RigidBody2D, IDisposable
 
     public override void _Process(double delta)
     {
+
         if (isJumping)
         {
             ChumSprite.Animation = "chum_jump";
@@ -203,14 +204,6 @@ public partial class Player : RigidBody2D, IDisposable
         ChumSprite.Play();
 
         base._Process(delta);
-    }
-
-    public void Jump(float force)
-    {
-        if (IsOnFloor)
-        {
-            ApplyImpulse(Vector2.Up * force);
-        }
     }
 
     protected override void Dispose(bool disposing)
