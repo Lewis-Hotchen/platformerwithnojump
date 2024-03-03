@@ -44,6 +44,7 @@ layer_0/tile_data = PackedInt32Array(1245184, 393216, 2, 1245185, 393216, 2, 124
 
 [node name="Chum" parent="." instance=ExtResource("2_nya1w")]
 position = Vector2(656, 536)
+Friction = 0.0
 
 [node name="Exit" parent="." node_paths=PackedStringArray("NextLevelComponent") instance=ExtResource("3_jieom")]
 position = Vector2(624, 96)

@@ -10,6 +10,7 @@ public partial class Debug : Node2D
     public override void _Ready()
     {
         Camera.Chunk = new(0, 0);
+        
         base._Ready();
     }
 
