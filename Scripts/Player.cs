@@ -1,27 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Transactions;
 using Godot;
 namespace PlatformerWithNoJump;
 
-public partial class Player : RigidBody2D, IDisposable
+public partial class Player : CharacterBody2D, IDisposable
 {
-    [Export]
-    public float Force { get; set; } = 3000f;
-
-    [Export]
-    public float InAirMovementReduction { get; set; } = 4f;
-
-    [Export]
-    public float GravityFloorReduction { get; set; } = 1.2f;
-
-    [Export]
-    public float DefaultGravity { get; set; } = 2f;
-
-    [Export]
-    public float MaxVelocity { get; set; } = 200f;
-
     [Export]
     public AudioStreamPlayer2D ChumRun { get; set; }
 
@@ -31,21 +13,35 @@ public partial class Player : RigidBody2D, IDisposable
     [Export]
     public AnimatedSprite2D ChumSprite { get; set; }
 
-    public List<RayCast2D> GroundCasts { get; set; }
+    [Export]
+    public TimerTrackerComponent Timers { get; set; }
 
-    public bool IsOnFloor => GroundCasts.Any(x => x.IsColliding());
+    [ExportCategory("Movement")]
+    [Export]
+    public float JumpHeight { get; set; }
+
+    [Export]
+    public float JumpTimeToPeak { get; set; }
+
+    [Export]
+    public float JumpTimeToDescent { get; set; }
+
+    [Export]
+    public float MoveSpeed { get; set; }
+    
+    [Export]
+    public float Friction { get; set; }
+
+    [Export]
+    public bool CanJump { get; set; }
 
     private StateTracker stateTracker;
-
-    private bool firstPass;
-    private bool isMoving;
-    private bool isJumping;
-    private bool isFalling;
-
+    private Impulse jumpImpulse;
     private bool pickUp = false;
     private bool pickedUp = false;
-    private bool left;
     private EventBus eventBus;
+    private bool isAffectedByForce;
+    private PlayerMoveStates playerState;
 
     private enum PlayerMoveStates
     {
@@ -55,21 +51,24 @@ public partial class Player : RigidBody2D, IDisposable
         FALLING,
     }
 
+    private float GetGravity(Impulse impulse)
+    {
+        return Velocity.Y < 0 ? impulse.JumpGravity*impulse.Direction.Y : impulse.FallGravity*impulse.Direction.Y;
+    }
+
     public override void _Ready()
     {
+        jumpImpulse = new Impulse(
+            Vector2.Up, JumpTimeToDescent, JumpTimeToPeak, JumpHeight
+        );
+
+        Timers.AddTimer(0.2f, "lockout");
+
 #if DEBUG
         pickUp = true;
 #endif
 
         ChumSprite.FrameChanged += OnFrameChanged;
-
-        ChumSprite.AnimationFinished += AnimationFinished;
-        GroundCasts = new()
-        {
-            GetNode<RayCast2D>("IsOnGround"),
-            GetNode<RayCast2D>("IsOnGround2"),
-            GetNode<RayCast2D>("IsOnGround3"),
-        };
 
         stateTracker = GetNode<StateTracker>("/root/StateTracker");
         eventBus = GetNode<EventBus>("/root/EventBus");
@@ -85,18 +84,13 @@ public partial class Player : RigidBody2D, IDisposable
 
     private void OnFrameChanged()
     {
-        if (ChumSprite.Animation == "chum_run" && IsOnFloor)
+        if (ChumSprite.Animation == "chum_run" && IsOnFloor())
         {
             if (ChumSprite.Frame == 0 || ChumSprite.Frame == 2)
             {
                 ChumRun.Play();
             }
         }
-    }
-
-    private void AnimationFinished()
-    {
-        firstPass = true;
     }
 
     public override void _Input(InputEvent @event)
@@ -116,81 +110,58 @@ public partial class Player : RigidBody2D, IDisposable
         base._Input(@event);
     }
 
-    public override void _IntegrateForces(PhysicsDirectBodyState2D state)
+    public override void _PhysicsProcess(double delta)
     {
-        isMoving = false;
-        isJumping = false;
-        isFalling = false;
+        playerState = PlayerMoveStates.IDLE;
 
-        //If we are in IsBuildMode we don't want the player to be able to move.
-        if (stateTracker.GetState("IsBuildMode"))
+        bool lockout = Timers.GetTimerRunning("lockout");
+        Velocity = new(Velocity.X, Velocity.Y + GetGravity(jumpImpulse) * (float)delta);
+
+        if (Input.IsActionJustPressed("jump") && IsOnFloor() && CanJump)
         {
-            return;
+            Velocity = new(Velocity.X, jumpImpulse.JumpVelocity*jumpImpulse.Direction.Y);
         }
 
-        var direction = Vector2.Zero;
-        var offset = Vector2.Zero;
-        var forceToApply = Force;
-
-        GravityScale = IsOnFloor ? GravityFloorReduction : DefaultGravity;
-
-        if (!IsOnFloor)
-        {
-            forceToApply *= InAirMovementReduction;
-            if (LinearVelocity.Y > 10)
-            {
-                isFalling = true;
-            }
-            else if (LinearVelocity.Y < -10)
-            {
-                isJumping = true;
+        if(!lockout && !stateTracker.GetState(StateTracker.IsBuildMode)) {
+            float dir = Input.GetAxis("left", "right");
+            if(dir != 0) {
+                ChumSprite.FlipH = dir > 0;
+                var speed = MoveSpeed * 32;
+                Velocity = new(Velocity.X + (dir * speed), Velocity.Y);
+                playerState = PlayerMoveStates.MOVING;
             }
         }
 
-        if (Input.IsActionPressed("left"))
+        if(IsOnFloor())
         {
-            direction = Vector2.Left;
-            left = true;
-            offset = new Vector2(0, 6);
-            isMoving = true;
-            firstPass = true;
+            Velocity = new(ApplyFriction(lockout, 0.1f), Velocity.Y);
         }
-        else if (Input.IsActionPressed("right"))
-        {
-            direction = Vector2.Right;
-            left = false;
-            offset = new Vector2(12, 6);
-            isMoving = true;
-            firstPass = true;
+        else {
+            Velocity = new (ApplyFriction(lockout, 0.1f), Velocity.Y);
+            playerState = PlayerMoveStates.JUMPING;
         }
 
-        if (LinearVelocity.X >= MaxVelocity || LinearVelocity.X <= -MaxVelocity)
-        {
-            return;
-        }
+        MoveAndSlide();
+        base._PhysicsProcess(delta);
+    }
 
-        state.ApplyForce(direction * forceToApply, offset);
-        base._IntegrateForces(state);
+    private float ApplyFriction(bool lockout, float fritcion)
+    {
+        return Mathf.Lerp(Velocity.X, 0f, lockout ? 0f : fritcion);
     }
 
     public override void _Process(double delta)
     {
-        if (isJumping)
-        {
-            ChumSprite.Animation = "chum_jump";
-        }
-        else if (!isMoving && firstPass)
-        {
-            ChumSprite.Animation = "chum_idle";
-            firstPass = false;
-        }
-
-        else if (isMoving && !isFalling && !isJumping)
+        if (playerState == PlayerMoveStates.MOVING)
         {
             ChumSprite.Animation = "chum_run";
-            ChumSprite.FlipH = !left;
         }
-        else if (isFalling)
+        else if (playerState == PlayerMoveStates.IDLE)
+        {
+            ChumSprite.Animation = "chum_idle";
+        }
+
+        if (playerState == PlayerMoveStates.JUMPING)
         {
             ChumSprite.Animation = "chum_fall";
         }
@@ -200,17 +171,32 @@ public partial class Player : RigidBody2D, IDisposable
             Position = GetViewport().GetMousePosition();
         }
 
-        ChumSprite.Play();
+        if (!ChumSprite.IsPlaying())
+        {
+            ChumSprite.Play();
+        }
 
         base._Process(delta);
     }
 
-    public void Jump(float force)
+    public void Impulse(
+        Vector2 direction,
+        float force
+    )
     {
-        if (IsOnFloor)
-        {
-            ApplyImpulse(Vector2.Up * force);
+        bool leftOrRight = direction == Vector2.Right || direction == Vector2.Left;
+        Timers.GetTimer("lockout").WaitTime = 0.2f;
+        if(direction == Vector2.Up || direction == Vector2.Down) {
+            Velocity = new(Velocity.X, 0);
         }
+
+        if(leftOrRight) {
+            Velocity = new(0, Velocity.Y);
+            Timers.StartTimer("lockout");
+            Timers.GetTimer("lockout").WaitTime = 0.4f;
+        }
+
+        Velocity += direction * (leftOrRight ? force * 0.8f : force);
     }
 
     protected override void Dispose(bool disposing)

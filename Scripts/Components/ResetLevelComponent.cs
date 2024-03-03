@@ -24,6 +24,6 @@ public partial class ResetLevelComponent : Node2D
     {
         Player.Position = SpawnPosition.Position;
         GetNode<StateTracker>("/root/StateTracker").SetState(StateTracker.HasFallen, false);
-        Player.LinearVelocity = new Vector2(0, 0);
+        Player.Velocity = new Vector2(0, 0);
     }
 }

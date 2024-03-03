@@ -85,6 +85,7 @@ layer_0/tile_data = PackedInt32Array(1245193, 458752, 2, 1245205, 458752, 2, 124
 
 [node name="Player" parent="." instance=ExtResource("2_gpbsw")]
 position = Vector2(61, 387)
+Friction = 0.0
 
 [node name="TileMapCollisionBaker" parent="." instance=ExtResource("4_ydfgd")]
 position = Vector2(2, 0)

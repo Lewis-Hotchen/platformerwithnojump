@@ -13,7 +13,7 @@ public partial class PlayerJumpComponent : Node2D
     {
         if (Input.IsActionJustPressed("jump"))
         {
-            if (Player.IsOnFloor)
+            if (Player.IsOnFloor())
             {
                 Player.GetNode<AnimatedSprite2D>("ChumSprite").Play("chum_hurt");
             }

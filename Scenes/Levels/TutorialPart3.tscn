@@ -54,6 +54,7 @@ NextLevelComponent = NodePath("../NextLevelComponent")
 
 [node name="Player" parent="." instance=ExtResource("5_rgvdd")]
 position = Vector2(48, 232)
+Friction = 0.0
 
 [node name="PlayerKillBoxComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("6_xggxr")]
 position = Vector2(584, 681)
