@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bwlyocvh6ah6l"]
+[gd_scene load_steps=10 format=3 uid="uid://bwlyocvh6ah6l"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart2.cs" id="1_2k0mm"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="3_ny3g8"]
@@ -6,35 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ptthk6wo0w3k" path="res://Scenes/Components/PlayerJumpComponent.tscn" id="5_riw14"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="6_w01bj"]
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="8_4f7ro"]
-[ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="8_hg3a6"]
 [ext_resource type="PackedScene" uid="uid://c5ijmfmd1jxx2" path="res://Scenes/Components/DialogueManagerComponent.tscn" id="9_qo75l"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vait6"]
-size = Vector2(32, 320)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbe70"]
-size = Vector2(32, 224)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrbgj"]
-size = Vector2(32, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ji33g"]
-size = Vector2(1184, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_npvvm"]
-size = Vector2(1184, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bu1nj"]
-size = Vector2(1184, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5doqt"]
-size = Vector2(32, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cefb"]
-size = Vector2(32, 320)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xwpn"]
-size = Vector2(32, 224)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_atmy4"]
 size = Vector2(28, 271)
@@ -61,45 +33,6 @@ Force = 800.0
 position = Vector2(55, 321)
 
 [node name="NextLevelComponent" parent="." instance=ExtResource("8_4f7ro")]
-
-[node name="TileMapCollisionBaker" parent="." instance=ExtResource("8_hg3a6")]
-tilemap_nodepath = NodePath("../Tiles")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(16, 192)
-shape = SubResource("RectangleShape2D_vait6")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(16, 496)
-shape = SubResource("RectangleShape2D_pbe70")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(304, 304)
-shape = SubResource("RectangleShape2D_lrbgj")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(592, 16)
-shape = SubResource("RectangleShape2D_ji33g")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(592, 368)
-shape = SubResource("RectangleShape2D_npvvm")
-
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(592, 624)
-shape = SubResource("RectangleShape2D_bu1nj")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(880, 304)
-shape = SubResource("RectangleShape2D_5doqt")
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1168, 192)
-shape = SubResource("RectangleShape2D_5cefb")
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1168, 496)
-shape = SubResource("RectangleShape2D_4xwpn")
 
 [node name="DialogueCooldown" type="Timer" parent="."]
 one_shot = true

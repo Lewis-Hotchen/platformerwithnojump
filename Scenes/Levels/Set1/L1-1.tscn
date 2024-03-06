@@ -1,39 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://dyy62kxm2oukg"]
+[gd_scene load_steps=7 format=3 uid="uid://dyy62kxm2oukg"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/Set1/L11.cs" id="1_i7y0v"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="1_rexsa"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="2_nya1w"]
 [ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/LevelBuildingBlocks/Exit.tscn" id="3_jieom"]
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="4_nojjt"]
-[ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="5_0vcoo"]
 [ext_resource type="PackedScene" uid="uid://c5ijmfmd1jxx2" path="res://Scenes/Components/DialogueManagerComponent.tscn" id="7_ka0vo"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bslmt"]
-size = Vector2(32, 256)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_810li"]
-size = Vector2(32, 192)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jvur"]
-size = Vector2(32, 64)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0rss"]
-size = Vector2(96, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u546x"]
-size = Vector2(96, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6mgrx"]
-size = Vector2(1280, 64)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qtqw"]
-size = Vector2(96, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jg0i"]
-size = Vector2(32, 352)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mglwt"]
-size = Vector2(32, 192)
 
 [node name="L1-1" type="Node2D" node_paths=PackedStringArray("DialogueManagerComponent")]
 script = ExtResource("1_i7y0v")
@@ -44,6 +16,7 @@ layer_0/tile_data = PackedInt32Array(1245184, 393216, 2, 1245185, 393216, 2, 124
 
 [node name="Chum" parent="." instance=ExtResource("2_nya1w")]
 position = Vector2(656, 536)
+Friction = 0.0
 
 [node name="Exit" parent="." node_paths=PackedStringArray("NextLevelComponent") instance=ExtResource("3_jieom")]
 position = Vector2(624, 96)
@@ -51,45 +24,6 @@ rotation = 4.71239
 NextLevelComponent = NodePath("../NextLevelComponent")
 
 [node name="NextLevelComponent" parent="." instance=ExtResource("4_nojjt")]
-
-[node name="TileMapCollisionBaker" parent="." instance=ExtResource("5_0vcoo")]
-tilemap_nodepath = NodePath("../Tiles")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(528, 128)
-shape = SubResource("RectangleShape2D_bslmt")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(528, 384)
-shape = SubResource("RectangleShape2D_810li")
-
-[node name="CollisionShape2D11" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(528, 544)
-shape = SubResource("RectangleShape2D_4jvur")
-
-[node name="CollisionShape2D12" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(560, 272)
-shape = SubResource("RectangleShape2D_e0rss")
-
-[node name="CollisionShape2D13" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(560, 496)
-shape = SubResource("RectangleShape2D_u546x")
-
-[node name="CollisionShape2D14" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(640, 608)
-shape = SubResource("RectangleShape2D_6mgrx")
-
-[node name="CollisionShape2D15" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(752, 368)
-shape = SubResource("RectangleShape2D_5qtqw")
-
-[node name="CollisionShape2D16" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(784, 176)
-shape = SubResource("RectangleShape2D_1jg0i")
-
-[node name="CollisionShape2D17" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(784, 480)
-shape = SubResource("RectangleShape2D_mglwt")
 
 [node name="DialogueManagerComponent" parent="." instance=ExtResource("7_ka0vo")]
 visible = false

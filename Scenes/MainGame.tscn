@@ -7,7 +7,11 @@
 
 [node name="MainGame" type="Node2D" node_paths=PackedStringArray("DialogueManager")]
 script = ExtResource("1_8a0pd")
+<<<<<<< HEAD
 Levels = PackedStringArray("res://Scenes/Levels/Debug.tscn", "res://Scenes/Levels/Set1/L1-2.tscn", "res://Scenes/Levels/TutorialPart1.tscn", "res://Scenes/Levels/TutorialPart2.tscn", "res://Scenes/Levels/TutorialPart3.tscn", "res://Scenes/Levels/Set1/L1-1.tscn")
+=======
+Levels = PackedStringArray("res://Scenes/Levels/Set1/L1-2.tscn", "res://Scenes/Levels/Set1/L1-1.tscn", "res://Scenes/Levels/TutorialPart3.tscn", "res://Scenes/Levels/Debug.tscn", "res://Scenes/Levels/TutorialPart1.tscn", "res://Scenes/Levels/TutorialPart2.tscn")
+>>>>>>> 3dde84bfba76711d3834b5733c33b38cbe41d150
 DialogueManager = NodePath("UI/DialogueManagerComponent")
 
 [node name="ColorRect" type="ColorRect" parent="."]

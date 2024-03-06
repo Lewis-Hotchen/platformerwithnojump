@@ -92,7 +92,6 @@ public partial class Spring : StaticBody2D
             if (body is Player player)
             {
                 BodyImpulseComponent.Apply(player, true);
-                GetNode<AnimationPlayer>("AnimationPlayer").Play("Extend");
                 Sprite.Play();
                 TimeTracker.StartTimer("cooldown");
             }

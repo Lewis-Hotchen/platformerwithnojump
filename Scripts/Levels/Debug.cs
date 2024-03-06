@@ -28,6 +28,7 @@ public partial class Debug : Node2D
             }
         }, true, new Tools[] {Tools.Spring, Tools.AFP });
         Camera.Chunk = new(0, 0);
+        
         base._Ready();
     }
 

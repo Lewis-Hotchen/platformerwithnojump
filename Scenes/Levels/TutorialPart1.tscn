@@ -1,43 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://d34kvhub7r0wd"]
+[gd_scene load_steps=9 format=3 uid="uid://d34kvhub7r0wd"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart1.cs" id="1_pai2k"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="2_1y70f"]
 [ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/LevelBuildingBlocks/Exit.tscn" id="3_b4ivo"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="5_wb4bs"]
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="6_uqvkq"]
-[ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="8_w3ili"]
 [ext_resource type="PackedScene" uid="uid://dk1nv15ovodop" path="res://Scenes/UI/ExitLabel.tscn" id="9_2776j"]
 [ext_resource type="PackedScene" uid="uid://c5ijmfmd1jxx2" path="res://Scenes/Components/DialogueManagerComponent.tscn" id="9_saajg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2fgw4"]
-size = Vector2(32, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_57r87"]
-size = Vector2(32, 128)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q8cho"]
-size = Vector2(160, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5tc1o"]
-size = Vector2(288, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dp6l"]
-size = Vector2(31, 191)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gsvj"]
-size = Vector2(1184, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0knr"]
-size = Vector2(896, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vy2vd"]
-size = Vector2(32, 288)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qtkr2"]
-size = Vector2(32, 64)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k7oxq"]
-size = Vector2(32, 256)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tmhrn"]
 size = Vector2(20, 277)
@@ -62,49 +31,6 @@ one_shot = true
 
 [node name="Player" parent="." instance=ExtResource("5_wb4bs")]
 position = Vector2(54, 196)
-
-[node name="TileMapCollisionBaker" parent="." instance=ExtResource("8_w3ili")]
-tilemap_nodepath = NodePath("../Tiles")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(16, 176)
-shape = SubResource("RectangleShape2D_2fgw4")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(16, 320)
-shape = SubResource("RectangleShape2D_57r87")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(80, 240)
-shape = SubResource("RectangleShape2D_q8cho")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(144, 112)
-shape = SubResource("RectangleShape2D_5tc1o")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(272.5, 223.5)
-shape = SubResource("RectangleShape2D_2dp6l")
-
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(592, 400)
-shape = SubResource("RectangleShape2D_6gsvj")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(736, 304)
-shape = SubResource("RectangleShape2D_w0knr")
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1168, 144)
-shape = SubResource("RectangleShape2D_vy2vd")
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1168, 352)
-shape = SubResource("RectangleShape2D_qtkr2")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1168, 544)
-shape = SubResource("RectangleShape2D_k7oxq")
 
 [node name="ExitLabel" parent="." instance=ExtResource("9_2776j")]
 offset_left = 962.0

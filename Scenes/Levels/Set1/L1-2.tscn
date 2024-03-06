@@ -1,111 +1,34 @@
-[gd_scene load_steps=22 format=3 uid="uid://dswn7ga4bb2cq"]
+[gd_scene load_steps=11 format=3 uid="uid://dswn7ga4bb2cq"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/Set1/L12.cs" id="1_r8ybb"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="2_yxm4o"]
 [ext_resource type="PackedScene" uid="uid://efel0vjy5yr5" path="res://Scenes/Player.tscn" id="3_g4o4i"]
 [ext_resource type="PackedScene" uid="uid://cr51p5xbm6q05" path="res://Scenes/LevelBuildingBlocks/Exit.tscn" id="4_qgmyq"]
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="5_pxvs2"]
-[ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="6_tp8a3"]
 [ext_resource type="PackedScene" uid="uid://c5ijmfmd1jxx2" path="res://Scenes/Components/DialogueManagerComponent.tscn" id="7_8ykw5"]
 [ext_resource type="PackedScene" uid="uid://dlukxcrf1ukf6" path="res://Scenes/Tools/Spring.tscn" id="8_kita5"]
 [ext_resource type="PackedScene" uid="uid://bemn7318ginyx" path="res://Scenes/Components/PlayerKillBoxComponent.tscn" id="9_xmu1r"]
 [ext_resource type="PackedScene" uid="uid://cetle8nppygjd" path="res://Scenes/Components/ResetLevelComponent.tscn" id="10_hr1np"]
+[ext_resource type="PackedScene" uid="uid://bd3h4ab0btgf7" path="res://Scenes/Components/ResetComponent.tscn" id="11_5ugk8"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7n0e"]
-size = Vector2(32, 192)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kuog1"]
-size = Vector2(32, 352)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jmlq3"]
-size = Vector2(352, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7wo0r"]
-size = Vector2(352, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ay7v"]
-size = Vector2(32, 192)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqpi4"]
-size = Vector2(1184, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7d0sm"]
-size = Vector2(32, 192)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iwmnv"]
-size = Vector2(640, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gypgx"]
-size = Vector2(640, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5sxpo"]
-size = Vector2(32, 352)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aq7dx"]
-size = Vector2(32, 192)
-
-[node name="L1-2" type="Node2D" node_paths=PackedStringArray("DialogueManagerComponent")]
+[node name="L1-2" type="Node2D" node_paths=PackedStringArray("DialogueManagerComponent", "ResetLevelComponent", "PlayerKillBoxComponent")]
 script = ExtResource("1_r8ybb")
 DialogueManagerComponent = NodePath("DialogueManagerComponent")
+ResetLevelComponent = NodePath("ResetLevelComponent")
+PlayerKillBoxComponent = NodePath("PlayerKillBoxComponent")
 
 [node name="Tiles" parent="." instance=ExtResource("2_yxm4o")]
-layer_0/tile_data = PackedInt32Array(1245184, 0, 1610612739, 1245185, 393216, 2, 1245186, 393216, 2, 1245187, 393216, 2, 1245188, 393216, 2, 1245189, 393216, 2, 1245190, 393216, 2, 1245191, 393216, 2, 1245192, 393216, 2, 1245193, 393216, 2, 1245194, 65536, 1342177283, 1245208, 393216, 2, 1245209, 393216, 2, 1245210, 393216, 2, 1245211, 393216, 2, 1245212, 393216, 2, 1245213, 393216, 2, 1245214, 393216, 2, 1245215, 393216, 2, 1245216, 393216, 2, 1245217, 393216, 2, 1245218, 393216, 2, 1245219, 393216, 2, 1245220, 0, 805306371, 786436, 393216, 2, 786437, 393216, 2, 786438, 262144, 2, 786439, 262144, 2, 786440, 262144, 2, 786441, 262144, 2, 786442, 65536, 3, 786456, 262144, 2, 786457, 262144, 2, 786458, 262144, 2, 786459, 262144, 2, 786460, 262144, 2, 786461, 262144, 2, 786462, 262144, 2, 786463, 262144, 2, 786464, 262144, 2, 786465, 262144, 2, 786466, 262144, 2, 786467, 262144, 2, 786468, 327680, 1342177282, 851978, 393216, 1342177282, 917514, 393216, 1342177282, 983050, 393216, 1342177282, 1048586, 393216, 1342177282, 1114122, 393216, 1342177282, 1179658, 393216, 1342177282, 1179684, 327680, 1342177282, 1114148, 327680, 1342177282, 1048612, 327680, 1342177282, 983076, 327680, 1342177282, 917540, 327680, 1342177282, 852004, 327680, 1342177282, 720932, 327680, 1342177282, 655396, 327680, 1342177282, 589860, 327680, 1342177282, 524324, 327680, 1342177282, 458788, 327680, 1342177282, 1245207, 458752, 805306370, 393252, 393216, 1610612738, 0, 0, 3, 1, 262144, 2, 2, 262144, 2, 3, 262144, 2, 4, 393216, 1342177282, 5, 262144, 2, 6, 262144, 2, 7, 262144, 2, 8, 262144, 2, 9, 262144, 2, 10, 262144, 2, 11, 262144, 2, 12, 262144, 2, 13, 262144, 2, 14, 262144, 2, 15, 262144, 2, 16, 262144, 2, 17, 262144, 2, 18, 262144, 2, 19, 262144, 2, 20, 262144, 2, 21, 262144, 2, 22, 262144, 2, 23, 262144, 2, 24, 262144, 2, 25, 262144, 2, 26, 262144, 2, 27, 262144, 2, 28, 262144, 2, 29, 262144, 2, 30, 262144, 2, 31, 262144, 2, 32, 262144, 2, 33, 262144, 2, 34, 262144, 2, 35, 262144, 2, 36, 0, 1342177283, 65572, 393216, 1610612738, 131108, 393216, 1610612738, 196644, 393216, 1610612738, 262180, 393216, 1610612738, 327716, 393216, 1610612738, 65540, 393216, 1342177282, 131076, 393216, 1342177282, 196612, 393216, 1342177282, 262148, 393216, 1342177282, 327684, 393216, 1342177282, 393220, 393216, 1342177282, 458756, 393216, 1342177282, 524292, 393216, 1342177282, 589828, 393216, 1342177282, 655364, 393216, 1342177282, 720900, 393216, 1342177282, 786435, 393216, 2, 786434, 393216, 2, 786433, 393216, 2, 786432, 393216, 2, 786453, 262144, 2, 786452, 262144, 2, 786451, 262144, 2, 786450, 262144, 2, 786449, 196608, 3, 851985, 458752, 1610612738, 917521, 458752, 1610612738, 983057, 458752, 1610612738, 1048593, 458752, 1610612738, 1114129, 458752, 1610612738, 1179665, 458752, 1610612738, 1245201, 131072, 1342177283, 1245202, 458752, 805306370, 1245203, 458752, 805306370, 1245204, 458752, 805306370, 1245205, 458752, 805306370, 1245206, 458752, 805306370, 786454, 327680, 2, 786455, 327680, 2)
+layer_0/tile_data = PackedInt32Array(1245185, 393216, 2, 1245186, 393216, 2, 1245187, 393216, 2, 1245188, 393216, 2, 1245189, 393216, 2, 1245190, 131072, 3, 1245208, 393216, 2, 1245209, 393216, 2, 1245210, 393216, 2, 1245211, 393216, 2, 1245212, 393216, 2, 1245213, 393216, 2, 1245214, 393216, 2, 1245215, 393216, 2, 1245216, 393216, 2, 1245217, 393216, 2, 1245218, 393216, 2, 1245219, 393216, 2, 1245220, 0, 805306371, 786437, 393216, 2, 786438, 131072, 1610612739, 786456, 262144, 2, 786457, 262144, 2, 786458, 262144, 2, 786459, 262144, 2, 786460, 262144, 2, 786461, 262144, 2, 786462, 262144, 2, 786463, 262144, 2, 786464, 262144, 2, 786465, 262144, 2, 786466, 262144, 2, 786467, 262144, 2, 786468, 327680, 1342177282, 1179684, 327680, 1342177282, 1114148, 327680, 1342177282, 1048612, 327680, 1342177282, 983076, 327680, 1342177282, 917540, 327680, 1342177282, 852004, 327680, 1342177282, 720932, 327680, 1342177282, 655396, 327680, 1342177282, 589860, 327680, 1342177282, 524324, 327680, 1342177282, 458788, 327680, 1342177282, 1245207, 458752, 805306370, 393252, 393216, 1610612738, 0, 0, 3, 1, 262144, 2, 2, 262144, 2, 3, 262144, 2, 5, 262144, 2, 6, 262144, 2, 7, 262144, 2, 8, 262144, 2, 9, 262144, 2, 10, 262144, 2, 11, 262144, 2, 12, 262144, 2, 13, 262144, 2, 14, 262144, 2, 15, 262144, 2, 16, 262144, 2, 17, 262144, 2, 18, 262144, 2, 19, 262144, 2, 20, 262144, 2, 21, 262144, 2, 22, 262144, 2, 23, 262144, 2, 24, 262144, 2, 25, 262144, 2, 26, 262144, 2, 27, 262144, 2, 28, 262144, 2, 29, 262144, 2, 30, 262144, 2, 31, 262144, 2, 32, 262144, 2, 33, 262144, 2, 34, 262144, 2, 35, 262144, 2, 36, 0, 1342177283, 65572, 393216, 1610612738, 131108, 393216, 1610612738, 196644, 393216, 1610612738, 262180, 393216, 1610612738, 327716, 393216, 1610612738, 786435, 393216, 2, 786434, 393216, 2, 786433, 393216, 2, 786432, 196608, 1342177282, 786453, 262144, 2, 786449, 196608, 3, 851985, 458752, 1610612738, 917521, 458752, 1610612738, 983057, 458752, 1610612738, 1048593, 458752, 1610612738, 1114129, 458752, 1610612738, 1179665, 458752, 1610612738, 1245201, 131072, 1342177283, 1245202, 458752, 805306370, 1245203, 458752, 805306370, 1245204, 458752, 805306370, 1245205, 458752, 805306370, 1245206, 458752, 805306370, 786454, 327680, 2, 786455, 327680, 2, 786436, 458752, 2, 720896, 458752, 1342177282, 655360, 458752, 1342177282, 589824, 458752, 1342177282, 524288, 458752, 1342177282, 458752, 458752, 1342177282, 393216, 458752, 1342177282, 327680, 458752, 1342177282, 262144, 458752, 1342177282, 196608, 458752, 1342177282, 131072, 458752, 1342177282, 65536, 458752, 1342177282, 4, 458752, 2, 786452, 458752, 2, 786451, 458752, 2, 786450, 458752, 2, 851968, 196608, 1342177282, 917504, 196608, 1342177282, 983040, 196608, 1342177282, 1048576, 196608, 1342177282, 1114112, 196608, 1342177282, 1179648, 196608, 1342177282, 1245184, 0, 1610612739, 851974, 262144, 1342177282, 917510, 262144, 1342177282, 983046, 262144, 1342177282, 1048582, 262144, 1342177282, 1114118, 262144, 1342177282, 1179654, 262144, 1342177282)
 
 [node name="Chum" parent="." instance=ExtResource("3_g4o4i")]
-position = Vector2(304, 360)
+position = Vector2(112, 360)
+Friction = 0.0
 
 [node name="Exit" parent="." node_paths=PackedStringArray("NextLevelComponent") instance=ExtResource("4_qgmyq")]
 position = Vector2(1056, 320)
 NextLevelComponent = NodePath("../NextLevelComponent")
 
 [node name="NextLevelComponent" parent="." instance=ExtResource("5_pxvs2")]
-
-[node name="TileMapCollisionBaker" parent="." instance=ExtResource("6_tp8a3")]
-tilemap_nodepath = NodePath("../Tiles")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(112, 512)
-shape = SubResource("RectangleShape2D_v7n0e")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(144, 208)
-shape = SubResource("RectangleShape2D_kuog1")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(176, 400)
-shape = SubResource("RectangleShape2D_jmlq3")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(176, 624)
-shape = SubResource("RectangleShape2D_7wo0r")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(336, 512)
-shape = SubResource("RectangleShape2D_1ay7v")
-
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(592, 16)
-shape = SubResource("RectangleShape2D_sqpi4")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(560, 512)
-shape = SubResource("RectangleShape2D_7d0sm")
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(864, 400)
-shape = SubResource("RectangleShape2D_iwmnv")
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(864, 624)
-shape = SubResource("RectangleShape2D_gypgx")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1168, 208)
-shape = SubResource("RectangleShape2D_5sxpo")
-
-[node name="CollisionShape2D11" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1168, 512)
-shape = SubResource("RectangleShape2D_aq7dx")
 
 [node name="DialogueManagerComponent" parent="." instance=ExtResource("7_8ykw5")]
 visible = false
@@ -120,7 +43,7 @@ CanSkip = true
 CanTimeOut = true
 
 [node name="Spring" parent="." instance=ExtResource("8_kita5")]
-position = Vector2(192, 320)
+position = Vector2(64, 320)
 rotation = 1.5708
 Direction = Vector2(1, 0)
 
@@ -133,4 +56,11 @@ Player = NodePath("../Chum")
 SpawnPosition = NodePath("../SpawnPos")
 
 [node name="SpawnPos" type="Marker2D" parent="."]
-position = Vector2(224, 360)
+position = Vector2(160, 368)
+
+[node name="ResetComponent" parent="." node_paths=PackedStringArray("ResetLevelComponent", "PlayerKillBoxComponent", "DialogueManagerComponent") instance=ExtResource("11_5ugk8")]
+ResetLevelComponent = NodePath("../ResetLevelComponent")
+PlayerKillBoxComponent = NodePath("../PlayerKillBoxComponent")
+DialogueManagerComponent = NodePath("../DialogueManagerComponent")
+SaySomething = true
+SnarkyComments = PackedStringArray("You seem distracted.", "We\'ve all been there.", "Disappointing.")

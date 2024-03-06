@@ -65,27 +65,6 @@ public partial class BuildModeUI : Control, IDisposable
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("revert"))
-        {
-            isHoldingRevert = true;
-        }
-        else
-        {
-            {
-                if (heldTime < 2 && isHoldingRevert)
-                {
-                    Revert();
-                }
-                else if (isHoldingRevert)
-                {
-                    RevertAll();
-                }
-
-                heldTime = 0;
-                isHoldingRevert = false;
-            }
-        }
-
         base._Input(@event);
     }
 
@@ -139,17 +118,26 @@ public partial class BuildModeUI : Control, IDisposable
         if (Input.IsActionPressed("revert") && DeployedToolsComponent.DeployedTools.Any())
         {
             isHoldingRevert = true;
+            if(heldTime >= 2) {
+                foreach(var tool in DeployedToolsComponent.DeployedTools) {
+                    var animationPlayer = tool.GetNode<AnimationPlayer>("AnimationPlayer");
+                    if(!animationPlayer.IsPlaying()) {
+                        animationPlayer.Play("Revert");
+                        tool.GetNode<ToolComponent>("ToolComponent").IsActive = false;
+                    }
+                }
+            }
         }
         else
         {
             {
-                if (heldTime < 2 && isHoldingRevert)
-                {
-                    Revert();
-                }
-                else if (isHoldingRevert)
+                if (heldTime >= 2 && isHoldingRevert)
                 {
                     RevertAll();
+                }
+
+                foreach(var tool in DeployedToolsComponent.DeployedTools) {
+                    tool.GetNode<ToolComponent>("ToolComponent").IsActive = true;
                 }
 
                 heldTime = 0;

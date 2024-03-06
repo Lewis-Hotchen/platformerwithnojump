@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://efel0vjy5yr5"]
+[gd_scene load_steps=46 format=3 uid="uid://efel0vjy5yr5"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_luxqd"]
 [ext_resource type="Texture2D" uid="uid://buljbx85hm1n5" path="res://Assets/Chum-idle.png" id="2_lms8l"]
@@ -9,10 +9,11 @@
 [ext_resource type="AudioStream" uid="uid://bweg238x56t04" path="res://Assets/chum-walk.wav" id="5_u4e0m"]
 [ext_resource type="AudioStream" uid="uid://d1pdvqcouvchg" path="res://Assets/chum_hurt.wav" id="6_jladu"]
 [ext_resource type="AudioStream" uid="uid://oi1vy4mvf0ns" path="res://Assets/chum_jump.wav" id="7_wyi30"]
+[ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="10_k7olt"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h077e"]
-radius = 13.0
-height = 40.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sqomc"]
+radius = 14.0
+height = 46.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_36gx0"]
 atlas = ExtResource("2_mloxe")
@@ -278,50 +279,28 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Chum" type="RigidBody2D" node_paths=PackedStringArray("ChumRun", "ChumHurt", "ChumSprite")]
+[node name="Chum" type="CharacterBody2D" node_paths=PackedStringArray("ChumRun", "ChumHurt", "ChumSprite", "Timers")]
 disable_mode = 1
 collision_mask = 14
-can_sleep = false
-lock_rotation = true
 script = ExtResource("1_luxqd")
-Force = 5000.0
-InAirMovementReduction = 1.0
-DefaultGravity = 1.8
 ChumRun = NodePath("ChumWalk")
 ChumHurt = NodePath("Chum_Hurt")
 ChumSprite = NodePath("ChumSprite")
+Timers = NodePath("Timers")
+JumpHeight = 3.0
+JumpTimeToPeak = 0.4
+JumpTimeToDescent = 0.4
+MoveSpeed = 1.0
+Friction = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
-shape = SubResource("CapsuleShape2D_h077e")
+shape = SubResource("CapsuleShape2D_sqomc")
 
 [node name="ChumSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_pbq5q")
-animation = &"chum_jump"
-frame = 10
-frame_progress = 1.0
+animation = &"chum_fall"
 flip_h = true
-
-[node name="IsOnGround" type="RayCast2D" parent="."]
-position = Vector2(-11, -9)
-scale = Vector2(2, 2)
-target_position = Vector2(2.5, 17)
-collision_mask = 2
-collide_with_areas = true
-
-[node name="IsOnGround2" type="RayCast2D" parent="."]
-position = Vector2(0, -9)
-scale = Vector2(2, 2)
-target_position = Vector2(0, 17.5)
-collision_mask = 2
-collide_with_areas = true
-
-[node name="IsOnGround3" type="RayCast2D" parent="."]
-position = Vector2(11, -9)
-scale = Vector2(2, 2)
-target_position = Vector2(-2.5, 17)
-collision_mask = 2
-collide_with_areas = true
 
 [node name="ChumWalk" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_u4e0m")
@@ -333,3 +312,5 @@ stream = ExtResource("6_jladu")
 [node name="ChumJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_wyi30")
 pitch_scale = 1.08
+
+[node name="Timers" parent="." instance=ExtResource("10_k7olt")]

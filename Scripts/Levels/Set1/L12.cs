@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace PlatformerWithNoJump;
@@ -8,6 +9,12 @@ public partial class L12 : Node2D
 
     [Export]
     public DialogueManagerComponent DialogueManagerComponent { get; set; }
+    
+    [Export]
+    public ResetLevelComponent ResetLevelComponent { get; set; }
+
+    [Export]
+    public PlayerKillBoxComponent PlayerKillBoxComponent { get; set; }
 
     public override void _Ready()
     {
@@ -30,5 +37,11 @@ public partial class L12 : Node2D
         );
 
         base._Ready();
+    }
+
+    public override void _Process(double delta)
+    {
+        
+        base._Process(delta);
     }
 }

@@ -18,6 +18,8 @@ public partial class EventBus : Node
 
     public event EventHandler<LevelChangedEventArgs> LevelChanged;
 
+    public event EventHandler<EventArgs> LevelReset;
+
     public void RaiseEvent<T>(string @event, object sender, T eventArgs) where T : EventArgs
     {
         var sb = new StringBuilder();

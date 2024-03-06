@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cdjrhfy4clb8"]
+[gd_scene load_steps=10 format=3 uid="uid://cdjrhfy4clb8"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/TutorialPart3.cs" id="1_wchyx"]
 [ext_resource type="PackedScene" uid="uid://bd7av1vcwfm2a" path="res://Scenes/LevelBuildingBlocks/Tiles.tscn" id="3_o3dnp"]
@@ -9,34 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://c5ijmfmd1jxx2" path="res://Scenes/Components/DialogueManagerComponent.tscn" id="9_5fbcu"]
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="9_ykn1u"]
 [ext_resource type="PackedScene" uid="uid://cequlsbmw02km" path="res://Scenes/Components/NextLevelComponent.tscn" id="10_iu88r"]
-[ext_resource type="PackedScene" uid="uid://drle7j2fyyjsp" path="res://Helpers/TileMapCollisionBaker.tscn" id="10_yj8me"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_36ght"]
-size = Vector2(32, 224)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1neko"]
-size = Vector2(32, 320)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ci7g7"]
-size = Vector2(160, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hwbm6"]
-size = Vector2(192, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3qk31"]
-size = Vector2(1184, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hu3wp"]
-size = Vector2(160, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qxp7"]
-size = Vector2(288, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8uwm"]
-size = Vector2(32, 448)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0y5t6"]
-size = Vector2(32, 128)
 
 [node name="TutorialPart3" type="Node2D" node_paths=PackedStringArray("PlayerKillBox", "ResetLevel", "Timers", "Dialogue")]
 script = ExtResource("1_wchyx")
@@ -54,6 +26,7 @@ NextLevelComponent = NodePath("../NextLevelComponent")
 
 [node name="Player" parent="." instance=ExtResource("5_rgvdd")]
 position = Vector2(48, 232)
+Friction = 0.0
 
 [node name="PlayerKillBoxComponent" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("6_xggxr")]
 position = Vector2(584, 681)
@@ -67,45 +40,6 @@ SpawnPosition = NodePath("../SpawnPostion")
 
 [node name="TimerTrackerComponent" parent="." node_paths=PackedStringArray("Timers") instance=ExtResource("9_ykn1u")]
 Timers = [null, null]
-
-[node name="TileMapCollisionBaker" parent="." instance=ExtResource("10_yj8me")]
-tilemap_nodepath = NodePath("../Tiles")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(16, 144)
-shape = SubResource("RectangleShape2D_36ght")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(16, 448)
-shape = SubResource("RectangleShape2D_1neko")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(80, 272)
-shape = SubResource("RectangleShape2D_ci7g7")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(384, 336)
-shape = SubResource("RectangleShape2D_hwbm6")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(592, 16)
-shape = SubResource("RectangleShape2D_3qk31")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(720, 464)
-shape = SubResource("RectangleShape2D_hu3wp")
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1040, 496)
-shape = SubResource("RectangleShape2D_0qxp7")
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1168, 256)
-shape = SubResource("RectangleShape2D_f8uwm")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="TileMapCollisionBaker"]
-position = Vector2(1168, 576)
-shape = SubResource("RectangleShape2D_0y5t6")
 
 [node name="DialogueManagerComponent" parent="." instance=ExtResource("9_5fbcu")]
 offset_left = -41.0
