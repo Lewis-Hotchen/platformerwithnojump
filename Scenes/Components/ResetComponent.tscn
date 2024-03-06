@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd3h4ab0btgf7"]
+
+[ext_resource type="Script" path="res://Scripts/Components/ResetComponent.cs" id="1_uv4xr"]
+[ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="4_v7l8g"]
+
+[node name="ResetComponent" type="Node2D" node_paths=PackedStringArray("TimerTrackerComponent")]
+script = ExtResource("1_uv4xr")
+TimerTrackerComponent = NodePath("TimerTrackerComponent")
+
+[node name="TimerTrackerComponent" parent="." instance=ExtResource("4_v7l8g")]

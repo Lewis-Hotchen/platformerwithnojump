@@ -1,9 +1,12 @@
+using System;
 using Godot;
 
 namespace PlatformerWithNoJump;
 
 public partial class ResetLevelComponent : Node2D
 {
+    private EventBus eventBus;
+
     [Export]
     public Player Player { get; set; }
 
@@ -13,11 +16,7 @@ public partial class ResetLevelComponent : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-    }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
+        eventBus = GetNode<EventBus>("/root/EventBus");
     }
 
     public void ResetLevel()
@@ -25,5 +24,6 @@ public partial class ResetLevelComponent : Node2D
         Player.Position = SpawnPosition.Position;
         GetNode<StateTracker>("/root/StateTracker").SetState(StateTracker.HasFallen, false);
         Player.Velocity = new Vector2(0, 0);
+        eventBus.RaiseEvent("LevelReset", this, new EventArgs());
     }
 }

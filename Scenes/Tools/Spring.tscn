@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dlukxcrf1ukf6"]
+[gd_scene load_steps=17 format=3 uid="uid://dlukxcrf1ukf6"]
 
 [ext_resource type="Script" path="res://Scripts/Tools/Spring.cs" id="1_ck1b6"]
 [ext_resource type="Texture2D" uid="uid://0w63slyxefg2" path="res://Assets/spring-extend.png" id="2_ly864"]
@@ -11,14 +11,6 @@
 atlas = ExtResource("2_ly864")
 region = Rect2(0, 48, 64, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v41pw"]
-atlas = ExtResource("2_ly864")
-region = Rect2(64, 48, 64, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t3uj0"]
-atlas = ExtResource("2_ly864")
-region = Rect2(128, 48, 64, 48)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_t3x6k"]
 atlas = ExtResource("2_ly864")
 region = Rect2(192, 48, 64, 48)
@@ -27,33 +19,9 @@ region = Rect2(192, 48, 64, 48)
 atlas = ExtResource("2_ly864")
 region = Rect2(256, 48, 64, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_doohd"]
-atlas = ExtResource("2_ly864")
-region = Rect2(320, 48, 64, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ob18u"]
-atlas = ExtResource("2_ly864")
-region = Rect2(384, 48, 64, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w2k0h"]
-atlas = ExtResource("2_ly864")
-region = Rect2(448, 48, 64, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x3wcf"]
-atlas = ExtResource("2_ly864")
-region = Rect2(512, 48, 64, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ob1eg"]
-atlas = ExtResource("2_ly864")
-region = Rect2(576, 48, 64, 48)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_n7esh"]
 atlas = ExtResource("2_ly864")
 region = Rect2(640, 48, 64, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6t0s7"]
-atlas = ExtResource("2_ly864")
-region = Rect2(704, 48, 64, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w1hry"]
 animations = [{
@@ -62,66 +30,41 @@ animations = [{
 "texture": SubResource("AtlasTexture_a8j2a")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v41pw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t3uj0")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_t3x6k")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_53n0n")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_doohd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ob18u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w2k0h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x3wcf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ob1eg")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_n7esh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6t0s7")
 }],
 "loop": false,
 "name": &"extend",
-"speed": 30.0
+"speed": 10.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fr74x"]
 atlas = ExtResource("2_qr71u")
 region = Rect2(64, 0, 64, 32)
 
-[sub_resource type="Animation" id="Animation_3hbc5"]
-resource_name = "Extend"
-step = 0.0
+[sub_resource type="Animation" id="Animation_un5el"]
+resource_name = "Revert"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Normal:position")
-tracks/0/interp = 1
+tracks/0/path = NodePath("Extend:rotation")
+tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0468883, 0.0947979, 0.147079, 0.211426, 0.243088, 0.279858, 0.349312, 0.418766, 0.443279, 0.556652, 0.779312, 0.840595, 0.915156, 0.999931),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, -10), Vector2(0, -20), Vector2(0, -30), Vector2(0, -40), Vector2(0, -42), Vector2(0, -40), Vector2(0, -50), Vector2(0, -52), Vector2(0, -50), Vector2(0, -52), Vector2(0, -52), Vector2(0, -30), Vector2(0, -20), Vector2(0, -10), Vector2(0, 0)]
+"values": [0.0, -0.174533, 0.0, 0.174533, 0.0, -0.174533, 0.0, 0.174533, 0.0, -0.174533, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lnils"]
 _data = {
-"Extend": SubResource("Animation_3hbc5")
+"Revert": SubResource("Animation_un5el")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wh6i"]
@@ -144,11 +87,12 @@ Sprite = NodePath("Extend")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_w1hry")
 animation = &"extend"
-speed_scale = 2.0
+speed_scale = 2.5
 centered = false
 
 [node name="Normal" type="Sprite2D" parent="."]
 visible = false
+position = Vector2(0, -10)
 scale = Vector2(0.975746, 1)
 texture = SubResource("AtlasTexture_fr74x")
 centered = false
