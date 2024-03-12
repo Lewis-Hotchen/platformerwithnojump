@@ -21,8 +21,8 @@ EventBus="*res://Scripts/Autoload/EventBus.cs"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=640
+window/size/viewport_width=1600
+window/size/viewport_height=960
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -397,6 +397,8 @@ cancel={
 
 [physics]
 
+common/physics_ticks_per_second=120
+common/max_physics_steps_per_frame=16
 2d/physics_engine="GodotPhysics2D"
 2d/default_gravity=490.0
 2d/default_linear_damp=0.0

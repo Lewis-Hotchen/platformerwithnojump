@@ -74,7 +74,6 @@ Force = 1000.0
 Direction = Vector2(1, -1)
 
 [node name="ToolComponent" parent="." instance=ExtResource("5_yjwng")]
-IsBuildable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(37, 25.5)

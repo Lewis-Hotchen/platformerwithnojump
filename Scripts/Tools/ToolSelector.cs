@@ -51,6 +51,8 @@ public partial class ToolSelector : Node2D
                 }
             }
 
+            toolsPointer = new(states.UnlockedTools);
+
             QueueRedraw();
         }
     }

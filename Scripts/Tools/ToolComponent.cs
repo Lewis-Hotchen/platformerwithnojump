@@ -1,4 +1,5 @@
 using Godot;
+using PlatformerWithNoJump;
 using System;
 
 public partial class ToolComponent : Node2D
@@ -9,8 +10,13 @@ public partial class ToolComponent : Node2D
     [Export]
     public bool CanFall { get; set; }
 
+    [Export]
+    public Tools ToolType { get; set; }
+
     public void SetDirection(float rotation)
     {
-        GetParent<Node2D>().Call("SetDirection", rotation);
+        if(GetParent<Node2D>().HasMethod("SetDirection")) {
+            GetParent<Node2D>().Call("SetDirection", rotation);
+        }
     }
 }

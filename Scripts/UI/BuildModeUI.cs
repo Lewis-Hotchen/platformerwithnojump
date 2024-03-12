@@ -91,13 +91,32 @@ public partial class BuildModeUI : Control, IDisposable
 
         HandleBuildModeInput();
         HandleRevertInput(delta);
+        HandleLastResort();
 
         base._Process(delta);
     }
 
+    private void HandleLastResort()
+    {
+        if(Input.IsActionJustPressed("jump") && states.GetState(StateTracker.IsBuildMode)) {
+            if(states.UnlockedTools.Contains(Tools.Leg)) {
+                return;
+            } else {
+                states.UnlockedTools.Add(Tools.Leg);
+                states.Resources.Add(Tools.Leg, new ToolResource() {
+                    Max = 2,
+                    Current = 0
+                });
+
+                states.UpdateResource(Tools.Leg, 2);
+                states.SetState(StateTracker.IsLastResortActive, true);
+            }
+        }
+    }
+
     private void HandleRevertInput(double delta)
     {
-        if (Input.IsActionPressed("revert") && DeployedToolsComponent.DeployedTools.Any())
+        if (Input.IsActionPressed("revert") && (DeployedToolsComponent.DeployedTools.Any() || states.GetState(StateTracker.IsLastResortActive)))
         {
             isHoldingRevert = true;
             if(heldTime >= 2) {
@@ -116,6 +135,7 @@ public partial class BuildModeUI : Control, IDisposable
                 if (heldTime >= 2 && isHoldingRevert)
                 {
                     RevertAll();
+                    eventBus.RaiseEvent("RevertAll", this, new EventArgs());
                 }
 
                 foreach(var tool in DeployedToolsComponent.DeployedTools) {

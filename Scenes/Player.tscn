@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://efel0vjy5yr5"]
+[gd_scene load_steps=50 format=3 uid="uid://efel0vjy5yr5"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_luxqd"]
 [ext_resource type="Texture2D" uid="uid://buljbx85hm1n5" path="res://Assets/Chum-idle.png" id="2_lms8l"]
@@ -10,10 +10,11 @@
 [ext_resource type="AudioStream" uid="uid://d1pdvqcouvchg" path="res://Assets/chum_hurt.wav" id="6_jladu"]
 [ext_resource type="AudioStream" uid="uid://oi1vy4mvf0ns" path="res://Assets/chum_jump.wav" id="7_wyi30"]
 [ext_resource type="PackedScene" uid="uid://be32o7d517ihf" path="res://Scenes/Components/TimeTrackerComponent.tscn" id="10_k7olt"]
+[ext_resource type="Texture2D" uid="uid://bhtj4y2j36t20" path="res://Assets/PWNJ-sprite-sheet.png" id="11_075cf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sqomc"]
 radius = 14.0
-height = 46.0
+height = 49.3333
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_36gx0"]
 atlas = ExtResource("2_mloxe")
@@ -279,14 +280,31 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Chum" type="CharacterBody2D" node_paths=PackedStringArray("ChumRun", "ChumHurt", "ChumSprite", "Timers")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fr3m"]
+atlas = ExtResource("11_075cf")
+region = Rect2(2, 220, 4, 20)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jywbe"]
+radius = 7.99999
+height = 42.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csnym"]
+atlas = ExtResource("11_075cf")
+region = Rect2(0, 208, 32, 12)
+
+[node name="Chum" type="CharacterBody2D" node_paths=PackedStringArray("ChumRun", "ChumHurt", "ChumSprite", "Timers", "LegLeft", "LegRight", "LastResortCol", "LastResortSprite", "CollisionShape")]
 disable_mode = 1
-collision_mask = 14
+collision_mask = 30
 script = ExtResource("1_luxqd")
 ChumRun = NodePath("ChumWalk")
 ChumHurt = NodePath("Chum_Hurt")
 ChumSprite = NodePath("ChumSprite")
 Timers = NodePath("Timers")
+LegLeft = NodePath("LastResortLeftLeg")
+LegRight = NodePath("LastResortRightLeg")
+LastResortCol = NodePath("LastResortCol")
+LastResortSprite = NodePath("LastResortSprite")
+CollisionShape = NodePath("CollisionShape2D")
 JumpHeight = 3.0
 JumpTimeToPeak = 0.4
 JumpTimeToDescent = 0.4
@@ -294,7 +312,9 @@ MoveSpeed = 1.0
 Friction = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_sqomc")
+disabled = true
 
 [node name="ChumSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
@@ -314,3 +334,61 @@ stream = ExtResource("7_wyi30")
 pitch_scale = 1.08
 
 [node name="Timers" parent="." instance=ExtResource("10_k7olt")]
+
+[node name="LastResortLeftLeg" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 1
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.15
+fract_delta = false
+texture = SubResource("AtlasTexture_2fr3m")
+emission_shape = 3
+emission_rect_extents = Vector2(4, 20)
+direction = Vector2(0, -1)
+spread = 15.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 251.35
+initial_velocity_max = 251.35
+angular_velocity_min = 94.51
+angular_velocity_max = 622.72
+radial_accel_min = 39.15
+radial_accel_max = 39.15
+damping_min = 23.404
+damping_max = 23.404
+scale_amount_min = 1.5
+scale_amount_max = 1.5
+
+[node name="LastResortRightLeg" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 1
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.15
+fract_delta = false
+texture = SubResource("AtlasTexture_2fr3m")
+direction = Vector2(0, -1)
+spread = 15.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 213.05
+initial_velocity_max = 213.05
+angular_velocity_min = 94.51
+angular_velocity_max = 622.72
+linear_accel_min = 39.15
+linear_accel_max = 39.15
+damping_min = 23.404
+damping_max = 23.404
+scale_amount_min = 1.5
+scale_amount_max = 1.5
+
+[node name="LastResortCol" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_jywbe")
+disabled = true
+
+[node name="LastResortSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -11)
+texture = SubResource("AtlasTexture_csnym")

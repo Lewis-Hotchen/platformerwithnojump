@@ -20,6 +20,10 @@ public partial class EventBus : Node
 
     public event EventHandler<EventArgs> LevelReset;
 
+    public event EventHandler<EventArgs> LastResortActive;
+
+    public event EventHandler<EventArgs> RevertAll;
+
     public void RaiseEvent<T>(string @event, object sender, T eventArgs) where T : EventArgs
     {
         var sb = new StringBuilder();
