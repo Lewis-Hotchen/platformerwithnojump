@@ -292,7 +292,7 @@ height = 42.0
 atlas = ExtResource("11_075cf")
 region = Rect2(0, 208, 32, 12)
 
-[node name="Chum" type="CharacterBody2D" node_paths=PackedStringArray("ChumRun", "ChumHurt", "ChumSprite", "Timers", "LegLeft", "LegRight")]
+[node name="Chum" type="CharacterBody2D" node_paths=PackedStringArray("ChumRun", "ChumHurt", "ChumSprite", "Timers", "LegLeft", "LegRight", "LastResortCol", "LastResortSprite", "CollisionShape")]
 disable_mode = 1
 collision_mask = 30
 script = ExtResource("1_luxqd")
@@ -302,6 +302,9 @@ ChumSprite = NodePath("ChumSprite")
 Timers = NodePath("Timers")
 LegLeft = NodePath("LastResortLeftLeg")
 LegRight = NodePath("LastResortRightLeg")
+LastResortCol = NodePath("LastResortCol")
+LastResortSprite = NodePath("LastResortSprite")
+CollisionShape = NodePath("CollisionShape2D")
 JumpHeight = 3.0
 JumpTimeToPeak = 0.4
 JumpTimeToDescent = 0.4

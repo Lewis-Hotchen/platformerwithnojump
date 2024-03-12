@@ -22,6 +22,16 @@ public partial class Player : CharacterBody2D, IDisposable
     [Export]
     public CpuParticles2D LegRight { get; set; }
 
+    [Export]
+    public CollisionShape2D LastResortCol { get; set; }
+
+    [Export]
+    public Sprite2D LastResortSprite { get; set; }
+
+    [Export]
+    public CollisionShape2D CollisionShape { get; set; }
+
+
     [ExportCategory("Movement")]
     [Export]
     public float JumpHeight { get; set; }
@@ -49,7 +59,7 @@ public partial class Player : CharacterBody2D, IDisposable
     private bool isAffectedByForce;
     private PlayerMoveStates playerState;
     private bool lastResortActive;
-    private bool LastResortActive => stateTracker.GetState(StateTracker.IsLastResortActive); 
+    private bool LastResortActive => stateTracker.GetState(StateTracker.IsLastResortActive);
 
     private enum PlayerMoveStates
     {
@@ -91,22 +101,29 @@ public partial class Player : CharacterBody2D, IDisposable
 
     private void OnStateChanged(object sender, StateChangedEventArgs e)
     {
-        if(e.State == "IsLastResortActive") {
-                GetNode<CollisionShape2D>("LastResortCol").Disabled = !LastResortActive;
-                GetNode<Sprite2D>("LastResortSprite").Visible = LastResortActive;
+        if (IsInstanceValid(this))
+        {
+            if (e.State == "IsLastResortActive")
+            {
+                LastResortCol.Disabled = !LastResortActive;
+                LastResortSprite.Visible = LastResortActive;
 
-                GetNode<CollisionShape2D>("CollisionShape2D").Disabled = LastResortActive;
+                CollisionShape.Disabled = LastResortActive;
                 ChumSprite.Visible = !LastResortActive;
 
-            if(LastResortActive) {
-                LegLeft.Emitting = true;
-                LegRight.Emitting = true;
-            }
+                if (LastResortActive)
+                {
+                    LegLeft.Emitting = true;
+                    LegRight.Emitting = true;
+                }
 
-            if(!lastResortActive) {
-                RotationDegrees = 0;
+                if (!lastResortActive)
+                {
+                    RotationDegrees = 0;
+                }
             }
         }
+
     }
 
     private void OnRevertAll(object sender, EventArgs e)
@@ -189,7 +206,7 @@ public partial class Player : CharacterBody2D, IDisposable
 
         MoveAndSlide();
 
-        
+
 
         base._PhysicsProcess(delta);
     }
@@ -216,11 +233,11 @@ public partial class Player : CharacterBody2D, IDisposable
     {
         if (Velocity.X < 0 && playerState == PlayerMoveStates.MOVING)
         {
-            Rotation -= (float)(Math.PI*delta);
+            Rotation -= (float)(Math.PI * delta);
         }
         else if (Velocity.X > 0 && playerState == PlayerMoveStates.MOVING)
         {
-            Rotation += (float)(Math.PI*delta);
+            Rotation += (float)(Math.PI * delta);
         }
     }
 
