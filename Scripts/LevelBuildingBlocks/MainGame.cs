@@ -86,9 +86,6 @@ public partial class MainGame : Node2D
             }
         }
 
-        var containerRect = new Rect2I(new Vector2I(Convert.ToInt32(viewPortRect.X - 96), 0), new Vector2I(96, Convert.ToInt32(viewPortRect.Y)));
-        DrawRect(containerRect, Colors.White, false, 1);
-
         base._Draw();
     }
 

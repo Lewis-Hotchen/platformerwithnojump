@@ -16,6 +16,12 @@ public partial class Player : CharacterBody2D, IDisposable
     [Export]
     public TimerTrackerComponent Timers { get; set; }
 
+    [Export]
+    public CpuParticles2D LegLeft { get; set; }
+
+    [Export]
+    public CpuParticles2D LegRight { get; set; }
+
     [ExportCategory("Movement")]
     [Export]
     public float JumpHeight { get; set; }
@@ -28,7 +34,7 @@ public partial class Player : CharacterBody2D, IDisposable
 
     [Export]
     public float MoveSpeed { get; set; }
-    
+
     [Export]
     public float Friction { get; set; }
 
@@ -42,6 +48,8 @@ public partial class Player : CharacterBody2D, IDisposable
     private EventBus eventBus;
     private bool isAffectedByForce;
     private PlayerMoveStates playerState;
+    private bool lastResortActive;
+    private bool LastResortActive => stateTracker.GetState(StateTracker.IsLastResortActive); 
 
     private enum PlayerMoveStates
     {
@@ -53,7 +61,7 @@ public partial class Player : CharacterBody2D, IDisposable
 
     private float GetGravity(Impulse impulse)
     {
-        return Velocity.Y < 0 ? impulse.JumpGravity*impulse.Direction.Y : impulse.FallGravity*impulse.Direction.Y;
+        return Velocity.Y < 0 ? impulse.JumpGravity * impulse.Direction.Y : impulse.FallGravity * impulse.Direction.Y;
     }
 
     public override void _Ready()
@@ -63,7 +71,6 @@ public partial class Player : CharacterBody2D, IDisposable
         );
 
         Timers.AddTimer(0.2f, "lockout");
-
 #if DEBUG
         pickUp = true;
 #endif
@@ -71,9 +78,40 @@ public partial class Player : CharacterBody2D, IDisposable
         ChumSprite.FrameChanged += OnFrameChanged;
 
         stateTracker = GetNode<StateTracker>("/root/StateTracker");
+
         eventBus = GetNode<EventBus>("/root/EventBus");
         eventBus.ToolFailed += OnToolFailed;
+        eventBus.RevertAll += OnRevertAll;
+        eventBus.StateChanged += OnStateChanged;
+
+        stateTracker.SetState(StateTracker.IsLastResortActive, false);
+
         base._Ready();
+    }
+
+    private void OnStateChanged(object sender, StateChangedEventArgs e)
+    {
+        if(e.State == "IsLastResortActive") {
+                GetNode<CollisionShape2D>("LastResortCol").Disabled = !LastResortActive;
+                GetNode<Sprite2D>("LastResortSprite").Visible = LastResortActive;
+
+                GetNode<CollisionShape2D>("CollisionShape2D").Disabled = LastResortActive;
+                ChumSprite.Visible = !LastResortActive;
+
+            if(LastResortActive) {
+                LegLeft.Emitting = true;
+                LegRight.Emitting = true;
+            }
+
+            if(!lastResortActive) {
+                RotationDegrees = 0;
+            }
+        }
+    }
+
+    private void OnRevertAll(object sender, EventArgs e)
+    {
+        stateTracker.SetState(StateTracker.IsLastResortActive, false);
     }
 
     private void OnToolFailed(object sender, ToolFailedEventArgs e)
@@ -119,29 +157,40 @@ public partial class Player : CharacterBody2D, IDisposable
 
         if (Input.IsActionJustPressed("jump") && IsOnFloor() && CanJump)
         {
-            Velocity = new(Velocity.X, jumpImpulse.JumpVelocity*jumpImpulse.Direction.Y);
+            Velocity = new(Velocity.X, jumpImpulse.JumpVelocity * jumpImpulse.Direction.Y);
         }
 
-        if(!lockout && !stateTracker.GetState(StateTracker.IsBuildMode)) {
+        if (!lockout && !stateTracker.GetState(StateTracker.IsBuildMode))
+        {
             float dir = Input.GetAxis("left", "right");
-            if(dir != 0) {
+            if (dir != 0)
+            {
                 ChumSprite.FlipH = dir > 0;
-                var speed = MoveSpeed * 32;
+                var speed = (lastResortActive ? MoveSpeed * 0.5f : MoveSpeed) * Constants.CellSize;
                 Velocity = new(Velocity.X + (dir * speed), Velocity.Y);
                 playerState = PlayerMoveStates.MOVING;
             }
         }
 
-        if(IsOnFloor())
+        if (IsOnFloor())
         {
             Velocity = new(ApplyFriction(lockout, 0.1f), Velocity.Y);
         }
-        else {
-            Velocity = new (ApplyFriction(lockout, 0.1f), Velocity.Y);
+        else
+        {
+            Velocity = new(ApplyFriction(lockout, 0.1f), Velocity.Y);
             playerState = PlayerMoveStates.JUMPING;
         }
 
+        if (LastResortActive)
+        {
+            Velocity = new(ApplyFriction(lockout, 0f), Velocity.Y);
+        }
+
         MoveAndSlide();
+
+        
+
         base._PhysicsProcess(delta);
     }
 
@@ -152,6 +201,32 @@ public partial class Player : CharacterBody2D, IDisposable
 
     public override void _Process(double delta)
     {
+        if (!LastResortActive)
+        {
+            ProcessNormalAnimations();
+        }
+        else
+        {
+            ProcessLastResortAnimations(delta);
+        }
+        base._Process(delta);
+    }
+
+    private void ProcessLastResortAnimations(double delta)
+    {
+        if (Velocity.X < 0 && playerState == PlayerMoveStates.MOVING)
+        {
+            Rotation -= (float)(Math.PI*delta);
+        }
+        else if (Velocity.X > 0 && playerState == PlayerMoveStates.MOVING)
+        {
+            Rotation += (float)(Math.PI*delta);
+        }
+    }
+
+    private void ProcessNormalAnimations()
+    {
+
         if (playerState == PlayerMoveStates.MOVING)
         {
             ChumSprite.Animation = "chum_run";
@@ -175,8 +250,6 @@ public partial class Player : CharacterBody2D, IDisposable
         {
             ChumSprite.Play();
         }
-
-        base._Process(delta);
     }
 
     public void Impulse(
@@ -186,11 +259,13 @@ public partial class Player : CharacterBody2D, IDisposable
     {
         bool leftOrRight = direction == Vector2.Right || direction == Vector2.Left;
         Timers.GetTimer("lockout").WaitTime = 0.2f;
-        if(direction == Vector2.Up || direction == Vector2.Down) {
+        if (direction == Vector2.Up || direction == Vector2.Down)
+        {
             Velocity = new(Velocity.X, 0);
         }
 
-        if(leftOrRight) {
+        if (leftOrRight)
+        {
             Velocity = new(0, Velocity.Y);
             Timers.StartTimer("lockout");
             Timers.GetTimer("lockout").WaitTime = 0.4f;

@@ -2,7 +2,7 @@
 extends StaticBody2D
 
 ## This script pre-bakes collisions for square tilemaps, therefore optimizing code 
-## and getting rid of weird physics bugs!
+# and getting rid of weird physics bugs!
 ##
 ## How it works TLDR:
 ## This script finds the position of every tile on the layer you've selected from the top left

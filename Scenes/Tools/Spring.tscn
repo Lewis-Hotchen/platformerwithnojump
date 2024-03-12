@@ -115,7 +115,6 @@ libraries = {
 [node name="ToolComponent" parent="." instance=ExtResource("5_uu5i4")]
 position = Vector2(0, -8)
 ToolType = 1
-IsBuildable = true
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(0, -8)

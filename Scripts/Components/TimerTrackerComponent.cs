@@ -64,21 +64,6 @@ public partial class TimerTrackerComponent : Node2D
 
     internal void OneShot(float time, Action onTimeout)
     {
-        // int max = 0;
-        // var regex = new RegEx();
-        // regex.Compile("/\\d+$/");
-        // foreach(var name in Timers.Select(x => x.Name)) {
-        //     if(name.ToString().Contains("oneshot")) {
-        //         var res = regex.Search(name);
-        //         if(res != null) {
-        //             var num = Convert.ToInt32(res.GetString());
-        //             if(max < num) max = num;
-        //         }
-        //     }
-        // }
-
-        // var newName = "oneshot"+max+1;
-
         var timer = AddTimer(time, "oneshot");
         timer.Timeout += onTimeout;
         timer.Timeout += OnTimeoutCleanup;

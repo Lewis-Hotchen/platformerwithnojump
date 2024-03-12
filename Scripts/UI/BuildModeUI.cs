@@ -109,13 +109,14 @@ public partial class BuildModeUI : Control, IDisposable
                 });
 
                 states.UpdateResource(Tools.Leg, 2);
+                states.SetState(StateTracker.IsLastResortActive, true);
             }
         }
     }
 
     private void HandleRevertInput(double delta)
     {
-        if (Input.IsActionPressed("revert") && DeployedToolsComponent.DeployedTools.Any())
+        if (Input.IsActionPressed("revert") && (DeployedToolsComponent.DeployedTools.Any() || states.GetState(StateTracker.IsLastResortActive)))
         {
             isHoldingRevert = true;
             if(heldTime >= 2) {
@@ -134,6 +135,7 @@ public partial class BuildModeUI : Control, IDisposable
                 if (heldTime >= 2 && isHoldingRevert)
                 {
                     RevertAll();
+                    eventBus.RaiseEvent("RevertAll", this, new EventArgs());
                 }
 
                 foreach(var tool in DeployedToolsComponent.DeployedTools) {

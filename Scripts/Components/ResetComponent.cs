@@ -23,12 +23,24 @@ public partial class ResetComponent : Node2D
     public string[] SnarkyComments { get; set; }
 
     private int snarkyCommentsCounter = 0;
+    private EventBus eventBus;
+
 
     public override void _Ready()
     {
-        PlayerKillBoxComponent.OnPlayerFell += OnPlayerFell;
-        
+        eventBus = GetNode<EventBus>("/root/EventBus");
+
+        if(PlayerKillBoxComponent != null) {
+            PlayerKillBoxComponent.OnPlayerFell += OnPlayerFell;
+        }
+
+        eventBus.RevertAll += OnRevert;
         base._Ready();
+    }
+
+    private void OnRevert(object sender, EventArgs e)
+    {
+        ResetLevelComponent.ResetLevel();
     }
 
     private void OnPlayerFell(object sender, EventArgs e)

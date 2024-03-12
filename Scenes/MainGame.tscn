@@ -1,47 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://b00o31f1kc2uc"]
+[gd_scene load_steps=7 format=3 uid="uid://b00o31f1kc2uc"]
 
 [ext_resource type="Script" path="res://Scripts/LevelBuildingBlocks/MainGame.cs" id="1_8a0pd"]
 [ext_resource type="PackedScene" uid="uid://brcxb0dfipwg5" path="res://Scenes/UI/BuildModeUI.tscn" id="2_0q522"]
 [ext_resource type="PackedScene" uid="uid://ccrirmc42508s" path="res://Scenes/UI/ScreenCamera.tscn" id="3_6etrh"]
+[ext_resource type="Script" path="res://Scripts/UI/UI.cs" id="3_pcc40"]
+[ext_resource type="Script" path="res://Scripts/UI/Box.cs" id="3_ym6u6"]
 [ext_resource type="PackedScene" uid="uid://c5ijmfmd1jxx2" path="res://Scenes/Components/DialogueManagerComponent.tscn" id="4_p6lxp"]
 
 [node name="MainGame" type="Node2D" node_paths=PackedStringArray("DialogueManager")]
 script = ExtResource("1_8a0pd")
-<<<<<<< HEAD
 Levels = PackedStringArray("res://Scenes/Levels/Debug.tscn", "res://Scenes/Levels/Set1/L1-2.tscn", "res://Scenes/Levels/TutorialPart1.tscn", "res://Scenes/Levels/TutorialPart2.tscn", "res://Scenes/Levels/TutorialPart3.tscn", "res://Scenes/Levels/Set1/L1-1.tscn")
-=======
-Levels = PackedStringArray("res://Scenes/Levels/Set1/L1-2.tscn", "res://Scenes/Levels/Set1/L1-1.tscn", "res://Scenes/Levels/TutorialPart3.tscn", "res://Scenes/Levels/Debug.tscn", "res://Scenes/Levels/TutorialPart1.tscn", "res://Scenes/Levels/TutorialPart2.tscn")
->>>>>>> 3dde84bfba76711d3834b5733c33b38cbe41d150
 DialogueManager = NodePath("UI/DialogueManagerComponent")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
-offset_left = -265.0
-offset_top = -165.0
-offset_right = -40.0
-offset_bottom = 37.0
-scale = Vector2(7.48497, 4.56)
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 213.0
+offset_bottom = 210.0
+scale = Vector2(8.28497, 6.89975)
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Camera" parent="." instance=ExtResource("3_6etrh")]
 anchor_mode = 0
+editor_draw_limits = true
 
 [node name="Game" type="CanvasLayer" parent="."]
 layer = 0
 follow_viewport_enabled = true
 
 [node name="UI" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
+script = ExtResource("3_pcc40")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -80.0
-offset_top = 32.0
-offset_right = -80.0
-offset_bottom = 32.0
+offset_left = -81.0
+offset_top = 10.0
+offset_right = -81.0
+offset_bottom = 10.0
 grow_horizontal = 0
 
 [node name="BuildModeUI" parent="UI/HBoxContainer" instance=ExtResource("2_0q522")]
@@ -54,3 +53,11 @@ offset_top = 32.0
 offset_right = -56.0
 offset_bottom = 32.0
 CanTimeOut = true
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+z_index = -1
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Box" type="Node2D" parent="UI"]
+script = ExtResource("3_ym6u6")

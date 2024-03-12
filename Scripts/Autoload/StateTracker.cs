@@ -15,7 +15,8 @@ public partial class StateTracker : Node
     public readonly static string HasFallen = "HasFallen";
     public readonly static string BuildEnabled = "BuildEnabled";
     public readonly static string ResourcesState = "Resources";
-
+    public readonly static string IsLastResortActive = "IsLastResortActive";
+    
     public List<Tools> UnlockedTools { get; private set; }
 
     public Dictionary<Tools, ToolResource> Resources { get; set; }
@@ -83,7 +84,8 @@ public partial class StateTracker : Node
             {"FirstTimeBuild", false},
             {"DidMove", false},
             {"HasFallen", false},
-            {"BuildEnabled", false}
+            {"BuildEnabled", false},
+            {"IsLastResortActive", false}
         };
 
         base._Ready();
